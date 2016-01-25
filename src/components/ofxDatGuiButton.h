@@ -76,6 +76,7 @@ class ofxDatGuiButton : public ofxDatGuiComponent {
                 }   else{
                     ofSetColor(mStyle.color.background, mStyle.opacity);
                 }
+            ofSetColor(32,64,64,255);
                 ofDrawRectangle(x, y, mStyle.width, mStyle.height);
             ofPopStyle();
         }

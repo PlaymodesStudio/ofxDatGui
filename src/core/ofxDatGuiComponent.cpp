@@ -354,6 +354,7 @@ void ofxDatGuiComponent::drawLabel(string label)
     }   else if (mLabel.alignment == ofxDatGuiAlignment::RIGHT){
         lx = mLabel.rightAlignedXpos - mLabel.rect.width;
     }
+    lx = lx / 2;
     ofPushStyle();
         ofSetColor(mLabel.color);
         mFont.draw(label, x+lx, y+mStyle.height/2 - mLabel.rect.height/2);

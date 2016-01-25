@@ -95,6 +95,22 @@ class ofxDatGuiGroup : public ofxDatGuiButton {
             ofPopStyle();
         }
     
+    void onMouseRelease(ofPoint m)
+    {
+        if (mFocused)
+        {
+            // open & close the group when its header is clicked //
+            ofxDatGuiComponent::onFocusLost();
+            ofxDatGuiComponent::onMouseRelease(m);
+            mIsExpanded ? collapse() : expand();
+            // dispatch an event out to the gui panel to adjust its children //
+            if (internalEventCallback != nullptr){
+                ofxDatGuiInternalEvent e(ofxDatGuiEventType::DROPDOWN_TOGGLED, mIndex);
+                internalEventCallback(e);
+            }
+        }
+    }
+
     protected:
     
         void layout()
@@ -112,20 +128,6 @@ class ofxDatGuiGroup : public ofxDatGuiButton {
             }
         }
     
-        void onMouseRelease(ofPoint m)
-        {
-            if (mFocused){
-            // open & close the group when its header is clicked //
-                ofxDatGuiComponent::onFocusLost();
-                ofxDatGuiComponent::onMouseRelease(m);
-                mIsExpanded ? collapse() : expand();
-            // dispatch an event out to the gui panel to adjust its children //
-                if (internalEventCallback != nullptr){
-                    ofxDatGuiInternalEvent e(ofxDatGuiEventType::DROPDOWN_TOGGLED, mIndex);
-                    internalEventCallback(e);
-                }
-            }
-        }
     
         void dispatchInternalEvent(ofxDatGuiInternalEvent e)
         {
@@ -374,7 +376,7 @@ class ofxDatGuiDropdownOption : public ofxDatGuiButton {
         {
             ofxDatGuiButton::setTheme(theme);
             mStyle.stripe.color = theme->stripe.dropdown;
-            mLabel.rect = mFont.getRect("* "+mLabel.text);
+            mLabel.rect = mFont.getRect("- "+mLabel.text);
         }
     
         void setWidth(int width, float labelWidth = 1)
@@ -387,7 +389,7 @@ class ofxDatGuiDropdownOption : public ofxDatGuiButton {
         void draw()
         {
             ofxDatGuiButton::drawBkgd();
-            ofxDatGuiComponent::drawLabel("* "+mLabel.text);
+            ofxDatGuiComponent::drawLabel("- "+mLabel.text);
             ofxDatGuiComponent::drawStripe();
         }
 
@@ -433,7 +435,22 @@ class ofxDatGuiDropdown : public ofxDatGuiGroup {
                 setLabel(children[cIndex]->getLabel());
             }
         }
-
+    
+        int getSelectedIndex()
+        {
+            int res = -1;
+            string myLabel = getLabel();
+            
+            for(int i=0;i<children.size();i++)
+            {
+                if(children[i]->getLabel()==myLabel)
+                {
+                    res=i;
+                }
+            }
+            return res;
+        }
+    
         int size()
         {
             return children.size();

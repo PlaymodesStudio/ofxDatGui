@@ -194,7 +194,7 @@ class ofxDatGuiTheme{
     */
     
         struct {
-            int size = 6;
+            int size = 8;
             string file = "ofxdatgui_assets/font-verdana.ttf";
             ofTrueTypeFont ttf;
             void load(){ ttf.load(file, size); }
