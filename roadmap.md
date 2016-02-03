@@ -12,11 +12,12 @@
 **components**
 
 * vertical range sliders
+* rotary dials
+* <del>scrollable lists</del>
 * <del>waveform visualizers</del>
 * <del>value plotters</del>
 * <del>framerate monitor</del>
 * <del>padded breaks</del>
 * <del>color pickers</del>
 * <del>grouped components / folders</del>
-* ????
 

@@ -30,6 +30,7 @@
 #include "ofxDatGuiColorPicker.h"
 #include "ofxDatGuiMatrix.h"
 #include "ofxDatGuiTimeGraph.h"
+#include "ofxDatGuiScrollView.h"
 
 class ofxDatGuiGroup : public ofxDatGuiButton {
 
@@ -38,7 +39,6 @@ class ofxDatGuiGroup : public ofxDatGuiButton {
         ofxDatGuiGroup(string label) : ofxDatGuiButton(label)
         {
             mIsExpanded = false;
-            mImage.load(OFXDG_ASSET_DIR+"/icon-dropdown.png");
         }
     
         void setPosition(int x, int y)
@@ -71,11 +71,9 @@ class ofxDatGuiGroup : public ofxDatGuiButton {
     
         void draw()
         {
-            if (!mVisible) return;
-            ofPushStyle();
-                ofxDatGuiButton::drawBkgd();
-                ofxDatGuiComponent::drawLabel();
-                ofxDatGuiComponent::drawStripe();
+            if (mVisible){
+                ofPushStyle();
+                ofxDatGuiButton::draw();
                 ofSetColor(mIcon.color);
                 mImage.draw(x+mIcon.x, y+mIcon.y, mIcon.size, mIcon.size);
                 if (mIsExpanded) {
@@ -92,25 +90,10 @@ class ofxDatGuiGroup : public ofxDatGuiButton {
                     }
                     for(int i=0; i<children.size(); i++) children[i]->drawColorPicker();
                 }
-            ofPopStyle();
-        }
-    
-    void onMouseRelease(ofPoint m)
-    {
-        if (mFocused)
-        {
-            // open & close the group when its header is clicked //
-            ofxDatGuiComponent::onFocusLost();
-            ofxDatGuiComponent::onMouseRelease(m);
-            mIsExpanded ? collapse() : expand();
-            // dispatch an event out to the gui panel to adjust its children //
-            if (internalEventCallback != nullptr){
-                ofxDatGuiInternalEvent e(ofxDatGuiEventType::DROPDOWN_TOGGLED, mIndex);
-                internalEventCallback(e);
+                ofPopStyle();
             }
         }
-    }
-
+    
     protected:
     
         void layout()
@@ -128,6 +111,20 @@ class ofxDatGuiGroup : public ofxDatGuiButton {
             }
         }
     
+        void onMouseRelease(ofPoint m)
+        {
+            if (mFocused){
+            // open & close the group when its header is clicked //
+                ofxDatGuiComponent::onFocusLost();
+                ofxDatGuiComponent::onMouseRelease(m);
+                mIsExpanded ? collapse() : expand();
+            // dispatch an event out to the gui panel to adjust its children //
+                if (internalEventCallback != nullptr){
+                    ofxDatGuiInternalEvent e(ofxDatGuiEventType::DROPDOWN_TOGGLED, mIndex);
+                    internalEventCallback(e);
+                }
+            }
+        }
     
         void dispatchInternalEvent(ofxDatGuiInternalEvent e)
         {
@@ -147,7 +144,7 @@ class ofxDatGuiFolder : public ofxDatGuiGroup {
     
         ofxDatGuiFolder(string label, ofColor color = ofColor::white) : ofxDatGuiGroup(label)
         {
-    // all items within a folder share the same stripe color //
+        // all items within a folder share the same stripe color //
             mStyle.stripe.color = color;
             mType = ofxDatGuiType::FOLDER;
             setTheme(ofxDatGuiComponent::theme.get());
@@ -156,7 +153,10 @@ class ofxDatGuiFolder : public ofxDatGuiGroup {
         void setTheme(ofxDatGuiTheme* theme)
         {
             setComponentStyle(theme);
+            mImage.load(theme->icon.dropdown);
             setWidth(theme->layout.width, theme->layout.labelWidth);
+        // reassign folder color to all components //
+            for(auto i:children) i->setStripeColor(mStyle.stripe.color);
         }
     
         void setWidth(int width, float labelWidth = 1)
@@ -164,6 +164,7 @@ class ofxDatGuiFolder : public ofxDatGuiGroup {
             ofxDatGuiComponent::setWidth(width, labelWidth);
             mLabel.width = mStyle.width;
             mLabel.rightAlignedXpos = mIcon.x - mLabel.margin;
+            ofxDatGuiComponent::positionLabel();
         }
     
         void drawColorPicker()
@@ -369,6 +370,7 @@ class ofxDatGuiDropdownOption : public ofxDatGuiButton {
     
         ofxDatGuiDropdownOption(string label) : ofxDatGuiButton(label)
         {
+            mType = ofxDatGuiType::DROPDOWN_OPTION;
             setTheme(ofxDatGuiComponent::theme.get());
         }
     
@@ -376,7 +378,6 @@ class ofxDatGuiDropdownOption : public ofxDatGuiButton {
         {
             ofxDatGuiButton::setTheme(theme);
             mStyle.stripe.color = theme->stripe.dropdown;
-            mLabel.rect = mFont.getRect("- "+mLabel.text);
         }
     
         void setWidth(int width, float labelWidth = 1)
@@ -384,13 +385,7 @@ class ofxDatGuiDropdownOption : public ofxDatGuiButton {
             ofxDatGuiComponent::setWidth(width, labelWidth);
             mLabel.width = mStyle.width;
             mLabel.rightAlignedXpos = mIcon.x - mLabel.margin;
-        }
-    
-        void draw()
-        {
-            ofxDatGuiButton::drawBkgd();
-            ofxDatGuiComponent::drawLabel("- "+mLabel.text);
-            ofxDatGuiComponent::drawStripe();
+            ofxDatGuiComponent::positionLabel();
         }
 
 };
@@ -415,6 +410,7 @@ class ofxDatGuiDropdown : public ofxDatGuiGroup {
         void setTheme(ofxDatGuiTheme* theme)
         {
             setComponentStyle(theme);
+            mImage.load(theme->icon.dropdown);
             mStyle.stripe.color = theme->stripe.dropdown;
             setWidth(theme->layout.width, theme->layout.labelWidth);
         }
@@ -424,6 +420,7 @@ class ofxDatGuiDropdown : public ofxDatGuiGroup {
             ofxDatGuiComponent::setWidth(width, labelWidth);
             mLabel.width = mStyle.width;
             mLabel.rightAlignedXpos = mIcon.x - mLabel.margin;
+            ofxDatGuiComponent::positionLabel();
         }
     
         void select(int cIndex)
@@ -435,22 +432,7 @@ class ofxDatGuiDropdown : public ofxDatGuiGroup {
                 setLabel(children[cIndex]->getLabel());
             }
         }
-    
-        int getSelectedIndex()
-        {
-            int res = -1;
-            string myLabel = getLabel();
-            
-            for(int i=0;i<children.size();i++)
-            {
-                if(children[i]->getLabel()==myLabel)
-                {
-                    res=i;
-                }
-            }
-            return res;
-        }
-    
+
         int size()
         {
             return children.size();

@@ -52,6 +52,9 @@ class ofxDatGuiComponent : public ofxDatGuiInteractiveObject
         void    setStripeColor(ofColor color);
         void    setStripeVisible(bool visible);
     
+        void    setBorder(ofColor color, int width);
+        void    setBorderVisible(bool visible);
+    
         void    setAnchor(ofxDatGuiAnchor anchor);
         void    setEnabled(bool visible);
         bool    getEnabled();
@@ -64,11 +67,12 @@ class ofxDatGuiComponent : public ofxDatGuiInteractiveObject
     
         vector<ofxDatGuiComponent*> children;
     
-        virtual void draw() = 0;
+        virtual void draw();
         virtual void update(bool acceptEvents = true);
         virtual bool hitTest(ofPoint m);
 
         virtual void setPosition(int x, int y);
+        virtual void setParentPosition(int x, int y);
         virtual void setTheme(ofxDatGuiTheme* theme) = 0;
         virtual void setWidth(int width, float labelWidth);
         virtual void setLabelAlignment(ofxDatGuiAlignment align);
@@ -106,6 +110,7 @@ class ofxDatGuiComponent : public ofxDatGuiInteractiveObject
         ofxDatGuiType mType;
         ofxDatGuiFont mFont;
         ofxDatGuiAnchor mAnchor;
+        ofPoint mParentPosition;
         static std::unique_ptr<ofxDatGuiTheme> theme;
     
         struct{
@@ -124,11 +129,17 @@ class ofxDatGuiComponent : public ofxDatGuiInteractiveObject
                 int width;
                 bool visible;
                 ofColor color;
+            } border;
+            struct{
+                int width;
+                bool visible;
+                ofColor color;
             } stripe;
             ofColor guiBackground;
         } mStyle;
     
         struct{
+            int x;
             string text;
             bool visible;
             ofColor color;
@@ -148,9 +159,10 @@ class ofxDatGuiComponent : public ofxDatGuiInteractiveObject
         } mIcon;
     
         void drawLabel();
-        void drawLabel(string label);
-        void drawBkgd();
+        void drawBorder();
         void drawStripe();
+        void drawBackground();
+        void positionLabel();
         void setComponentStyle(ofxDatGuiTheme* t);
     
 };

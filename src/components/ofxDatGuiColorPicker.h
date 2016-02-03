@@ -32,11 +32,10 @@ class ofxDatGuiColorPicker : public ofxDatGuiTextInput {
             mColor = color;
             mShowPicker = false;
             mType = ofxDatGuiType::COLOR_PICKER;
-            rainbow.image.load(OFXDG_ASSET_DIR + "/picker-rainbow.png");
             setTheme(ofxDatGuiComponent::theme.get());
             
         // center the text input field //
-            mInput.setTextInputFieldType(ofxDatGuiTextInputField::COLORPICKER);
+            mInput.setTextInputFieldType(ofxDatGuiInputType::COLORPICKER);
             setTextFieldInputColor();
             
         // setup the vbo that draws the main gradient //
@@ -65,6 +64,7 @@ class ofxDatGuiColorPicker : public ofxDatGuiTextInput {
             ofxDatGuiTextInput::setTheme(theme);
             mStyle.stripe.color = theme->stripe.colorPicker;
             pickerRect = ofRectangle(0, 0, mInput.getWidth(), (mStyle.height + mStyle.padding) * 3);
+            rainbow.image.load(theme->icon.rainbow);
             rainbow.rect = ofRectangle(0, 0, 20, pickerRect.height - (mStyle.padding * 2));
             gradientRect = ofRectangle(0, 0, pickerRect.width - rainbow.rect.width - (mStyle.padding * 3), rainbow.rect.height);
             pickerBorder = theme->color.colorPicker.border;

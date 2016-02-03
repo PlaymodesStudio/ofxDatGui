@@ -44,16 +44,29 @@ class ofxDatGuiButton : public ofxDatGuiComponent {
         {
             ofxDatGuiComponent::setWidth(width, labelWidth);
             mLabel.width = mStyle.width;
+            mLabel.rightAlignedXpos = mLabel.width - mLabel.margin;
+            ofxDatGuiComponent::positionLabel();
         }
     
         void draw()
         {
-            if (!mVisible) return;
-            ofPushStyle();
-                drawBkgd();
-                ofxDatGuiComponent::drawLabel();
-                ofxDatGuiComponent::drawStripe();
-            ofPopStyle();
+            if (mVisible) {
+            // anything that extends ofxDatGuiButton has the same rollover effect //
+                ofPushStyle();
+                    if (mStyle.border.visible) drawBorder();
+                    ofFill();
+                    if (mFocused && mMouseDown){
+                        ofSetColor(mStyle.color.onMouseDown, mStyle.opacity);
+                    }   else if (mMouseOver){
+                        ofSetColor(mStyle.color.onMouseOver, mStyle.opacity);
+                    }   else{
+                        ofSetColor(mStyle.color.background, mStyle.opacity);
+                    }
+                    ofDrawRectangle(x, y, mStyle.width, mStyle.height);
+                    drawLabel();
+                    if (mStyle.stripe.visible) drawStripe();
+                ofPopStyle();
+            }
         }
     
         virtual void toggle(){}
@@ -63,23 +76,6 @@ class ofxDatGuiButton : public ofxDatGuiComponent {
         static ofxDatGuiButton* getInstance() { return new ofxDatGuiButton("X"); }
     
     protected:
-    
-        void drawBkgd()
-        {
-        // anything that extends ofxDatGuiButton has the same rollover effect //
-            ofPushStyle();
-                ofFill();
-                if (mFocused && mMouseDown){
-                    ofSetColor(mStyle.color.onMouseDown, mStyle.opacity);
-                }   else if (mMouseOver){
-                    ofSetColor(mStyle.color.onMouseOver, mStyle.opacity);
-                }   else{
-                    ofSetColor(mStyle.color.background, mStyle.opacity);
-                }
-            ofSetColor(32,64,64,255);
-                ofDrawRectangle(x, y, mStyle.width, mStyle.height);
-            ofPopStyle();
-        }
     
         void onMouseRelease(ofPoint m)
         {
@@ -104,14 +100,14 @@ class ofxDatGuiToggle : public ofxDatGuiButton {
         {
             mEnabled = enabled;
             mType = ofxDatGuiType::TOGGLE;
-            radioOn.load(OFXDG_ASSET_DIR + "/icon-radio-on.png");
-            radioOff.load(OFXDG_ASSET_DIR + "/icon-radio-off.png");
             setTheme(ofxDatGuiComponent::theme.get());
         }
     
         void setTheme(ofxDatGuiTheme* theme)
         {
             setComponentStyle(theme);
+            radioOn.load(theme->icon.radioOn);
+            radioOff.load(theme->icon.radioOff);
             mStyle.stripe.color = theme->stripe.toggle;
             setWidth(theme->layout.width, theme->layout.labelWidth);
         }
@@ -121,6 +117,7 @@ class ofxDatGuiToggle : public ofxDatGuiButton {
             ofxDatGuiComponent::setWidth(width, labelWidth);
             mLabel.width = mStyle.width;
             mLabel.rightAlignedXpos = mIcon.x - mLabel.margin;
+            ofxDatGuiComponent::positionLabel();
         }
     
         void toggle()
@@ -140,17 +137,17 @@ class ofxDatGuiToggle : public ofxDatGuiButton {
 
         void draw()
         {
-            ofxDatGuiButton::drawBkgd();
-            ofxDatGuiComponent::drawLabel();
-            ofxDatGuiComponent::drawStripe();
-            ofPushStyle();
+            if (mVisible) {
+                ofPushStyle();
+                ofxDatGuiButton::draw();
                 ofSetColor(mIcon.color);
                 if (mEnabled == true){
                     radioOn.draw(x+mIcon.x, y+mIcon.y, mIcon.size, mIcon.size);
                 }   else{
                     radioOff.draw(x+mIcon.x, y+mIcon.y, mIcon.size, mIcon.size);
                 }
-            ofPopStyle();
+                ofPopStyle();
+            }
         }
     
     protected:

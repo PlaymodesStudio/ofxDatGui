@@ -146,6 +146,17 @@ class ofxDatGuiTheme{
             ofColor colorPicker = ofColor::fromHex(0xFFD00B);
         } stripe;
     
+
+    /*
+        component border, disabled by default
+    */
+    
+        struct{
+            int width = 1.0f;
+            bool visible = false;
+            ofColor color = hex(0x000000);
+        } border;
+    
     /*
         layout, sizing and rendering rules
     */
@@ -188,19 +199,29 @@ class ofxDatGuiTheme{
             } matrix;
             
         } layout;
-
+    
     /*
-        the typography settings for this theme
+        typography & icons
     */
     
         struct {
-            int size = 8;
-            string file = "ofxdatgui_assets/font-verdana.ttf";
+            int size = 6;
+            string file = "ofxbraitsch/fonts/Verdana.ttf";
             ofTrueTypeFont ttf;
             void load(){ ttf.load(file, size); }
         } font;
     
-        static ofColor hex(int n) { return ofColor::fromHex(n); }
+        struct{
+            string rainbow = "ofxbraitsch/ofxdatgui/picker-rainbow.png";
+            string radioOn = "ofxbraitsch/ofxdatgui/icon-radio-on.png";
+            string radioOff = "ofxbraitsch/ofxdatgui/icon-radio-off.png";
+            string dropdown = "ofxbraitsch/ofxdatgui/icon-dropdown.png";
+        } icon;
+
+        static ofColor hex(int n)
+        {
+            return ofColor::fromHex(n);
+        }
 
 };
 

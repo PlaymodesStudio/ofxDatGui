@@ -36,12 +36,24 @@ class ofxDatGuiSlider : public ofxDatGuiComponent {
             mPrecision = 2;
             mType = ofxDatGuiType::SLIDER;
             input = new ofxDatGuiTextInputField();
-            input->setTextInputFieldType(ofxDatGuiTextInputField::NUMERIC);
+            input->setTextInputFieldType(ofxDatGuiInputType::NUMERIC);
             input->onInternalEvent(this, &ofxDatGuiSlider::onInputChanged);
             setTheme(ofxDatGuiComponent::theme.get());
         }
     
         ofxDatGuiSlider(string label, float min, float max) : ofxDatGuiSlider(label, min, max, (max+min)/2) {}
+        ofxDatGuiSlider(ofParameter<int> & p) : ofxDatGuiSlider(p.getName(), p.getMin(), p.getMax(), p.get()) {
+            mParamI = &p;
+            mPrecision = 0;
+            calculateScale();
+            mParamI->addListener(this, &ofxDatGuiSlider::onParamI);
+        }
+        ofxDatGuiSlider(ofParameter<float> & p) : ofxDatGuiSlider(p.getName(), p.getMin(), p.getMax(), p.get()) {
+            mParamF = &p;
+            mPrecision = 2;
+            calculateScale();
+            mParamF->addListener(this, &ofxDatGuiSlider::onParamF);
+        }
     
         ~ofxDatGuiSlider()
         {
@@ -85,6 +97,18 @@ class ofxDatGuiSlider : public ofxDatGuiComponent {
             calculateScale();
         }
     
+        void setMin(float min)
+        {
+            mMin = min;
+            calculateScale();
+        }
+    
+        void setMax(float max)
+        {
+            mMax = max;
+            calculateScale();
+        }
+    
         void setValue(float value)
         {
             mVal = value;
@@ -112,49 +136,41 @@ class ofxDatGuiSlider : public ofxDatGuiComponent {
         }
 
     /*
-        data binding - experiemental feature
+        variable binding methods
     */
-
-        void bind(int *val, int min, int max)
+    
+        void bind(int &val)
         {
-            mMin = min;
-            mMax = max;
-            mBoundi = val;
+            mBoundi = &val;
             mBoundf = nullptr;
         }
     
-        void bind(float *val, float min, float max)
+        void bind(float &val)
+        {
+            mBoundf = &val;
+            mBoundi = nullptr;
+        }
+
+        void bind(int &val, int min, int max)
         {
             mMin = min;
             mMax = max;
-            mBoundf = val;
+            mBoundi = &val;
+            mBoundf = nullptr;
+        }
+    
+        void bind(float &val, float min, float max)
+        {
+            mMin = min;
+            mMax = max;
+            mBoundf = &val;
             mBoundi = nullptr;
         }
-    
-        inline void getBoundf()
-        {
-            if (*mBoundf != pVal) {
-                setValue(*mBoundf);
-                pVal = *mBoundf;
-            }
-        }
-    
-        inline void getBoundi()
-        {
-            if (*mBoundi != pVal) {
-                setValue(*mBoundi);
-                pVal = *mBoundi;
-            }
-        }
-    
-    /*
-        data binding - experiemental feature
-    */
 
         void draw()
         {
             if (!mVisible) return;
-        // experimental - check for bound variables //
+            // check for bound variables //
             if (mBoundf != nullptr) {
                 getBoundf();
             }   else if (mBoundi != nullptr){
@@ -162,9 +178,7 @@ class ofxDatGuiSlider : public ofxDatGuiComponent {
             }
             
             ofPushStyle();
-                ofxDatGuiComponent::drawBkgd();
-                ofxDatGuiComponent::drawLabel();
-                ofxDatGuiComponent::drawStripe();
+                ofxDatGuiComponent::draw();
             // slider bkgd //
                 ofSetColor(mBackgroundFill);
                 ofDrawRectangle(x+mLabel.width, y+mStyle.padding, mSliderWidth, mStyle.height-(mStyle.padding*2));
@@ -249,6 +263,8 @@ class ofxDatGuiSlider : public ofxDatGuiComponent {
                 *mBoundi = mVal;
             }
             
+            if (mParamI != nullptr) mParamI->set(mVal);
+            if (mParamF != nullptr) mParamF->set(mVal);
         // dispatch event out to main application //
             if (sliderEventCallback != nullptr) {
                 ofxDatGuiSliderEvent e(this, mVal, mScale);
@@ -282,6 +298,11 @@ class ofxDatGuiSlider : public ofxDatGuiComponent {
         float   pVal;
         int*    mBoundi = nullptr;
         float*  mBoundf = nullptr;
+        ofParameter<int>* mParamI = nullptr;
+        ofParameter<float>* mParamF = nullptr;
+    
+        void onParamI(int& n) { setValue(n); }
+        void onParamF(float& n) { setValue(n); }
     
         void calculateScale()
         {
@@ -291,14 +312,21 @@ class ofxDatGuiSlider : public ofxDatGuiComponent {
                 mMax = 100;
                 mScale = 0.5f;
                 mVal = (mMax+mMin) * mScale;
-            }   else if (mVal > mMax || mVal < mMin){
-                ofLogWarning() << "row #" << mIndex << " : "<< mVal << " is out of range" << " [setting to 50%]";
-                mScale = 0.5f;
+            }   else if (mVal > mMax){
+                mVal = mMax;
+                mVal = (mMax+mMin) * mScale;
+            }   else if (mVal < mMin){
+                mVal = mMin;
                 mVal = (mMax+mMin) * mScale;
             }   else{
                 mScale = ofxDatGuiScale(mVal, mMin, mMax);
             }
             mVal = round(mVal, mPrecision);
+            if (mParamI != nullptr){
+                mParamI->set(mVal);
+            }   else if (mParamF != nullptr){
+                mParamF->set(mVal);
+            }
             setTextInput();
         }
     
@@ -319,6 +347,26 @@ class ofxDatGuiSlider : public ofxDatGuiComponent {
         float round(float num, int precision)
         {
             return floorf(num * pow(10.0f, precision) + .5f)/pow(10.0f, precision);
+        }
+    
+    /*
+        private variable binding methods
+    */
+    
+        inline void getBoundf()
+        {
+            if (*mBoundf != pVal) {
+                setValue(*mBoundf);
+                pVal = *mBoundf;
+            }
+        }
+    
+        inline void getBoundi()
+        {
+            if (*mBoundi != pVal) {
+                setValue(*mBoundi);
+                pVal = *mBoundi;
+            }
         }
         
 };
