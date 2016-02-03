@@ -448,6 +448,23 @@ class ofxDatGuiDropdown : public ofxDatGuiGroup {
             return static_cast<ofxDatGuiDropdownOption*>(children[mOption]);
         }
     
+    
+        int getSelectedIndex()
+        {
+            int res = -1;
+            string myLabel = getLabel();
+            
+            for(int i=0;i<children.size();i++)
+            {
+                if(children[i]->getLabel()==myLabel)
+                {
+                    res=i;
+                }
+            }
+            return res;
+        }
+    
+
         static ofxDatGuiDropdown* getInstance() { return new ofxDatGuiDropdown("X"); }
     
     private:
