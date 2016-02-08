@@ -60,16 +60,12 @@ class ofxDatGuiTextInput : public ofxDatGuiComponent {
         string getText()
         {
             string s = mInput.getText();
-            float f = ofToFloat(s);
-            cout << f << endl;
             return mInput.getText();
         }
     
         void setText(string text)
         {
             string s = mInput.getText();
-            float f = ofToFloat(s);
-            cout << f << endl;
             return mInput.setText(text);
         }
     

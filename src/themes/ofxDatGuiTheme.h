@@ -91,7 +91,7 @@ class ofxDatGuiTheme{
             } slider;
             
             struct {
-                ofColor text = ofColor::fromHex(0x00FF00);
+                ofColor text = ofColor::fromHex(0xFFFFFF);
                 ofColor highlight = ofColor::fromHex(0x688EB5);
                 ofColor backgroundOnActive = ofColor::fromHex(0x777777);
             } textInput;
@@ -170,15 +170,15 @@ class ofxDatGuiTheme{
             float vMargin = 1.0f; // vertical spacing between gui components //
             float iconSize = 10.0f;
             float labelWidth = 115.0f;
-            float labelMargin = 24.0f;
+            float labelMargin = 10.0f;
             float breakHeight = 3.0f;
-            bool upperCaseLabels = true;
+            bool upperCaseLabels = false;
             
         // component specific rules & settings //
         
             struct {
                 int highlightPadding = 5;
-                bool forceUpperCase = true;
+                bool forceUpperCase = false;
             } textInput;
         
             struct {
