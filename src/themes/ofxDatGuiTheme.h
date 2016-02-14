@@ -165,7 +165,7 @@ class ofxDatGuiTheme{
         
         // general rules that are shared by all components //
             float width = 320.0f;
-            float height = 26.0f;
+            float height = 20.0f;
             float padding = 2.0f;
             float vMargin = 1.0f; // vertical spacing between gui components //
             float iconSize = 10.0f;
@@ -205,8 +205,8 @@ class ofxDatGuiTheme{
     */
     
         struct {
-            int size = 6;
-            string file = "ofxbraitsch/fonts/Verdana.ttf";
+            int size = 8;
+            string file = "ofxbraitsch/fonts/LucidaGrande.ttc";
             ofTrueTypeFont ttf;
             void load(){ ttf.load(file, size); }
         } font;
