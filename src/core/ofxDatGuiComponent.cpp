@@ -43,7 +43,7 @@ ofxDatGuiComponent::ofxDatGuiComponent(string label)
 
 ofxDatGuiComponent::~ofxDatGuiComponent()
 {
-    cout << "ofxDatGuiComponent destroyed" << endl;
+    //cout << "ofxDatGuiComponent destroyed" << endl;
 }
 
 /*
