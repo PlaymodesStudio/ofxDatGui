@@ -165,7 +165,7 @@ class ofxDatGuiTheme{
         
         // general rules that are shared by all components //
             float width = 320.0f;
-            float height = 20.0f;
+            float height = 19.0f;
             float padding = 2.0f;
             float vMargin = 1.0f; // vertical spacing between gui components //
             float iconSize = 10.0f;
