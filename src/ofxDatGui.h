@@ -33,26 +33,31 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
         ofxDatGui(ofxDatGuiAnchor anchor = ofxDatGuiAnchor::TOP_LEFT);
     
         void draw();
-        void focus();
         void update();
+        void focus();
+        void expand();
+        void toggle();
+        void collapse();
     
-        bool isMoving();
         void setWidth(int width, float labelWidth = 0.35f);
         void setVisible(bool visible);
         void setEnabled(bool enabled);
         void setOpacity(float opacity);
         void setPosition(int x, int y);
+        void setPosition(ofxDatGuiAnchor anchor);
         void setTheme(ofxDatGuiTheme* t);
         void setAutoDraw(bool autodraw, int priority = 0);
         void setLabelAlignment(ofxDatGuiAlignment align);
+        static void setAssetPath(string path);
+        static string getAssetPath();
     
         int getWidth();
         int getHeight();
         bool getFocused();
         bool getVisible();
         bool getAutoDraw();
+        bool getMouseDown();
         ofPoint getPosition();
-        ofxDatGuiTheme* getDefaultTheme();
     
         ofxDatGuiHeader* addHeader(string label = "", bool draggable = true);
         ofxDatGuiFooter* addFooter();
@@ -74,6 +79,7 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
         ofxDatGuiColorPicker* addColorPicker(string label, ofColor color = ofColor::black);
         ofxDatGuiMatrix* addMatrix(string label, int numButtons, bool showLabels = false);
         ofxDatGuiFolder* addFolder(string label, ofColor color = ofColor::white);
+        ofxDatGuiFolder* addFolder(ofxDatGuiFolder* folder);
     
         ofxDatGuiHeader* getHeader();
         ofxDatGuiFooter* getFooter();
@@ -101,6 +107,7 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
         bool mEnabled;
         bool mExpanded;
         bool mAutoDraw;
+        bool mMouseDown;
         bool mAlphaChanged;
         bool mWidthChanged;
         bool mThemeChanged;
@@ -118,13 +125,11 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
         vector<ofxDatGuiComponent*> trash;
         static ofxDatGui* mActiveGui;
         static vector<ofxDatGui*> mGuis;
-        static std::unique_ptr<ofxDatGuiTheme> theme;
+        static unique_ptr<ofxDatGuiTheme> theme;
     
         void init();
         void layoutGui();
         void anchorGui();
-        void expandGui();
-        void collapseGui();
         void moveGui(ofPoint pt);
         bool hitTest(ofPoint pt);
         void attachItem(ofxDatGuiComponent* item);

@@ -53,6 +53,12 @@ class ofxDatGuiGroup : public ofxDatGuiButton {
             layout();
         }
     
+        void toggle()
+        {
+            mIsExpanded = !mIsExpanded;
+            layout();
+        }
+    
         void collapse()
         {
             mIsExpanded = false;
@@ -75,7 +81,7 @@ class ofxDatGuiGroup : public ofxDatGuiButton {
                 ofPushStyle();
                 ofxDatGuiButton::draw();
                 ofSetColor(mIcon.color);
-                mImage.draw(x+mIcon.x, y+mIcon.y, mIcon.size, mIcon.size);
+                mImage->draw(x+mIcon.x, y+mIcon.y, mIcon.size, mIcon.size);
                 if (mIsExpanded) {
                     int mHeight = mStyle.height;
                     ofSetColor(mStyle.guiBackground, mStyle.opacity);
@@ -133,7 +139,7 @@ class ofxDatGuiGroup : public ofxDatGuiButton {
         }
     
         int mHeight;
-        ofImage mImage;
+        shared_ptr<ofImage> mImage;
         bool mIsExpanded;
     
 };
@@ -153,7 +159,7 @@ class ofxDatGuiFolder : public ofxDatGuiGroup {
         void setTheme(ofxDatGuiTheme* theme)
         {
             setComponentStyle(theme);
-            mImage.load(theme->icon.dropdown);
+            mImage = theme->icon.dropdown;
             setWidth(theme->layout.width, theme->layout.labelWidth);
         // reassign folder color to all components //
             for(auto i:children) i->setStripeColor(mStyle.stripe.color);
@@ -247,7 +253,7 @@ class ofxDatGuiFolder : public ofxDatGuiGroup {
             return button;
         }
     
-        ofxDatGuiButton* addToggle(string label, bool enabled = false)
+        ofxDatGuiToggle* addToggle(string label, bool enabled = false)
         {
             ofxDatGuiToggle* toggle = new ofxDatGuiToggle(label, enabled);
             toggle->setStripeColor(mStyle.stripe.color);
@@ -262,9 +268,25 @@ class ofxDatGuiFolder : public ofxDatGuiGroup {
             return slider;
         }
 
-        ofxDatGuiSlider* addSlider(string label, float min, float max, float val)
+        ofxDatGuiSlider* addSlider(string label, float min, float max, double val)
         {
             ofxDatGuiSlider* slider = new ofxDatGuiSlider(label, min, max, val);
+            slider->setStripeColor(mStyle.stripe.color);
+            slider->onSliderEvent(this, &ofxDatGuiFolder::dispatchSliderEvent);
+            attachItem(slider);
+            return slider;
+        }
+
+        ofxDatGuiSlider* addSlider(ofParameter<int> & p){
+            ofxDatGuiSlider* slider = new ofxDatGuiSlider(p);
+            slider->setStripeColor(mStyle.stripe.color);
+            slider->onSliderEvent(this, &ofxDatGuiFolder::dispatchSliderEvent);
+            attachItem(slider);
+            return slider;
+        }
+
+        ofxDatGuiSlider* addSlider(ofParameter<float> & p){
+            ofxDatGuiSlider* slider = new ofxDatGuiSlider(p);
             slider->setStripeColor(mStyle.stripe.color);
             slider->onSliderEvent(this, &ofxDatGuiFolder::dispatchSliderEvent);
             attachItem(slider);
@@ -410,7 +432,7 @@ class ofxDatGuiDropdown : public ofxDatGuiGroup {
         void setTheme(ofxDatGuiTheme* theme)
         {
             setComponentStyle(theme);
-            mImage.load(theme->icon.dropdown);
+            mImage = theme->icon.dropdown;
             mStyle.stripe.color = theme->stripe.dropdown;
             setWidth(theme->layout.width, theme->layout.labelWidth);
         }

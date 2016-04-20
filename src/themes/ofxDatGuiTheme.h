@@ -22,6 +22,7 @@
 
 #pragma once
 #include "ofMain.h"
+#include "ofxSmartFont.h"
 
 #define RETINA_MIN_WIDTH 2560
 #define RETINA_MIN_HEIGHT 1600
@@ -64,7 +65,12 @@ class ofxDatGuiTheme{
                 layout.matrix.buttonSize = 47;
                 layout.textInput.highlightPadding *= 2;
             }
-            font.load();
+            font.ptr = ofxSmartFont::add(font.file, font.size);
+
+            icon.radioOn->load(icon.radioOnPath);
+            icon.radioOff->load(icon.radioOffPath);
+            icon.dropdown->load(icon.dropdownPath);
+            icon.rainbow->load(icon.rainbowPath);
         }
     
     /*
@@ -204,18 +210,23 @@ class ofxDatGuiTheme{
         typography & icons
     */
     
+        static string AssetPath;
+    
         struct {
-            int size = 8;
-            string file = "ofxbraitsch/fonts/LucidaGrande.ttc";
-            ofTrueTypeFont ttf;
-            void load(){ ttf.load(file, size); }
+            int size = 6;
+            string file = AssetPath + "ofxbraitsch/fonts/Verdana.ttf";
+            shared_ptr<ofxSmartFont> ptr;
         } font;
     
         struct{
-            string rainbow = "ofxbraitsch/ofxdatgui/picker-rainbow.png";
-            string radioOn = "ofxbraitsch/ofxdatgui/icon-radio-on.png";
-            string radioOff = "ofxbraitsch/ofxdatgui/icon-radio-off.png";
-            string dropdown = "ofxbraitsch/ofxdatgui/icon-dropdown.png";
+            shared_ptr<ofImage> rainbow = make_shared<ofImage>();
+            shared_ptr<ofImage> radioOn = make_shared<ofImage>();
+            shared_ptr<ofImage> radioOff = make_shared<ofImage>();
+            shared_ptr<ofImage> dropdown = make_shared<ofImage>();
+            string rainbowPath = AssetPath + "ofxbraitsch/ofxdatgui/picker-rainbow.png";
+            string radioOnPath = AssetPath + "ofxbraitsch/ofxdatgui/icon-radio-on.png";
+            string radioOffPath = AssetPath + "ofxbraitsch/ofxdatgui/icon-radio-off.png";
+            string dropdownPath = AssetPath + "ofxbraitsch/ofxdatgui/icon-dropdown.png";
         } icon;
 
         static ofColor hex(int n)

@@ -63,32 +63,6 @@ inline static float ofxDatGuiScale(float val, float min, float max)
     }
 }
 
-class ofxDatGuiFont{
-
-    public:
-
-        void set(const ofTrueTypeFont* ttf)
-        {
-            this->ttf = ttf;
-            this->yOffset = this->getRect("XXX123456789").height;
-        }
-
-        void draw(string s, int x, int y)
-        {
-            ttf->drawString(s, x, y + yOffset);
-        }
-    
-        ofRectangle getRect(string s, int x = 0, int y = 0)
-        {
-            return ttf->getStringBoundingBox(s, x, y);
-        }
-    
-    private:
-        int yOffset;
-        const ofTrueTypeFont* ttf;
-    
-};
-
 class ofxDatGuiInteractiveObject{
 
     public:
@@ -100,8 +74,7 @@ class ofxDatGuiInteractiveObject{
         template<typename T, typename args, class ListenerClass>
         void onButtonEvent(T* owner, void (ListenerClass::*listenerMethod)(args))
         {
-            using namespace std::placeholders;
-            buttonEventCallback = std::bind(listenerMethod, owner, _1);
+            buttonEventCallback = std::bind(listenerMethod, owner, std::placeholders::_1);
         }
 
     // slider events //
@@ -111,8 +84,7 @@ class ofxDatGuiInteractiveObject{
         template<typename T, typename args, class ListenerClass>
         void onSliderEvent(T* owner, void (ListenerClass::*listenerMethod)(args))
         {
-            using namespace std::placeholders;
-            sliderEventCallback = std::bind(listenerMethod, owner, _1);
+            sliderEventCallback = std::bind(listenerMethod, owner, std::placeholders::_1);
         }
     
     // text input events //
@@ -122,8 +94,7 @@ class ofxDatGuiInteractiveObject{
         template<typename T, typename args, class ListenerClass>
         void onTextInputEvent(T* owner, void (ListenerClass::*listenerMethod)(args))
         {
-            using namespace std::placeholders;
-            textInputEventCallback = std::bind(listenerMethod, owner, _1);
+            textInputEventCallback = std::bind(listenerMethod, owner, std::placeholders::_1);
         }
     
     // color picker events //
@@ -133,8 +104,7 @@ class ofxDatGuiInteractiveObject{
         template<typename T, typename args, class ListenerClass>
         void onColorPickerEvent(T* owner, void (ListenerClass::*listenerMethod)(args))
         {
-            using namespace std::placeholders;
-            colorPickerEventCallback = std::bind(listenerMethod, owner, _1);
+            colorPickerEventCallback = std::bind(listenerMethod, owner, std::placeholders::_1);
         }
     
     // dropdown events //
@@ -144,8 +114,7 @@ class ofxDatGuiInteractiveObject{
         template<typename T, typename args, class ListenerClass>
         void onDropdownEvent(T* owner, void (ListenerClass::*listenerMethod)(args))
         {
-            using namespace std::placeholders;
-            dropdownEventCallback = std::bind(listenerMethod, owner, _1);
+            dropdownEventCallback = std::bind(listenerMethod, owner, std::placeholders::_1);
         }
     
     // 2d pad events //
@@ -155,8 +124,7 @@ class ofxDatGuiInteractiveObject{
         template<typename T, typename args, class ListenerClass>
         void on2dPadEvent(T* owner, void (ListenerClass::*listenerMethod)(args))
         {
-            using namespace std::placeholders;
-            pad2dEventCallback = std::bind(listenerMethod, owner, _1);
+            pad2dEventCallback = std::bind(listenerMethod, owner, std::placeholders::_1);
         }
     
     // matrix events //
@@ -166,8 +134,7 @@ class ofxDatGuiInteractiveObject{
         template<typename T, typename args, class ListenerClass>
         void onMatrixEvent(T* owner, void (ListenerClass::*listenerMethod)(args))
         {
-            using namespace std::placeholders;
-            matrixEventCallback = std::bind(listenerMethod, owner, _1);
+            matrixEventCallback = std::bind(listenerMethod, owner, std::placeholders::_1);
         }
     
     // scrollview events //
@@ -177,8 +144,7 @@ class ofxDatGuiInteractiveObject{
         template<typename T, typename args, class ListenerClass>
         void onScrollViewEvent(T* owner, void (ListenerClass::*listenerMethod)(args))
         {
-            using namespace std::placeholders;
-            scrollViewEventCallback = std::bind(listenerMethod, owner, _1);
+            scrollViewEventCallback = std::bind(listenerMethod, owner, std::placeholders::_1);
         }
 
     // internal events //
@@ -188,8 +154,7 @@ class ofxDatGuiInteractiveObject{
         template<typename T, typename args, class ListenerClass>
         void onInternalEvent(T* owner, void (ListenerClass::*listenerMethod)(args))
         {
-            using namespace std::placeholders;
-            internalEventCallback = std::bind(listenerMethod, owner, _1);
+            internalEventCallback = std::bind(listenerMethod, owner, std::placeholders::_1);
         }
 
 };

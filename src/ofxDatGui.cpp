@@ -21,7 +21,6 @@
 */
 
 #include "ofxDatGui.h"
-#include "ofxDatGuiTheme.h"
 
 ofxDatGui* ofxDatGui::mActiveGui;
 vector<ofxDatGui*> ofxDatGui::mGuis;
@@ -73,13 +72,8 @@ void ofxDatGui::init()
 }
 
 /* 
-    public getters & setters
+    public api
 */
-
-bool ofxDatGui::isMoving()
-{
-    return mMoving;
-}
 
 void ofxDatGui::focus()
 {
@@ -101,6 +95,29 @@ void ofxDatGui::focus()
     }   else{
         ofxDatGuiLog::write(ofxDatGuiMsg::PANEL_ALREADY_HAS_FOCUS, "#"+ofToString(mGuid));
     }
+}
+
+void ofxDatGui::expand()
+{
+    if (mGuiFooter != nullptr){
+        mExpanded = true;
+        mGuiFooter->setExpanded(mExpanded);
+        mGuiFooter->setPosition(mPosition.x, mPosition.y + mHeight - mGuiFooter->getHeight() - mRowSpacing);
+    }
+}
+
+void ofxDatGui::collapse()
+{
+    if (mGuiFooter != nullptr){
+        mExpanded = false;
+        mGuiFooter->setExpanded(mExpanded);
+        mGuiFooter->setPosition(mPosition.x, mPosition.y);
+    }
+}
+
+void ofxDatGui::toggle()
+{
+    mExpanded ? collapse() : expand();
 }
 
 bool ofxDatGui::getVisible()
@@ -130,11 +147,6 @@ void ofxDatGui::setTheme(ofxDatGuiTheme* t)
     mThemeChanged = true;
 }
 
-ofxDatGuiTheme* ofxDatGui::getDefaultTheme()
-{
-    return theme.get();
-}
-
 void ofxDatGui::setOpacity(float opacity)
 {
     mAlpha = opacity;
@@ -144,6 +156,12 @@ void ofxDatGui::setOpacity(float opacity)
 void ofxDatGui::setPosition(int x, int y)
 {
     moveGui(ofPoint(x, y));
+}
+
+void ofxDatGui::setPosition(ofxDatGuiAnchor anchor)
+{
+    mAnchor = anchor;
+    if (mAnchor != ofxDatGuiAnchor::NO_ANCHOR) anchorGui();
 }
 
 void ofxDatGui::setVisible(bool visible)
@@ -163,13 +181,18 @@ void ofxDatGui::setAutoDraw(bool autodraw, int priority)
     ofRemoveListener(ofEvents().update, this, &ofxDatGui::onUpdate);
     if (autodraw){
         ofAddListener(ofEvents().draw, this, &ofxDatGui::onDraw, OF_EVENT_ORDER_AFTER_APP + priority);
-        ofAddListener(ofEvents().update, this, &ofxDatGui::onUpdate, OF_EVENT_ORDER_AFTER_APP + priority);
+        ofAddListener(ofEvents().update, this, &ofxDatGui::onUpdate, OF_EVENT_ORDER_BEFORE_APP - priority);
     }
 }
 
 bool ofxDatGui::getAutoDraw()
 {
     return mAutoDraw;
+}
+
+bool ofxDatGui::getMouseDown()
+{
+    return mMouseDown;
 }
 
 void ofxDatGui::setLabelAlignment(ofxDatGuiAlignment align)
@@ -191,6 +214,16 @@ int ofxDatGui::getHeight()
 ofPoint ofxDatGui::getPosition()
 {
     return ofPoint(mPosition.x, mPosition.y);
+}
+
+void ofxDatGui::setAssetPath(string path)
+{
+    ofxDatGuiTheme::AssetPath = path;
+}
+
+string ofxDatGui::getAssetPath()
+{
+    return ofxDatGuiTheme::AssetPath;
 }
 
 /* 
@@ -363,6 +396,12 @@ ofxDatGuiFolder* ofxDatGui::addFolder(string label, ofColor color)
     folder->onTextInputEvent(this, &ofxDatGui::onTextInputEventCallback);
     folder->onColorPickerEvent(this, &ofxDatGui::onColorPickerEventCallback);
     folder->onInternalEvent(this, &ofxDatGui::onInternalEventCallback);
+    attachItem(folder);
+    return folder;
+}
+
+ofxDatGuiFolder* ofxDatGui::addFolder(ofxDatGuiFolder* folder)
+{
     attachItem(folder);
     return folder;
 }
@@ -655,7 +694,7 @@ void ofxDatGui::onInternalEventCallback(ofxDatGuiInternalEvent e)
     if (e.type == ofxDatGuiEventType::DROPDOWN_TOGGLED){
         layoutGui();
     }   else if (e.type == ofxDatGuiEventType::GUI_TOGGLED){
-        mExpanded ? collapseGui() : expandGui();
+        mExpanded ? collapse() : expand();
     }   else if (e.type == ofxDatGuiEventType::VISIBILITY_CHANGED){
         layoutGui();
     }
@@ -684,11 +723,26 @@ void ofxDatGui::moveGui(ofPoint pt)
 
 void ofxDatGui::anchorGui()
 {
-    mPosition.y = 0;
+/*
+    ofGetWidth/ofGetHeight returns incorrect values after retina windows are resized in version 0.9.1 & 0.9.2
+    https://github.com/openframeworks/openFrameworks/pull/4858
+*/
+    int multiplier = 1;
+    if (ofxDatGuiIsRetina() && ofGetVersionMajor() == 0 && ofGetVersionMinor() == 9 && (ofGetVersionPatch() == 1 || ofGetVersionPatch() == 2)){
+        multiplier = 2;
+    }
     if (mAnchor == ofxDatGuiAnchor::TOP_LEFT){
+        mPosition.y = 0;
         mPosition.x = 0;
     }   else if (mAnchor == ofxDatGuiAnchor::TOP_RIGHT){
-        mPosition.x = ofGetWidth() - mWidth;
+        mPosition.y = 0;
+        mPosition.x = (ofGetWidth() / multiplier) - mWidth;
+    }   else if (mAnchor == ofxDatGuiAnchor::BOTTOM_LEFT){
+        mPosition.x = 0;
+        mPosition.y = (ofGetHeight() / multiplier) - mHeight;
+    }   else if (mAnchor == ofxDatGuiAnchor::BOTTOM_RIGHT){
+        mPosition.x = (ofGetWidth() / multiplier) - mWidth;
+        mPosition.y = (ofGetHeight() / multiplier) - mHeight;
     }
     layoutGui();
 }
@@ -704,20 +758,8 @@ void ofxDatGui::layoutGui()
         mHeight += items[i]->getHeight() + mRowSpacing;
     }
     // move the footer back to the top of the gui //
-    if (!mExpanded) mGuiFooter->setY(mPosition.y);
+    if (!mExpanded) mGuiFooter->setPosition(mPosition.x, mPosition.y);
     mGuiBounds = ofRectangle(mPosition.x, mPosition.y, mWidth, mHeight);
-}
-
-void ofxDatGui::expandGui()
-{
-    mExpanded = true;
-    mGuiFooter->setY(mPosition.y + mHeight - mGuiFooter->getHeight() - mRowSpacing);
-}
-
-void ofxDatGui::collapseGui()
-{
-    mExpanded = false;
-    mGuiFooter->setY(mPosition.y);
 }
 
 /* 
@@ -744,7 +786,7 @@ void ofxDatGui::update()
     mAlignmentChanged = false;
     
     // check for gui focus change //
-    if (ofGetMousePressed() && mActiveGui->isMoving() == false){
+    if (ofGetMousePressed() && mActiveGui->mMoving == false){
         ofPoint mouse = ofPoint(ofGetMouseX(), ofGetMouseY());
         for (int i=mGuis.size()-1; i>-1; i--){
         // ignore guis that are invisible //
@@ -760,44 +802,43 @@ void ofxDatGui::update()
         for (int i=0; i<items.size(); i++) items[i]->update(false);
     }   else {
         mMoving = false;
+        mMouseDown = false;
     // this gui has focus so let's see if any of its components were interacted with //
         if (mExpanded == false){
             mGuiFooter->update();
+            mMouseDown = mGuiFooter->getMouseDown();
         }   else{
-            int activeItemIndex = -1;
+            bool hitComponent = false;
             for (int i=0; i<items.size(); i++) {
-                items[i]->update();
-                if (items[i]->getFocused()) {
-                    activeItemIndex = i;
-                    if (mGuiHeader != nullptr && mGuiHeader->getDraggable() && mGuiHeader->getFocused()){
-                // track that we're moving to force preserve focus //
-                        mMoving = true;
-                        ofPoint mouse = ofPoint(ofGetMouseX(), ofGetMouseY());
-                        moveGui(mouse - mGuiHeader->getDragOffset());
-                    }
-                    break;
-                }   else if (items[i]->getIsExpanded()){
-                // check if one of its children has focus //
-                    for (int j=0; j<items[i]->children.size(); j++) {
-                        if (items[i]->children[j]->getFocused()){
-                            activeItemIndex = i;
-                            break;
+                if (hitComponent == false){
+                    items[i]->update(true);
+                    if (items[i]->getFocused()) {
+                        hitComponent = true;
+                        mMouseDown = items[i]->getMouseDown();
+                        if (mGuiHeader != nullptr && mGuiHeader->getDraggable() && mGuiHeader->getFocused()){
+                    // track that we're moving to force preserve focus //
+                            mMoving = true;
+                            ofPoint mouse = ofPoint(ofGetMouseX(), ofGetMouseY());
+                            moveGui(mouse - mGuiHeader->getDragOffset());
+                        }
+                    }   else if (items[i]->getIsExpanded()){
+                    // check if one of its children has focus //
+                        for (int j=0; j<items[i]->children.size(); j++) {
+                            if (items[i]->children[j]->getFocused()){
+                                hitComponent = true;
+                                mMouseDown = items[i]->children[j]->getMouseDown();
+                                break;
+                            }
                         }
                     }
-                    if (activeItemIndex != -1) break;
-                }
-            }
-        // update the remaining components //
-            if (activeItemIndex != -1){
-                for (int i=activeItemIndex + 1; i<items.size(); i++) {
-        //  but tell them to ignore mouse & keyboard events since we're already determined the active component //
+                }   else{
+            // update component but ignore mouse & keyboard events //
                     items[i]->update(false);
                     if (items[i]->getFocused()) items[i]->setFocused(false);
                 }
             }
         }
     }
-    
 // empty the trash //
     for (int i=0; i<trash.size(); i++) delete trash[i];
     trash.clear();

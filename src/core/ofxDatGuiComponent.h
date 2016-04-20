@@ -63,6 +63,7 @@ class ofxDatGuiComponent : public ofxDatGuiInteractiveObject
         void    setFocused(bool focused);
         bool    getFocused();
         void    setOpacity(float opacity);
+        bool    getMouseDown();
         ofxDatGuiType getType();
     
         vector<ofxDatGuiComponent*> children;
@@ -108,10 +109,10 @@ class ofxDatGuiComponent : public ofxDatGuiInteractiveObject
         bool mMouseOver;
         bool mMouseDown;
         ofxDatGuiType mType;
-        ofxDatGuiFont mFont;
         ofxDatGuiAnchor mAnchor;
         ofPoint mParentPosition;
-        static std::unique_ptr<ofxDatGuiTheme> theme;
+        shared_ptr<ofxSmartFont> mFont;
+        static unique_ptr<ofxDatGuiTheme> theme;
     
         struct{
             float width;
