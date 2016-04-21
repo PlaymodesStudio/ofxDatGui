@@ -43,7 +43,7 @@ class ofxDatGuiScrollView : public ofxDatGuiComponent {
         {
             int y = 0;
             if (children.size() > 0) y = children.back()->getY() + children.back()->getHeight() + mSpacing;
-            children.push_back(new ofxDatGuiButton( label ));
+            children.push_back(new ofxDatGuiToggle( label,false));
             children.back()->setTheme(mTheme);
             children.back()->setWidth(mRect.width, 0);
             children.back()->setPosition(0, y);

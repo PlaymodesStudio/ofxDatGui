@@ -75,6 +75,11 @@ class ofxDatGuiGroup : public ofxDatGuiButton {
             return mIsExpanded;
         }
     
+        int size()
+        {
+            return children.size();
+        }
+
         void draw()
         {
             if (mVisible){
@@ -455,10 +460,6 @@ class ofxDatGuiDropdown : public ofxDatGuiGroup {
             }
         }
 
-        int size()
-        {
-            return children.size();
-        }
     
         ofxDatGuiDropdownOption* getChildAt(int index)
         {
