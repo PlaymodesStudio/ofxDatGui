@@ -241,6 +241,12 @@ class ofxDatGuiFolder : public ofxDatGuiGroup {
                 ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
             }
         }
+    
+        ofxDatGuiToggle* getToggleAt(int index)
+        {
+            return static_cast<ofxDatGuiToggle*>(children[index]);
+        }
+
 
     /*
         component add methods
