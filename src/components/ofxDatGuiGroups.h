@@ -79,7 +79,12 @@ class ofxDatGuiGroup : public ofxDatGuiButton {
         {
             return children.size();
         }
+        int clear()
+        {
+            children.clear();
+        }
 
+    
         void draw()
         {
             if (mVisible){
