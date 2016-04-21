@@ -97,6 +97,7 @@ class ofxDatGuiTimeGraph : public ofxDatGuiComponent {
 
         void drawOutline()
         {
+#ifndef TARGET_RASPBERRY_PI
             float px = this->x + mPlotterRect.x;
             float py = this->y + mPlotterRect.y;
             glLineWidth(mLineWeight);
@@ -105,20 +106,24 @@ class ofxDatGuiTimeGraph : public ofxDatGuiComponent {
             for (int i=0; i<pts.size(); i++) glVertex2f(px+pts[i].x, py+pts[i].y);
             glVertex2f(px, py+mPlotterRect.height);
             glEnd();
+#endif
         }
     
         void drawLines()
         {
+#ifndef TARGET_RASPBERRY_PI
             float px = this->x + mPlotterRect.x;
             float py = this->y + mPlotterRect.y;
             glLineWidth(mLineWeight);
             glBegin(GL_LINE_STRIP);
             for (int i=0; i<pts.size(); i++) glVertex2f(px+pts[i].x, py+pts[i].y);
             glEnd();
+#endif
         }
     
         void drawPoints()
         {
+#ifndef TARGET_RASPBERRY_PI
             float px = this->x + mPlotterRect.x;
             float py = this->y + mPlotterRect.y;
             glPointSize(mLineWeight);
@@ -126,6 +131,7 @@ class ofxDatGuiTimeGraph : public ofxDatGuiComponent {
             glBegin(GL_POINTS);
             for (int i=0; i<pts.size(); i++) glVertex2f(px+pts[i].x, py+pts[i].y);
             glEnd();
+#endif
         }
     
         void setPosition(int x, int y)
