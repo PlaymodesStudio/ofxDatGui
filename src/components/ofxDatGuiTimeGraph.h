@@ -72,6 +72,7 @@ class ofxDatGuiTimeGraph : public ofxDatGuiComponent {
     
         void draw()
         {
+#ifndef TARGET_RASPBERRY_PI
             if (!mVisible) return;
             ofPushStyle();
                 ofxDatGuiComponent::draw();
@@ -80,10 +81,12 @@ class ofxDatGuiTimeGraph : public ofxDatGuiComponent {
                 glColor3ub(mColor.fills.r, mColor.fills.g, mColor.fills.b);
                 (*this.*mDrawFunc)();
             ofPopStyle();
+#endif
         }
     
         void drawFilled()
         {
+#ifndef TARGET_RASPBERRY_PI
             float px = this->x + mPlotterRect.x;
             float py = this->y + mPlotterRect.y;
             glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -93,6 +96,7 @@ class ofxDatGuiTimeGraph : public ofxDatGuiComponent {
                 glVertex2f(px+ pts[i].x, py + pts[i].y);
             }
             glEnd();
+#endif
         }
 
         void drawOutline()
