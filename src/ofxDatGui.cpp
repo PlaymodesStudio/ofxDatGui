@@ -120,6 +120,12 @@ void ofxDatGui::toggle()
     mExpanded ? collapse() : expand();
 }
 
+void ofxDatGui::clear()
+{
+    for (auto item : items) delete item;
+    items.clear();
+}
+
 bool ofxDatGui::getVisible()
 {
     return mVisible;
