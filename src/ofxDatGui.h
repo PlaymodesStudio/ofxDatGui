@@ -96,6 +96,8 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
         ofxDatGuiFolder* getFolder(string label);
         ofxDatGuiDropdown* getDropdown(string label);
     
+        bool hitTest(ofPoint pt);
+    
     private:
     
         int mGuid;
@@ -133,7 +135,7 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
         void layoutGui();
         void anchorGui();
         void moveGui(ofPoint pt);
-        bool hitTest(ofPoint pt);
+//        bool hitTest(ofPoint pt);
         void attachItem(ofxDatGuiComponent* item);
     
         void onDraw(ofEventArgs &e);
