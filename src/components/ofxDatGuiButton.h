@@ -146,12 +146,7 @@ class ofxDatGuiToggle : public ofxDatGuiButton {
             }
         }
     
-<<<<<<< HEAD
-    static ofxDatGuiToggle* getInstance() { return new ofxDatGuiToggle("X",true); }
-
-=======
         static ofxDatGuiToggle* getInstance() { return new ofxDatGuiToggle("X"); }
->>>>>>> 1633fb33a8195835a89f09013b00dc4449f34aaf
     
     protected:
     

@@ -23,12 +23,8 @@
 #include "ofxDatGuiComponent.h"
 
 bool ofxDatGuiLog::mQuiet = false;
-string ofxDatGuiTheme::AssetPath = "";
-std::unique_ptr<ofxDatGuiTheme> ofxDatGuiComponent::theme;
-<<<<<<< HEAD
 string ofxDatGuiTheme::AssetPath = "../../../../../addons/ofxDatGui_PM/";
-=======
->>>>>>> 1633fb33a8195835a89f09013b00dc4449f34aaf
+std::unique_ptr<ofxDatGuiTheme> ofxDatGuiComponent::theme;
 
 ofxDatGuiComponent::ofxDatGuiComponent(string label)
 {
@@ -47,13 +43,9 @@ ofxDatGuiComponent::ofxDatGuiComponent(string label)
 
 ofxDatGuiComponent::~ofxDatGuiComponent()
 {
-<<<<<<< HEAD
-    //cout << "ofxDatGuiComponent destroyed" << endl;
-=======
 //  cout << "ofxDatGuiComponent "<< mName << " destroyed" << endl;
     ofRemoveListener(ofEvents().keyPressed, this, &ofxDatGuiComponent::onKeyPressed);
     ofRemoveListener(ofEvents().windowResized, this, &ofxDatGuiComponent::onWindowResized);
->>>>>>> 1633fb33a8195835a89f09013b00dc4449f34aaf
 }
 
 /*

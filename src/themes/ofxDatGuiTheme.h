@@ -211,7 +211,7 @@ class ofxDatGuiTheme{
                 int buttonSize = 23;
                 int buttonPadding = 1;
             } matrix;
-            
+             
         } layout;
     
     /*
