@@ -41,6 +41,12 @@ class ofxDatGuiGroup : public ofxDatGuiButton {
             mIsExpanded = false;
         }
     
+        ~ofxDatGuiGroup()
+        {
+        // color pickers are deleted automatically when the group is destroyed //
+            for (auto i:children) if (i->getType() != ofxDatGuiType::COLOR_PICKER) delete i;
+        }
+    
         void setPosition(int x, int y)
         {
             ofxDatGuiComponent::setPosition(x, y);
@@ -170,7 +176,7 @@ class ofxDatGuiFolder : public ofxDatGuiGroup {
             setTheme(ofxDatGuiComponent::theme.get());
         }
     
-        void setTheme(ofxDatGuiTheme* theme)
+        void setTheme(const ofxDatGuiTheme* theme)
         {
             setComponentStyle(theme);
             mIconOpen = theme->icon.groupOpen;
@@ -197,6 +203,18 @@ class ofxDatGuiFolder : public ofxDatGuiGroup {
         {
             if (buttonEventCallback != nullptr) {
                 buttonEventCallback(e);
+            }   else{
+                ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
+            }
+        }
+    
+        void dispatchToggleEvent(ofxDatGuiToggleEvent e)
+        {
+            if (toggleEventCallback != nullptr) {
+                toggleEventCallback(e);
+        // allow toggle events to decay into button events //
+            }   else if (buttonEventCallback != nullptr) {
+                buttonEventCallback(ofxDatGuiButtonEvent(e.target));
             }   else{
                 ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
             }
@@ -278,7 +296,7 @@ class ofxDatGuiFolder : public ofxDatGuiGroup {
         {
             ofxDatGuiToggle* toggle = new ofxDatGuiToggle(label, enabled);
             toggle->setStripeColor(mStyle.stripe.color);
-            toggle->onButtonEvent(this, &ofxDatGuiFolder::dispatchButtonEvent);
+            toggle->onToggleEvent(this, &ofxDatGuiFolder::dispatchToggleEvent);
             attachItem(toggle);
             return toggle;
         }
@@ -417,7 +435,7 @@ class ofxDatGuiDropdownOption : public ofxDatGuiButton {
             setTheme(ofxDatGuiComponent::theme.get());
         }
     
-        void setTheme(ofxDatGuiTheme* theme)
+        void setTheme(const ofxDatGuiTheme* theme)
         {
             ofxDatGuiButton::setTheme(theme);
             mStyle.stripe.color = theme->stripe.dropdown;
@@ -450,7 +468,7 @@ class ofxDatGuiDropdown : public ofxDatGuiGroup {
             setTheme(ofxDatGuiComponent::theme.get());
         }
     
-        void setTheme(ofxDatGuiTheme* theme)
+        void setTheme(const ofxDatGuiTheme* theme)
         {
             setComponentStyle(theme);
             mIconOpen = theme->icon.groupOpen;
