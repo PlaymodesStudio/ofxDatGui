@@ -39,6 +39,8 @@ ofxDatGuiComponent::ofxDatGuiComponent(string label)
     mAnchor = ofxDatGuiAnchor::NO_ANCHOR;
     mLabel.text = label;
     mLabel.alignment = ofxDatGuiAlignment::LEFT;
+    // load a default theme //
+    if (theme == nullptr) theme = make_unique<ofxDatGuiTheme>(true);
 }
 
 ofxDatGuiComponent::~ofxDatGuiComponent()
