@@ -20,7 +20,6 @@
     SOFTWARE.
 */
 
-#define USE_GLFW_CLIPBOARD
 
 #pragma once
 #include "ofxDatGuiIntObject.h"
@@ -196,7 +195,7 @@ class ofxDatGuiTextInputField : public ofxDatGuiInteractiveObject{
             } else if (key == OF_KEY_RIGHT) {
                 setCursorIndex(min( mCursorIndex + 1, (unsigned int) mText.size()));
             } else if (key == 'v' && ofGetKeyPressed(OF_KEY_COMMAND))  {
-                setText(getClipboard());
+                setText(ofGetWindowPtr()->getClipboardString());
             } else {
             // insert character at cursor position //
                 setText(mText.substr(0, mCursorIndex) + (char)key + mText.substr(mCursorIndex));
@@ -292,33 +291,6 @@ class ofxDatGuiTextInputField : public ofxDatGuiInteractiveObject{
         } color;
         ofxDatGuiInputType mType;
         shared_ptr<ofxSmartFont> mFont;
-
-#ifdef USE_GLFW_CLIPBOARD
     
-    
-#if (_MSC_VER)
-#include <GLFW/glfw3.h>
-#else
-#include "GLFW/glfw3.h"
-#endif
-    
-    
-    void setClipboard(string clippy)
-    {
-        glfwSetClipboardString( (GLFWwindow*) ofGetWindowPtr()->getCocoaWindow(), clippy.c_str());
-    }
-    
-    string getClipboard()
-    {
-        const char *clip = glfwGetClipboardString((GLFWwindow*) ofGetWindowPtr()->getCocoaWindow());
-        if(clip!=NULL) {
-            return string(clip);
-        } else {
-            return "";
-        }
-        
-    }
-    
-#endif
 };
 
