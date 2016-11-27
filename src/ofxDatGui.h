@@ -32,9 +32,21 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
         ofxDatGui(int x, int y);
         ofxDatGui(ofxDatGuiAnchor anchor = ofxDatGuiAnchor::TOP_LEFT);
         ~ofxDatGui();
+
+        void draw(ofEventArgs &e);
+        void update(ofEventArgs &e);
+        void onWindowResized(ofResizeEventArgs &e);
     
-        void draw();
-        void update();
+        void keyPressed(ofKeyEventArgs &e);
+        void keyReleased(ofKeyEventArgs &e);
+        void mouseMoved(ofMouseEventArgs &e);
+        void mouseDragged(ofMouseEventArgs &e);
+        void mousePressed(ofMouseEventArgs &e);
+        void mouseReleased(ofMouseEventArgs &e);
+        void mouseEntered(ofMouseEventArgs &e);
+        void mouseExited(ofMouseEventArgs &e);
+        void mouseScrolled(ofMouseEventArgs &e);
+    
         void focus();
         void expand();
         void toggle();
@@ -140,9 +152,6 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
 //        bool hitTest(ofPoint pt);
         void attachItem(ofxDatGuiComponent* item);
     
-        void onDraw(ofEventArgs &e);
-        void onUpdate(ofEventArgs &e);
-        void onWindowResized(ofResizeEventArgs &e);
     
         ofxDatGuiComponent* getComponent(string key);
         ofxDatGuiComponent* getComponent(ofxDatGuiType type, string label);

@@ -45,9 +45,11 @@ ofxDatGui::~ofxDatGui()
     for (auto i:items) delete i;
     mGuis.erase(std::remove(mGuis.begin(), mGuis.end(), this), mGuis.end());
     if (mActiveGui == this) mActiveGui = mGuis.size() > 0 ? mGuis[0] : nullptr;
-    ofRemoveListener(ofEvents().draw, this, &ofxDatGui::onDraw, OF_EVENT_ORDER_AFTER_APP + mIndex);
-    ofRemoveListener(ofEvents().update, this, &ofxDatGui::onUpdate, OF_EVENT_ORDER_BEFORE_APP - mIndex);
+    ofRemoveListener(ofEvents().draw, this, &ofxDatGui::draw, OF_EVENT_ORDER_AFTER_APP + mIndex);
+    ofRemoveListener(ofEvents().update, this, &ofxDatGui::update, OF_EVENT_ORDER_BEFORE_APP - mIndex);
     ofRemoveListener(ofEvents().windowResized, this, &ofxDatGui::onWindowResized, OF_EVENT_ORDER_BEFORE_APP);
+    ofUnregisterKeyEvents(this);
+    ofUnregisterMouseEvents(this);
 }
 
 void ofxDatGui::init()
@@ -192,12 +194,14 @@ void ofxDatGui::setEnabled(bool enabled)
 void ofxDatGui::setAutoDraw(bool autodraw, int priority)
 {
     mAutoDraw = autodraw;
-    ofRemoveListener(ofEvents().draw, this, &ofxDatGui::onDraw, OF_EVENT_ORDER_AFTER_APP + mIndex);
-    ofRemoveListener(ofEvents().update, this, &ofxDatGui::onUpdate, OF_EVENT_ORDER_BEFORE_APP - mIndex);
+    ofRemoveListener(ofEvents().draw, this, &ofxDatGui::draw, OF_EVENT_ORDER_AFTER_APP + mIndex);
+    ofRemoveListener(ofEvents().update, this, &ofxDatGui::update, OF_EVENT_ORDER_BEFORE_APP - mIndex);
     if (mAutoDraw){
         mIndex = priority;
-        ofAddListener(ofEvents().draw, this, &ofxDatGui::onDraw, OF_EVENT_ORDER_AFTER_APP + mIndex);
-        ofAddListener(ofEvents().update, this, &ofxDatGui::onUpdate, OF_EVENT_ORDER_BEFORE_APP - mIndex);
+        ofAddListener(ofEvents().draw, this, &ofxDatGui::draw, OF_EVENT_ORDER_AFTER_APP + mIndex);
+        ofAddListener(ofEvents().update, this, &ofxDatGui::update, OF_EVENT_ORDER_BEFORE_APP - mIndex);
+        ofRegisterKeyEvents(this);
+        ofRegisterMouseEvents(this);
     }
 }
 
@@ -828,7 +832,7 @@ void ofxDatGui::layoutGui()
     update & draw loop
 */
 
-void ofxDatGui::update()
+void ofxDatGui::update(ofEventArgs &e)
 {
     if (!mVisible) return;
 
@@ -907,7 +911,7 @@ void ofxDatGui::update()
     trash.clear();
 }
 
-void ofxDatGui::draw()
+void ofxDatGui::draw(ofEventArgs &e)
 {
     if (mVisible == false) return;
     ofPushStyle();
@@ -925,19 +929,55 @@ void ofxDatGui::draw()
     ofPopStyle();
 }
 
-void ofxDatGui::onDraw(ofEventArgs &e)
-{
-    draw();
-}
-
-void ofxDatGui::onUpdate(ofEventArgs &e)
-{
-    update();
-}
-
 void ofxDatGui::onWindowResized(ofResizeEventArgs &e)
 {
     if (mAnchor != ofxDatGuiAnchor::NO_ANCHOR) anchorGui();
 }
 
+void ofxDatGui::keyPressed(ofKeyEventArgs &e)
+{
+    
+}
 
+void ofxDatGui::keyReleased(ofKeyEventArgs &e)
+{
+    
+}
+
+void ofxDatGui::mouseMoved(ofMouseEventArgs &e)
+{
+    for (auto &item : items){
+        if(item->hitTest(e))
+            item->mouseMoved(e);
+    }
+}
+
+void ofxDatGui::mouseDragged(ofMouseEventArgs &e)
+{
+    
+}
+
+void ofxDatGui::mousePressed(ofMouseEventArgs &e)
+{
+    
+}
+
+void ofxDatGui::mouseReleased(ofMouseEventArgs &e)
+{
+    
+}
+
+void ofxDatGui::mouseEntered(ofMouseEventArgs &e)
+{
+    
+}
+
+void ofxDatGui::mouseExited(ofMouseEventArgs &e)
+{
+    
+}
+
+void ofxDatGui::mouseScrolled(ofMouseEventArgs &e)
+{
+    
+}

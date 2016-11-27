@@ -470,6 +470,8 @@ void ofxDatGuiComponent::onKeyPressed(ofKeyEventArgs &e)
     }
 }
 
+
+
 void ofxDatGuiComponent::onWindowResized()
 {
     if (mAnchor == ofxDatGuiAnchor::TOP_LEFT){
@@ -482,6 +484,51 @@ void ofxDatGuiComponent::onWindowResized()
 void ofxDatGuiComponent::onWindowResized(ofResizeEventArgs &e)
 {
     onWindowResized();
+}
+
+void ofxDatGuiComponent::keyPressed(ofKeyEventArgs &e)
+{
+    
+}
+
+void ofxDatGuiComponent::keyReleased(ofKeyEventArgs &e)
+{
+    
+}
+
+void ofxDatGuiComponent::mouseMoved(ofMouseEventArgs &e)
+{
+
+}
+
+void ofxDatGuiComponent::mouseDragged(ofMouseEventArgs &e)
+{
+    
+}
+
+void ofxDatGuiComponent::mousePressed(ofMouseEventArgs &e)
+{
+    
+}
+
+void ofxDatGuiComponent::mouseReleased(ofMouseEventArgs &e)
+{
+    
+}
+
+void ofxDatGuiComponent::mouseEntered(ofMouseEventArgs &e)
+{
+    
+}
+
+void ofxDatGuiComponent::mouseExited(ofMouseEventArgs &e)
+{
+    
+}
+
+void ofxDatGuiComponent::mouseScrolled(ofMouseEventArgs &e)
+{
+    
 }
 
 
