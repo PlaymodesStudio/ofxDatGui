@@ -332,34 +332,34 @@ void ofxDatGuiComponent::setBorderVisible(bool visible)
 
 void ofxDatGuiComponent::update(bool acceptEvents)
 {
-    if (acceptEvents && mEnabled && mVisible){
-        bool mp = ofGetMousePressed();
-        ofPoint mouse = ofPoint(ofGetMouseX() - mMask.x, ofGetMouseY() - mMask.y);
-        if (hitTest(mouse)){
-            if (!mMouseOver){
-                onMouseEnter(mouse);
-            }
-            if (!mMouseDown && mp){
-                onMousePress(mouse);
-                if (!mFocused) onFocus();
-            }
-        }   else{
-    // the mouse is not over the component //
-            if (mMouseOver){
-                onMouseLeave(mouse);
-            }
-            if (!mMouseDown && mp && mFocused){
-                onFocusLost();
-            }
-        }
-        if (mMouseDown) {
-            if (mp){
-                onMouseDrag(mouse);
-            }   else{
-                onMouseRelease(mouse);
-            }
-        }
-    }
+//    if (acceptEvents && mEnabled && mVisible){
+//        bool mp = ofGetMousePressed();
+//        ofPoint mouse = ofPoint(ofGetMouseX() - mMask.x, ofGetMouseY() - mMask.y);
+//        if (hitTest(mouse)){
+//            if (!mMouseOver){
+//                onMouseEnter(mouse);
+//            }
+//            if (!mMouseDown && mp){
+//                onMousePress(mouse);
+//                if (!mFocused) onFocus();
+//            }
+//        }   else{
+//    // the mouse is not over the component //
+//            if (mMouseOver){
+//                onMouseLeave(mouse);
+//            }
+//            if (!mMouseDown && mp && mFocused){
+//                onFocusLost();
+//            }
+//        }
+//        if (mMouseDown) {
+//            if (mp){
+//                onMouseDrag(mouse);
+//            }   else{
+//                onMouseRelease(mouse);
+//            }
+//        }
+//    }
 // don't update children unless they're visible //
     if (this->getIsExpanded()) {
         for(int i=0; i<children.size(); i++) {
@@ -438,11 +438,13 @@ void ofxDatGuiComponent::onMouseLeave(ofPoint m)
 void ofxDatGuiComponent::onMousePress(ofPoint m)
 {
     mMouseDown = true;
+    if(!mFocused) onFocus();
 }
 
 void ofxDatGuiComponent::onMouseRelease(ofPoint m)
 {
     mMouseDown = false;
+    if(mFocused) onFocusLost();
 }
 
 void ofxDatGuiComponent::onFocus()
@@ -498,22 +500,29 @@ void ofxDatGuiComponent::keyReleased(ofKeyEventArgs &e)
 
 void ofxDatGuiComponent::mouseMoved(ofMouseEventArgs &e)
 {
-
+    if(this->hitTest(e) && !mMouseOver)
+        onMouseEnter(e);
+    else if(!this->hitTest(e) && mMouseOver)
+        onMouseLeave(e);
 }
 
 void ofxDatGuiComponent::mouseDragged(ofMouseEventArgs &e)
 {
-    
+    if(mMouseDown){
+        onMouseDrag(e);
+    }
 }
 
 void ofxDatGuiComponent::mousePressed(ofMouseEventArgs &e)
 {
-    
+    if(mMouseOver)
+        onMousePress(e);
 }
 
 void ofxDatGuiComponent::mouseReleased(ofMouseEventArgs &e)
 {
-    
+    if(mMouseDown)
+        onMouseRelease(e);
 }
 
 void ofxDatGuiComponent::mouseEntered(ofMouseEventArgs &e)

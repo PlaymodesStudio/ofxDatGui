@@ -946,25 +946,28 @@ void ofxDatGui::keyReleased(ofKeyEventArgs &e)
 
 void ofxDatGui::mouseMoved(ofMouseEventArgs &e)
 {
-    for (auto &item : items){
-        if(item->hitTest(e))
-            item->mouseMoved(e);
-    }
+    //TODO: in ofxDatGuiComponent there is a correction with a mask. check that
+    //ofPoint mouse = ofPoint(ofGetMouseX() - mMask.x, ofGetMouseY() - mMask.y);
+    for (auto &item : items)
+        item->mouseMoved(e);
 }
 
 void ofxDatGui::mouseDragged(ofMouseEventArgs &e)
 {
-    
+    for (auto &item : items)
+        item->mouseDragged(e);
 }
 
 void ofxDatGui::mousePressed(ofMouseEventArgs &e)
 {
-    
+    for (auto &item : items)
+        item->mousePressed(e);
 }
 
 void ofxDatGui::mouseReleased(ofMouseEventArgs &e)
 {
-    
+    for (auto &item : items)
+        item->mouseReleased(e);
 }
 
 void ofxDatGui::mouseEntered(ofMouseEventArgs &e)
