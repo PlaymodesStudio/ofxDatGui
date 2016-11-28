@@ -100,6 +100,7 @@ class ofxDatGuiComponent : public ofxDatGuiInteractiveObject
     
         virtual void onMouseEnter(ofPoint m);
         virtual void onMousePress(ofPoint m);
+        virtual void onMouseOutsidePress();
         virtual void onMouseDrag(ofPoint m);
         virtual void onMouseLeave(ofPoint m);
         virtual void onMouseRelease(ofPoint m);

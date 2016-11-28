@@ -444,6 +444,10 @@ void ofxDatGuiComponent::onMousePress(ofPoint m)
 void ofxDatGuiComponent::onMouseRelease(ofPoint m)
 {
     mMouseDown = false;
+}
+
+void ofxDatGuiComponent::onMouseOutsidePress()
+{
     if(mFocused) onFocusLost();
 }
 
@@ -500,9 +504,11 @@ void ofxDatGuiComponent::keyReleased(ofKeyEventArgs &e)
 
 void ofxDatGuiComponent::mouseMoved(ofMouseEventArgs &e)
 {
-    if(this->hitTest(e) && !mMouseOver)
-        onMouseEnter(e);
-    else if(!this->hitTest(e) && mMouseOver)
+    if(this->hitTest(e)){
+       if(!mMouseOver)
+           onMouseEnter(e);
+    }
+    else if(mMouseOver)
         onMouseLeave(e);
 }
 
@@ -517,6 +523,8 @@ void ofxDatGuiComponent::mousePressed(ofMouseEventArgs &e)
 {
     if(mMouseOver)
         onMousePress(e);
+    else
+        onMouseOutsidePress();
 }
 
 void ofxDatGuiComponent::mouseReleased(ofMouseEventArgs &e)
