@@ -85,6 +85,7 @@ void ofxDatGui::init()
 
 void ofxDatGui::focus()
 {
+    //TODO: Register events. And unregister the rest of the gui events.
     if (mActiveGui!= this){
     // enable and make visible if hidden //
         mVisible = true;
@@ -206,6 +207,8 @@ void ofxDatGui::setAutoDraw(bool autodraw, int priority)
     mAutoDraw = autodraw;
     ofRemoveListener(ofEvents().draw, this, &ofxDatGui::draw, OF_EVENT_ORDER_AFTER_APP + mIndex);
     ofRemoveListener(ofEvents().update, this, &ofxDatGui::update, OF_EVENT_ORDER_BEFORE_APP - mIndex);
+    ofUnregisterMouseEvents(this);
+    ofUnregisterKeyEvents(this);
     if (mAutoDraw){
         mIndex = priority;
         ofAddListener(ofEvents().draw, this, &ofxDatGui::draw, OF_EVENT_ORDER_AFTER_APP + mIndex);

@@ -75,7 +75,7 @@ class ofxDatGuiButton : public ofxDatGuiComponent {
     
         void onMouseRelease(ofPoint m)
         {
-            ofxDatGuiComponent::onFocusLost();
+            //ofxDatGuiComponent::onFocusLost();
             ofxDatGuiComponent::onMouseRelease(m);
         // dispatch event out to main application //
             if (buttonEventCallback != nullptr) {
@@ -153,7 +153,7 @@ class ofxDatGuiToggle : public ofxDatGuiButton {
         void onMouseRelease(ofPoint m)
         {
             mChecked = !mChecked;
-            ofxDatGuiComponent::onFocusLost();
+            //ofxDatGuiComponent::onFocusLost();
             ofxDatGuiComponent::onMouseRelease(m);
         // dispatch event out to main application //
             if (toggleEventCallback == nullptr) {

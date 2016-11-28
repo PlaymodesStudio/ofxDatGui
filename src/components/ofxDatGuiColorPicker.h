@@ -96,6 +96,7 @@ class ofxDatGuiColorPicker : public ofxDatGuiTextInput {
     
         void draw()
         {
+            //TODO: Draw grey area when color picker is expanded
             if (!mVisible) return;
             ofPushStyle();
                 ofxDatGuiTextInput::draw();
