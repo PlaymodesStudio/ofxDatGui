@@ -48,6 +48,7 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
         void mouseScrolled(ofMouseEventArgs &e);
     
         void focus();
+        void focusLost();
         void expand();
         void toggle();
         void collapse();

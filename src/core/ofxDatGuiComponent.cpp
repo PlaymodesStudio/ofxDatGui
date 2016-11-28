@@ -445,6 +445,7 @@ void ofxDatGuiComponent::onFocusLost()
 {
     mFocused = false;
     mMouseDown = false;
+    mMouseOver = false;
     ofRemoveListener(ofEvents().keyPressed, this, &ofxDatGuiComponent::onKeyPressed);
 }
 

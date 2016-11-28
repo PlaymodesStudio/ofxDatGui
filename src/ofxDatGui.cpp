@@ -100,6 +100,16 @@ void ofxDatGui::focus()
         for (int i=0; i<mGuis.size(); i++) {
             if (mGuis[i]->getAutoDraw()) mGuis[i]->setAutoDraw(true, i);
         }
+        for (int i=0; i<mGuis.size(); i++) {
+            if(mGuis[i] != mActiveGui) mGuis[i]->focusLost();
+        }
+    }
+}
+
+void ofxDatGui::focusLost()
+{
+    for(auto &item : items){
+        item->setFocused(false);
     }
 }
 
@@ -956,7 +966,7 @@ void ofxDatGui::mouseMoved(ofMouseEventArgs &e)
         }
     }
     
-    if(mActiveGui){
+    if(this == mActiveGui){
         for (auto &item : items)
             item->mouseMoved(e);
 
@@ -965,15 +975,15 @@ void ofxDatGui::mouseMoved(ofMouseEventArgs &e)
 
 void ofxDatGui::mouseDragged(ofMouseEventArgs &e)
 {
-    if(mActiveGui){
-    for (auto &item : items)
-        item->mouseDragged(e);
-    
-    if (mGuiHeader != nullptr && mGuiHeader->getDraggable() && mGuiHeader->getFocused()){
-        // track that we're moving to force preserve focus //
-        mMoving = true;
-        moveGui(e - mGuiHeader->getDragOffset());
-    }
+    if(this == mActiveGui){
+        for (auto &item : items)
+            item->mouseDragged(e);
+        
+        if (mGuiHeader != nullptr && mGuiHeader->getDraggable() && mGuiHeader->getFocused()){
+            // track that we're moving to force preserve focus //
+            mMoving = true;
+            moveGui(e - mGuiHeader->getDragOffset());
+        }
     }
 }
 
@@ -994,10 +1004,10 @@ void ofxDatGui::mousePressed(ofMouseEventArgs &e)
 //        }
 //    }
     
-    if(mActiveGui){
-    for (auto &item : items)
-        item->mousePressed(e);
-    }
+    //if(this == mActiveGui){
+        for (auto &item : items)
+            item->mousePressed(e);
+    //}
     
 }
 
