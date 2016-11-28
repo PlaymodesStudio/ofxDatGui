@@ -141,30 +141,9 @@ class ofxDatGuiColorPicker : public ofxDatGuiTextInput {
         {
             if (mInput.hitTest(m)){
                 return true;
-            }   else if (mShowPicker && pickerRect.inside(m)){
-                unsigned char p[3];
-                int y = (ofGetMouseY()-ofGetHeight())*-1;
-                glReadPixels(ofGetMouseX(), y, 1, 1, GL_RGB, GL_UNSIGNED_BYTE, &p);
-                gColor.r = int(p[0]);
-                gColor.g = int(p[1]);
-                gColor.b = int(p[2]);
-                if (rainbow.rect.inside(m) && mMouseDown){
-                    gColors[2] = gColor;
-                    gColors[0] = ofColor(gColor.r/2, gColor.g/2, gColor.b/2);
-                    vbo.setColorData(&gColors[0], 6, GL_DYNAMIC_DRAW );
-                }   else if (gradientRect.inside(m) && mMouseDown){
-                    mColor = gColor;
-                // dispatch event out to main application //
-                    if (colorPickerEventCallback != nullptr) {
-                        ofxDatGuiColorPickerEvent e(this, mColor);
-                        colorPickerEventCallback(e);
-                    }   else{
-                        ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
-                    }
-                    setTextFieldInputColor();
-                }
+            }else if (mShowPicker && pickerRect.inside(m)){
                 return true;
-            }   else{
+            }else{
                 return false;
             }
         }
@@ -190,8 +169,39 @@ class ofxDatGuiColorPicker : public ofxDatGuiTextInput {
         void onMousePress(ofPoint mouse)
         {
             ofxDatGuiComponent::onMousePress(mouse);
-            if (mInput.hitTest(mouse)) mInput.onFocus();
+            if (mInput.hitTest(mouse)){
+                mInput.onFocus();
+                
+            }
+            
+            if (rainbow.rect.inside(mouse))
+            {
+                unsigned char p[3];
+                int y = (mouse.y-ofGetHeight())*-1;
+                glReadPixels(mouse.x, y, 1, 1, GL_RGB, GL_UNSIGNED_BYTE, &p);
+                gColor.r = int(p[0]);
+                gColor.g = int(p[1]);
+                gColor.b = int(p[2]);
+                gColors[2] = gColor;
+                gColors[0] = ofColor(gColor.r/2, gColor.g/2, gColor.b/2);
+                vbo.setColorData(&gColors[0], 6, GL_DYNAMIC_DRAW );
+            }
+            else if (gradientRect.inside(mouse))
+            {
+                mColor = gColor;
+                // dispatch event out to main application //
+                if (colorPickerEventCallback != nullptr) {
+                    ofxDatGuiColorPickerEvent e(this, mColor);
+                    colorPickerEventCallback(e);
+                }   else{
+                    ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
+                }
+                setTextFieldInputColor();
+            }
+            
+            
         }
+
     
         void onInputChanged(ofxDatGuiInternalEvent e)
         {
