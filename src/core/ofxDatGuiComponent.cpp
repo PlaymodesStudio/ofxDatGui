@@ -54,6 +54,17 @@ ofxDatGuiComponent::~ofxDatGuiComponent()
     instance getters & setters
 */
 
+void ofxDatGuiComponent::registerEvents(bool mouseAndKeyEvents, bool drawUpdateEvent)
+{
+    if(mouseAndKeyEvents){
+        ofRegisterKeyEvents(this);
+        ofRegisterMouseEvents(this);
+    }
+    if(drawUpdateEvent){
+        ofAddListener(ofEvents().draw, this, &ofxDatGuiComponent::draw, OF_EVENT_ORDER_AFTER_APP + mIndex);
+        ofAddListener(ofEvents().update, this, &ofxDatGuiComponent::update, OF_EVENT_ORDER_AFTER_APP + mIndex);
+    }
+}
 
 void ofxDatGuiComponent::setIndex(int index)
 {
@@ -330,46 +341,19 @@ void ofxDatGuiComponent::setBorderVisible(bool visible)
     draw methods
 */
 
-void ofxDatGuiComponent::update(bool acceptEvents)
+void ofxDatGuiComponent::update(ofEventArgs &e)
 {
-//    if (acceptEvents && mEnabled && mVisible){
-//        bool mp = ofGetMousePressed();
-//        ofPoint mouse = ofPoint(ofGetMouseX() - mMask.x, ofGetMouseY() - mMask.y);
-//        if (hitTest(mouse)){
-//            if (!mMouseOver){
-//                onMouseEnter(mouse);
-//            }
-//            if (!mMouseDown && mp){
-//                onMousePress(mouse);
-//                if (!mFocused) onFocus();
-//            }
-//        }   else{
-//    // the mouse is not over the component //
-//            if (mMouseOver){
-//                onMouseLeave(mouse);
-//            }
-//            if (!mMouseDown && mp && mFocused){
-//                onFocusLost();
-//            }
-//        }
-//        if (mMouseDown) {
-//            if (mp){
-//                onMouseDrag(mouse);
-//            }   else{
-//                onMouseRelease(mouse);
-//            }
-//        }
-//    }
-// don't update children unless they're visible //
-    if (this->getIsExpanded()) {
-        for(int i=0; i<children.size(); i++) {
-            children[i]->update(acceptEvents);
-            if (children[i]->getFocused()){
-                if (acceptEvents == false ) children[i]->setFocused(false);
-                acceptEvents = false;
-            }
-        }
-    }
+    update();
+}
+
+void ofxDatGuiComponent::update()
+{
+
+}
+
+void ofxDatGuiComponent::draw(ofEventArgs &e)
+{
+    draw();
 }
 
 void ofxDatGuiComponent::draw()
@@ -510,6 +494,10 @@ void ofxDatGuiComponent::mouseMoved(ofMouseEventArgs &e)
     }
     else if(mMouseOver)
         onMouseLeave(e);
+    
+    if (this->getIsExpanded())
+        for(int i=0; i<children.size(); i++)
+            children[i]->mouseMoved(e);
 }
 
 void ofxDatGuiComponent::mouseDragged(ofMouseEventArgs &e)
@@ -517,6 +505,10 @@ void ofxDatGuiComponent::mouseDragged(ofMouseEventArgs &e)
     if(mMouseDown){
         onMouseDrag(e);
     }
+    
+    if (this->getIsExpanded())
+        for(int i=0; i<children.size(); i++)
+            children[i]->mouseDragged(e);
 }
 
 void ofxDatGuiComponent::mousePressed(ofMouseEventArgs &e)
@@ -525,12 +517,20 @@ void ofxDatGuiComponent::mousePressed(ofMouseEventArgs &e)
         onMousePress(e);
     else
         onMouseOutsidePress();
+    
+    if (this->getIsExpanded())
+        for(int i=0; i<children.size(); i++)
+            children[i]->mousePressed(e);
 }
 
 void ofxDatGuiComponent::mouseReleased(ofMouseEventArgs &e)
 {
     if(mMouseDown)
         onMouseRelease(e);
+    
+    if (this->getIsExpanded())
+        for(int i=0; i<children.size(); i++)
+            children[i]->mouseReleased(e);
 }
 
 void ofxDatGuiComponent::mouseEntered(ofMouseEventArgs &e)

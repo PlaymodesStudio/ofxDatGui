@@ -152,9 +152,18 @@ class ofxDatGuiColorPicker : public ofxDatGuiTextInput {
     
     protected:
     
+        int getHeight()
+        {
+            return mInput.getHeight() + (mShowPicker ? pickerRect.height : 0);
+        }
+    
         void onMouseEnter(ofPoint mouse)
         {
             mShowPicker = true;
+            if (internalEventCallback != nullptr){
+                ofxDatGuiInternalEvent e(ofxDatGuiEventType::DROPDOWN_TOGGLED, mIndex);
+                internalEventCallback(e);
+            }
             ofxDatGuiComponent::onFocus();
             ofxDatGuiComponent::onMouseEnter(mouse);
         }
@@ -162,6 +171,10 @@ class ofxDatGuiColorPicker : public ofxDatGuiTextInput {
         void onMouseLeave(ofPoint mouse)
         {
             mShowPicker = false;
+            if (internalEventCallback != nullptr){
+                ofxDatGuiInternalEvent e(ofxDatGuiEventType::DROPDOWN_TOGGLED, mIndex);
+                internalEventCallback(e);
+            }
             ofxDatGuiTextInput::onMouseLeave(mouse);
             if (!mInput.hasFocus()) ofxDatGuiComponent::onFocusLost();
         }
@@ -196,6 +209,34 @@ class ofxDatGuiColorPicker : public ofxDatGuiTextInput {
                 }
             }
             if (mInput.hitTest(mouse)) mInput.onFocus();
+        }
+    
+        void onMouseDrag(ofPoint mouse)
+        {
+            unsigned char p[3];
+            int y = (mouse.y-ofGetHeight())*-1;
+            glReadPixels(mouse.x, y, 1, 1, GL_RGB, GL_UNSIGNED_BYTE, &p);
+            gColor.r = int(p[0]);
+            gColor.g = int(p[1]);
+            gColor.b = int(p[2]);
+            if (rainbow.rect.inside(mouse))
+            {
+                gColors[2] = gColor;
+                gColors[0] = ofColor(gColor.r/2, gColor.g/2, gColor.b/2);
+                vbo.setColorData(&gColors[0], 6, GL_DYNAMIC_DRAW );
+            }
+            else if (gradientRect.inside(mouse))
+            {
+                mColor = gColor;
+                // dispatch event out to main application //
+                if (colorPickerEventCallback != nullptr) {
+                    ofxDatGuiColorPickerEvent e(this, mColor);
+                    colorPickerEventCallback(e);
+                }   else{
+                    ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
+                }
+                setTextFieldInputColor();
+            }
         }
 
     

@@ -87,6 +87,8 @@ void ofApp::setup()
     components.push_back(dropdown);
     
 //  for(int i=0; i<components.size(); i++) components[i]->setOpacity(.25);
+    for(int i=0; i<components.size(); i++) components[i]->registerEvents();
+
 }
 
 void ofApp::update()
@@ -95,12 +97,11 @@ void ofApp::update()
 //    plotter->setValue(ofRandom(plotter->getMin()*.5, plotter->getMax()*.5));
     float v = ofRandom(plotter->getMin(), plotter->getMax());
     plotter->setValue(v);
-    for(int i=0; i<components.size(); i++) components[i]->update();
 }
 
 void ofApp::draw()
 {
-    for(int i=0; i<components.size(); i++) components[i]->draw();
+    
 }
 
 /*

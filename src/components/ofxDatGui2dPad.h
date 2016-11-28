@@ -131,13 +131,13 @@ class ofxDatGui2dPad : public ofxDatGuiComponent {
             mWorld.y = mBounds.y + (mBounds.height * mPercentY);
         }
     
-        void onMouseDrag(ofPoint m)
+        void movePad(ofPoint m)
         {
             if (mPad.inside(m)){
                 mPercentX = (m.x-mPad.x) / mPad.width;
                 mPercentY = (m.y-mPad.y) / mPad.height;
                 setWorldCoordinates();
-            // dispatch event out to main application //
+                // dispatch event out to main application //
                 if (pad2dEventCallback != nullptr) {
                     ofxDatGui2dPadEvent e(this, mWorld.x, mWorld.y);
                     pad2dEventCallback(e);
@@ -145,6 +145,17 @@ class ofxDatGui2dPad : public ofxDatGuiComponent {
                     ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
                 }
             }
+        }
+
+        void onMousePress(ofPoint m)
+        {
+            ofxDatGuiComponent::onMousePress(m);
+            movePad(m);
+        }
+    
+        void onMouseDrag(ofPoint m)
+        {
+            movePad(m);
         }
     
         void onWindowResized(ofResizeEventArgs &e)

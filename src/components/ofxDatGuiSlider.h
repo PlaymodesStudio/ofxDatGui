@@ -190,9 +190,9 @@ class ofxDatGuiSlider : public ofxDatGuiComponent {
             mBoundi = nullptr;
         }
     
-        void update(bool acceptEvents = true)
+        void update()
         {
-            ofxDatGuiComponent::update(acceptEvents);
+            ofxDatGuiComponent::update();
         // check for variable bindings //
             if (mBoundf != nullptr && !mInput->hasFocus()) {
                 setValue(*mBoundf);
@@ -236,30 +236,37 @@ class ofxDatGuiSlider : public ofxDatGuiComponent {
     
     protected:
     
+        void moveSlider(ofPoint m)
+        {
+        if (mFocused && mInput->hasFocus() == false){
+            float s = (m.x-x-mLabel.width)/mSliderWidth;
+            if (s > .999) s = 1;
+            if (s < .001) s = 0;
+            // don't dispatch an event if scale hasn't changed //
+            if (s == mScale) return;
+            mScale = s;
+            mValue = ((mMax-mMin) * mScale) + mMin;
+            if (mTruncateValue) mValue = round(mValue, mPrecision);
+            setTextInput();
+            dispatchSliderChangedEvent();
+        }
+        }
+    
         void onMousePress(ofPoint m)
         {
             ofxDatGuiComponent::onMousePress(m);
             if (mInput->hitTest(m)){
                 mInput->onFocus();
-            }   else if (mInput->hasFocus()){
-                mInput->onFocusLost();
+            }else{
+                if(mInput->hasFocus())
+                    mInput->onFocusLost();
+                moveSlider(m);
             }
         }
     
         void onMouseDrag(ofPoint m)
         {
-            if (mFocused && mInput->hasFocus() == false){
-                float s = (m.x-x-mLabel.width)/mSliderWidth;
-                if (s > .999) s = 1;
-                if (s < .001) s = 0;
-        // don't dispatch an event if scale hasn't changed //
-                if (s == mScale) return;
-                mScale = s;
-                mValue = ((mMax-mMin) * mScale) + mMin;
-                if (mTruncateValue) mValue = round(mValue, mPrecision);
-                setTextInput();
-                dispatchSliderChangedEvent();
-            }
+            moveSlider(m);
         }
     
         void onMouseRelease(ofPoint m)

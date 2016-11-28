@@ -220,7 +220,7 @@ class ofxDatGuiWaveMonitor : public ofxDatGuiTimeGraph {
             }
         }
     
-        void update(bool ignoreMouseEvents)
+        void update()
         {
             pts[0].y = pts[pts.size()-1].y;
             for (int i=mPlotterRect.width-1; i>0; i--) pts[i].y = pts[i-1].y;
@@ -290,7 +290,7 @@ class ofxDatGuiValuePlotter : public ofxDatGuiTimeGraph {
             return mMax-mMin;
         }
     
-        void update(bool ignoreMouseEvents)
+        void update()
         {
         // shift all points over before adding new value //
             for (int i=0; i<pts.size(); i++) pts[i].x -= mSpeed;

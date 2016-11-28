@@ -852,44 +852,44 @@ void ofxDatGui::update(ofEventArgs &e)
     mThemeChanged = false;
     mAlignmentChanged = false;
     
-    // check for gui focus change //
-    if (ofGetMousePressed() && mActiveGui->mMoving == false){
-        ofPoint mouse = ofPoint(ofGetMouseX(), ofGetMouseY());
-        for (int i=mGuis.size()-1; i>-1; i--){
-        // ignore guis that are invisible //
-            if (mGuis[i]->getVisible() && mGuis[i]->hitTest(mouse)){
-                if (mGuis[i] != mActiveGui) mGuis[i]->focus();
-                break;
-            }
-        }
-    }
+//     check for gui focus change //
+//    if (ofGetMousePressed() && mActiveGui->mMoving == false){
+//        ofPoint mouse = ofPoint(ofGetMouseX(), ofGetMouseY());
+//        for (int i=mGuis.size()-1; i>-1; i--){
+//        // ignore guis that are invisible //
+//            if (mGuis[i]->getVisible() && mGuis[i]->hitTest(mouse)){
+//                if (mGuis[i] != mActiveGui) mGuis[i]->focus();
+//                break;
+//            }
+//        }
+//    }
 
-    if (!getFocused() || !mEnabled){
+    //if (!getFocused() || !mEnabled){
     // update children but ignore mouse & keyboard events //
-        for (int i=0; i<items.size(); i++) items[i]->update(false);
-    }   else {
+        for (int i=0; i<items.size(); i++) items[i]->update();
+    //}
+    
+    if(getFocused() || mEnabled) {
         mMoving = false;
-        mMouseDown = false;
-    // this gui has focus so let's see if any of its components were interacted with //
+        // this gui has focus so let's see if any of its components were interacted with //
         if (mExpanded == false){
             mGuiFooter->update();
-            mMouseDown = mGuiFooter->getMouseDown();
         }   else{
             bool hitComponent = false;
             for (int i=0; i<items.size(); i++) {
                 if (hitComponent == false){
-                    items[i]->update(true);
+                    items[i]->update();
                     if (items[i]->getFocused()) {
                         hitComponent = true;
                         mMouseDown = items[i]->getMouseDown();
-                        if (mGuiHeader != nullptr && mGuiHeader->getDraggable() && mGuiHeader->getFocused()){
-                    // track that we're moving to force preserve focus //
-                            mMoving = true;
-                            ofPoint mouse = ofPoint(ofGetMouseX(), ofGetMouseY());
-                            moveGui(mouse - mGuiHeader->getDragOffset());
-                        }
+//                        if (mGuiHeader != nullptr && mGuiHeader->getDraggable() && mGuiHeader->getFocused()){
+//                            // track that we're moving to force preserve focus //
+//                            mMoving = true;
+//                            ofPoint mouse = ofPoint(ofGetMouseX(), ofGetMouseY());
+//                            moveGui(mouse - mGuiHeader->getDragOffset());
+//                        }
                     }   else if (items[i]->getIsExpanded()){
-                    // check if one of its children has focus //
+                        // check if one of its children has focus //
                         for (int j=0; j<items[i]->children.size(); j++) {
                             if (items[i]->children[j]->getFocused()){
                                 hitComponent = true;
@@ -899,8 +899,8 @@ void ofxDatGui::update(ofEventArgs &e)
                         }
                     }
                 }   else{
-            // update component but ignore mouse & keyboard events //
-                    items[i]->update(false);
+                    // update component but ignore mouse & keyboard events //
+                    items[i]->update();
                     if (items[i]->getFocused()) items[i]->setFocused(false);
                 }
             }
@@ -946,28 +946,68 @@ void ofxDatGui::keyReleased(ofKeyEventArgs &e)
 
 void ofxDatGui::mouseMoved(ofMouseEventArgs &e)
 {
-    //TODO: in ofxDatGuiComponent there is a correction with a mask. check that
-    //ofPoint mouse = ofPoint(ofGetMouseX() - mMask.x, ofGetMouseY() - mMask.y);
-    for (auto &item : items)
-        item->mouseMoved(e);
+    if (mActiveGui->mMoving == false){
+        for (int i=mGuis.size()-1; i>-1; i--){
+            // ignore guis that are invisible //
+            if (mGuis[i]->getVisible() && mGuis[i]->hitTest(e)){
+                if (mGuis[i] != mActiveGui) mGuis[i]->focus();
+                break;
+            }
+        }
+    }
+    
+    if(mActiveGui){
+        for (auto &item : items)
+            item->mouseMoved(e);
+
+    }
 }
 
 void ofxDatGui::mouseDragged(ofMouseEventArgs &e)
 {
+    if(mActiveGui){
     for (auto &item : items)
         item->mouseDragged(e);
+    
+    if (mGuiHeader != nullptr && mGuiHeader->getDraggable() && mGuiHeader->getFocused()){
+        // track that we're moving to force preserve focus //
+        mMoving = true;
+        moveGui(e - mGuiHeader->getDragOffset());
+    }
+    }
 }
 
 void ofxDatGui::mousePressed(ofMouseEventArgs &e)
 {
+//    if(hitTest(e)){
+//        mMouseDown = true;
+//        focus();
+//    }
+
+//    if (mActiveGui->mMoving == false){
+//        for (int i=mGuis.size()-1; i>-1; i--){
+//            // ignore guis that are invisible //
+//            if (mGuis[i]->getVisible() && mGuis[i]->hitTest(e)){
+//                if (mGuis[i] != mActiveGui) mGuis[i]->focus();
+//                break;
+//            }
+//        }
+//    }
+    
+    if(mActiveGui){
     for (auto &item : items)
         item->mousePressed(e);
+    }
+    
 }
 
 void ofxDatGui::mouseReleased(ofMouseEventArgs &e)
 {
+    mMouseDown = false;
+
     for (auto &item : items)
         item->mouseReleased(e);
+    
 }
 
 void ofxDatGui::mouseEntered(ofMouseEventArgs &e)

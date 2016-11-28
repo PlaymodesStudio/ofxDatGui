@@ -30,6 +30,7 @@ class ofxDatGuiComponent : public ofxDatGuiInteractiveObject
         ofxDatGuiComponent(string label);
         virtual ~ofxDatGuiComponent();
     
+        void    registerEvents(bool mouseAndKeyEvents = true, bool drawEvent = true);
         int     getX();
         int     getY();
         void    setIndex(int index);
@@ -68,9 +69,11 @@ class ofxDatGuiComponent : public ofxDatGuiInteractiveObject
         ofxDatGuiType getType();
     
         vector<ofxDatGuiComponent*> children;
-    
+
+    void draw(ofEventArgs &e);
         virtual void draw();
-        virtual void update(bool acceptEvents = true);
+    void update(ofEventArgs &e);
+        virtual void update();
         virtual bool hitTest(ofPoint m);
 
         virtual void setPosition(int x, int y);
