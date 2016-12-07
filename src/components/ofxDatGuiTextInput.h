@@ -30,7 +30,7 @@ class ofxDatGuiTextInput : public ofxDatGuiComponent {
     
         ofxDatGuiTextInput(string label, string text = "") : ofxDatGuiComponent(label)
         {
-            mInput.setText(text);
+            mInput.setInitialText(text);
             mInput.onInternalEvent(this, &ofxDatGuiTextInput::onInputChanged);
             mType = ofxDatGuiType::TEXT_INPUT;
             setTheme(ofxDatGuiComponent::theme.get());
@@ -67,6 +67,12 @@ class ofxDatGuiTextInput : public ofxDatGuiComponent {
         {
             string s = mInput.getText();
             return mInput.setText(text);
+        }
+    
+        void setTextWithoutEvent(string text)
+        {
+            string s = mInput.getText();
+            return mInput.setInitialText(text);
         }
     
         void setInputType(ofxDatGuiInputType type)

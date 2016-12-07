@@ -36,7 +36,8 @@ class ofxDatGuiColorPicker : public ofxDatGuiTextInput {
             
         // center the text input field //
             mInput.setTextInputFieldType(ofxDatGuiInputType::COLORPICKER);
-            setTextFieldInputColor();
+//            setTextFieldInputColor();
+            setInitialTextFieldInputColor();
             
         // setup the vbo that draws the main gradient //
             gPoints.push_back(ofVec2f(0, 0));
@@ -271,6 +272,18 @@ class ofxDatGuiColorPicker : public ofxDatGuiTextInput {
             mInput.setBackgroundColor(mColor);
             mInput.setTextInactiveColor(mColor.getBrightness() < BRIGHTNESS_THRESHOLD ? ofColor::white : ofColor::black);
         }
+    
+    inline void setInitialTextFieldInputColor()
+    {
+        // convert color value to a six character hex string //
+        std::stringstream ss;
+        ss<< std::hex << mColor.getHex();
+        std::string res ( ss.str() );
+        while(res.size() < 6) res+="0";
+        mInput.setInitialText(ofToUpper(res));
+        mInput.setBackgroundColor(mColor);
+        mInput.setTextInactiveColor(mColor.getBrightness() < BRIGHTNESS_THRESHOLD ? ofColor::white : ofColor::black);
+    }
     
     private:
 

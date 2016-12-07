@@ -125,6 +125,14 @@ class ofxDatGuiTextInputField : public ofxDatGuiInteractiveObject{
             mTextRect = mFont->rect(mType == ofxDatGuiInputType::COLORPICKER ? "#" + mRendered : mRendered);
         }
     
+        void setInitialText(string text) //New function so focus lost is not sending events when initial text is added
+        {
+            mText = text;
+            mTextChanged = false;
+            mRendered = mUpperCaseText ? ofToUpper(mText) : mText;
+            mTextRect = mFont->rect(mType == ofxDatGuiInputType::COLORPICKER ? "#" + mRendered : mRendered);
+        }
+    
         string getText()
         {
             return mText;
