@@ -101,9 +101,9 @@ void ofxDatGui::focus()
         for (int i=0; i<mGuis.size(); i++) {
             if (mGuis[i]->getAutoDraw()) mGuis[i]->setAutoDraw(true, i);
         }
-        for (int i=0; i<mGuis.size(); i++) {
-            if(mGuis[i] != mActiveGui) mGuis[i]->focusLost();
-        }
+//        for (int i=0; i<mGuis.size(); i++) {
+//            if(mGuis[i] != mActiveGui) mGuis[i]->focusLost();
+//        }
     }
 }
 
@@ -891,7 +891,7 @@ void ofxDatGui::update(ofEventArgs &e)
             bool hitComponent = false;
             for (int i=0; i<items.size(); i++) {
                 if (hitComponent == false){
-                    items[i]->update();
+                    //items[i]->update();
                     if (items[i]->getFocused()) {
                         hitComponent = true;
                         mMouseDown = items[i]->getMouseDown();
@@ -913,7 +913,7 @@ void ofxDatGui::update(ofEventArgs &e)
                     }
                 }   else{
                     // update component but ignore mouse & keyboard events //
-                    items[i]->update();
+                    //items[i]->update();
                     if (items[i]->getFocused()) items[i]->setFocused(false);
                 }
             }
@@ -959,20 +959,26 @@ void ofxDatGui::keyReleased(ofKeyEventArgs &e)
 
 void ofxDatGui::mouseMoved(ofMouseEventArgs &e)
 {
-    if (mActiveGui->mMoving == false){
-        for (int i=mGuis.size()-1; i>-1; i--){
-            // ignore guis that are invisible //
-            if (mGuis[i]->getVisible() && mGuis[i]->hitTest(e)){
-                if (mGuis[i] != mActiveGui) mGuis[i]->focus();
-                break;
-            }
+//    if (mActiveGui->mMoving == false){
+//        for (int i=mGuis.size()-1; i>-1; i--){
+//            // ignore guis that are invisible //
+//            if (mGuis[i]->getVisible() && mGuis[i]->hitTest(e)){
+//                if (mGuis[i] != mActiveGui) mGuis[i]->focus();
+//            }else if(mGuis[i]->hitTest(e))
+//                if (mGuis[i] == mActiveGui) mGuis[i]->focusLost();
+//        }
+//    }
+    
+    if(!mMoving){
+        if(hitTest(e) && !getFocused() && !mActiveGui->hitTest(e)){
+            mActiveGui->focusLost();
+            focus();
         }
     }
-    
+
     if(this == mActiveGui){
         for (auto &item : items)
             item->mouseMoved(e);
-
     }
 }
 
