@@ -214,7 +214,7 @@ void ofxDatGui::setAutoDraw(bool autodraw, int priority)
         ofAddListener(ofEvents().draw, this, &ofxDatGui::draw, OF_EVENT_ORDER_AFTER_APP + mIndex);
         ofAddListener(ofEvents().update, this, &ofxDatGui::update, OF_EVENT_ORDER_BEFORE_APP - mIndex);
         ofRegisterKeyEvents(this);
-        ofRegisterMouseEvents(this);
+        ofRegisterMouseEvents(this, OF_EVENT_ORDER_BEFORE_APP);
     }
 }
 
@@ -429,6 +429,7 @@ ofxDatGuiFolder* ofxDatGui::addFolder(string label, ofColor color)
     folder->onMatrixEvent(this, &ofxDatGui::onMatrixEventCallback);
     folder->onTextInputEvent(this, &ofxDatGui::onTextInputEventCallback);
     folder->onColorPickerEvent(this, &ofxDatGui::onColorPickerEventCallback);
+    folder->onRightClickEvent(this, &ofxDatGui::onRightClickEventCallback);
     folder->onInternalEvent(this, &ofxDatGui::onInternalEventCallback);
     attachItem(folder);
     return folder;
@@ -448,6 +449,7 @@ void ofxDatGui::attachItem(ofxDatGuiComponent* item)
         items.push_back( item );
     }
     item->onInternalEvent(this, &ofxDatGui::onInternalEventCallback);
+    item->onRightClickEvent(this, &ofxDatGui::onRightClickEventCallback);
     layoutGui();
 }
 
@@ -767,6 +769,15 @@ void ofxDatGui::onMatrixEventCallback(ofxDatGuiMatrixEvent e)
     }
 }
 
+void ofxDatGui::onRightClickEventCallback(ofxDatGuiRightClickEvent e)
+{
+    if (rightClickEventCallback != nullptr) {
+        rightClickEventCallback(e);
+    }   else{
+        ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
+    }
+}
+
 void ofxDatGui::onInternalEventCallback(ofxDatGuiInternalEvent e)
 {
 // these events are not dispatched out to the main application //
@@ -984,15 +995,20 @@ void ofxDatGui::mouseMoved(ofMouseEventArgs &e)
 
 void ofxDatGui::mouseDragged(ofMouseEventArgs &e)
 {
-    if(this == mActiveGui){
-        for (auto &item : items)
-            item->mouseDragged(e);
-        
-        if (mGuiHeader != nullptr && mGuiHeader->getDraggable() && mGuiHeader->getFocused()){
-            // track that we're moving to force preserve focus //
-            mMoving = true;
-            moveGui(e - mGuiHeader->getDragOffset());
+    if(e.button == 0){
+        if(this == mActiveGui){
+            for (auto &item : items)
+                item->mouseDragged(e);
+            
+            if (mGuiHeader != nullptr && mGuiHeader->getDraggable() && mGuiHeader->getFocused()){
+                // track that we're moving to force preserve focus //
+                mMoving = true;
+                moveGui(e - mGuiHeader->getDragOffset());
+            }
         }
+    }
+    else if(e.button == 2){
+        mouseMoved(e);
     }
 }
 

@@ -58,7 +58,7 @@ void ofxDatGuiComponent::registerEvents(bool mouseAndKeyEvents, bool drawUpdateE
 {
     if(mouseAndKeyEvents){
         ofRegisterKeyEvents(this);
-        ofRegisterMouseEvents(this);
+        ofRegisterMouseEvents(this, OF_EVENT_ORDER_BEFORE_APP);
     }
     if(drawUpdateEvent){
         ofAddListener(ofEvents().draw, this, &ofxDatGuiComponent::draw, OF_EVENT_ORDER_AFTER_APP + mIndex);
@@ -514,9 +514,20 @@ void ofxDatGuiComponent::mouseDragged(ofMouseEventArgs &e)
 
 void ofxDatGuiComponent::mousePressed(ofMouseEventArgs &e)
 {
-    if(mMouseOver)
-        onMousePress(e);
-    else
+    if(mMouseOver){
+        if(e.button == 0)
+            onMousePress(e);
+        else if(e.button == 2){
+            if (rightClickEventCallback != nullptr) {
+                ofxDatGuiRightClickEvent ev(this, 1);
+                rightClickEventCallback(ev);
+            }   else{
+                ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
+            }
+        }
+    }
+        
+    else if(e.button == 0)
         onMouseOutsidePress();
     
     if (this->getIsExpanded())
@@ -526,8 +537,19 @@ void ofxDatGuiComponent::mousePressed(ofMouseEventArgs &e)
 
 void ofxDatGuiComponent::mouseReleased(ofMouseEventArgs &e)
 {
-    if(mMouseDown)
-        onMouseRelease(e);
+    if(e.button == 0){
+        if(mMouseDown)
+            onMouseRelease(e);
+    }else if(e.button == 2){
+        if(mMouseOver){
+            if (rightClickEventCallback != nullptr) {
+                ofxDatGuiRightClickEvent ev(this, 0);
+                rightClickEventCallback(ev);
+            }   else{
+                ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
+            }
+        }
+    }
     
     if (this->getIsExpanded())
         for(int i=0; i<children.size(); i++)

@@ -31,6 +31,7 @@ class ofxDatGui2dPad;
 class ofxDatGuiColorPicker;
 class ofxDatGuiMatrix;
 class ofxDatGuiScrollView;
+class ofxDatGuiComponent;
 
 enum ofxDatGuiEventType
 {
@@ -43,7 +44,8 @@ enum ofxDatGuiEventType
     OPTION_SELECTED,
     DROPDOWN_TOGGLED,
     VISIBILITY_CHANGED,
-    MATRIX_BUTTON_TOGGLED
+    MATRIX_BUTTON_TOGGLED,
+    RIGHT_CLICKED
 };
 
 class ofxDatGuiInternalEvent{
@@ -171,6 +173,17 @@ class ofxDatGuiMatrixEvent{
     int child;
     bool enabled;
     ofxDatGuiMatrix* target;
+};
+
+class ofxDatGuiRightClickEvent{
+public:
+    ofxDatGuiRightClickEvent(ofxDatGuiComponent* t, bool c)
+    {
+        down = c;
+        target = t;
+    }
+    bool down;
+    ofxDatGuiComponent* target;
 };
 
 
