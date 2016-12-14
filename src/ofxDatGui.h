@@ -110,6 +110,8 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
         ofxDatGuiValuePlotter* getValuePlotter(string label, string folder = "");
         ofxDatGuiFolder* getFolder(string label);
         ofxDatGuiDropdown* getDropdown(string label);
+        ofxDatGuiComponent* getComponent(string key);
+        ofxDatGuiComponent* getComponent(ofxDatGuiType type, string label);
     
         bool hitTest(ofPoint pt);
     
@@ -154,8 +156,7 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
         void attachItem(ofxDatGuiComponent* item);
     
     
-        ofxDatGuiComponent* getComponent(string key);
-        ofxDatGuiComponent* getComponent(ofxDatGuiType type, string label);
+    
         void onInternalEventCallback(ofxDatGuiInternalEvent e);
         void onButtonEventCallback(ofxDatGuiButtonEvent e);
         void onToggleEventCallback(ofxDatGuiToggleEvent e);
