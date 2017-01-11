@@ -1043,6 +1043,8 @@ void ofxDatGui::mouseReleased(ofMouseEventArgs &e)
     for (auto &item : items)
         item->mouseReleased(e);
     
+    mouseMoved(e);
+    
 }
 
 void ofxDatGui::mouseEntered(ofMouseEventArgs &e)
