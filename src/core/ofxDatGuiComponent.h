@@ -31,6 +31,8 @@ class ofxDatGuiComponent : public ofxDatGuiInteractiveObject
         virtual ~ofxDatGuiComponent();
     
         void    registerEvents(bool mouseAndKeyEvents = true, bool drawEvent = true);
+        void    unregisterEvents(bool mouseAndKeyEvents = true, bool drawEvent = true);
+
         int     getX();
         int     getY();
         void    setIndex(int index);

@@ -66,6 +66,19 @@ void ofxDatGuiComponent::registerEvents(bool mouseAndKeyEvents, bool drawUpdateE
     }
 }
 
+void ofxDatGuiComponent::unregisterEvents(bool mouseAndKeyEvents, bool drawUpdateEvent)
+{
+    if(mouseAndKeyEvents){
+        ofUnregisterKeyEvents(this);
+        ofUnregisterMouseEvents(this, OF_EVENT_ORDER_BEFORE_APP);
+    }
+    if(drawUpdateEvent){
+        ofRemoveListener(ofEvents().draw, this, &ofxDatGuiComponent::draw, OF_EVENT_ORDER_AFTER_APP + mIndex);
+        ofRemoveListener(ofEvents().update, this, &ofxDatGuiComponent::update, OF_EVENT_ORDER_AFTER_APP + mIndex);
+    }
+
+}
+
 void ofxDatGuiComponent::setIndex(int index)
 {
     mIndex = index;

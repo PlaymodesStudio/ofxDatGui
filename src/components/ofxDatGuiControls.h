@@ -96,11 +96,10 @@ class ofxDatGuiFooter : public ofxDatGuiButton {
 
     public:
     
-        ofxDatGuiFooter() : ofxDatGuiButton("collapse controls")
+        ofxDatGuiFooter(string title = "expand controls") : ofxDatGuiButton("-----"), mLabelCollapsed(title)
         {
             mGuiExpanded = true;
-            mLabelCollapsed = "expand controls";
-            mLabelExpanded = "collapse controls";
+            mLabelExpanded = "-----";
             setTheme(ofxDatGuiComponent::theme.get());
         }
     

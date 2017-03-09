@@ -120,6 +120,8 @@ void ofxDatGui::expand()
         mExpanded = true;
         mGuiFooter->setExpanded(mExpanded);
         mGuiFooter->setPosition(mPosition.x, mPosition.y + mHeight - mGuiFooter->getHeight() - mRowSpacing);
+        ofRegisterMouseEvents(this, OF_EVENT_ORDER_BEFORE_APP);
+        mGuiFooter->unregisterEvents(true, false);
     }
 }
 
@@ -129,6 +131,8 @@ void ofxDatGui::collapse()
         mExpanded = false;
         mGuiFooter->setExpanded(mExpanded);
         mGuiFooter->setPosition(mPosition.x, mPosition.y);
+        ofUnregisterMouseEvents(this, OF_EVENT_ORDER_BEFORE_APP);
+        mGuiFooter->registerEvents(true, false);
     }
 }
 
@@ -195,6 +199,10 @@ void ofxDatGui::setPosition(ofxDatGuiAnchor anchor)
 void ofxDatGui::setVisible(bool visible)
 {
     mVisible = visible;
+    if(mVisible)
+        ofRegisterMouseEvents(this);
+    else
+        ofUnregisterMouseEvents(this);
 }
 
 void ofxDatGui::setEnabled(bool enabled)
@@ -281,7 +289,7 @@ ofxDatGuiHeader* ofxDatGui::addHeader(string label, bool draggable)
 ofxDatGuiFooter* ofxDatGui::addFooter()
 {
     if (mGuiFooter == nullptr){
-        mGuiFooter = new ofxDatGuiFooter();
+        mGuiFooter = new ofxDatGuiFooter(mGuiHeader->getName());
         items.push_back(mGuiFooter);
         mGuiFooter->onInternalEvent(this, &ofxDatGui::onInternalEventCallback);
         layoutGui();
