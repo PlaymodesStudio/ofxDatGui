@@ -946,6 +946,8 @@ void ofxDatGui::update(ofEventArgs &e)
 void ofxDatGui::draw(ofEventArgs &e)
 {
     if (mVisible == false) return;
+    ofPushMatrix();
+    ofMultMatrix(transformMatrix);
     ofPushStyle();
         ofFill();
         ofSetColor(mGuiBackground, mAlpha * 255);
@@ -959,6 +961,7 @@ void ofxDatGui::draw(ofEventArgs &e)
             for (int i=0; i<items.size(); i++) items[i]->drawColorPicker();
         }
     ofPopStyle();
+    ofPopMatrix();
 }
 
 void ofxDatGui::onWindowResized(ofResizeEventArgs &e)
@@ -978,23 +981,23 @@ void ofxDatGui::keyReleased(ofKeyEventArgs &e)
 
 void ofxDatGui::mouseMoved(ofMouseEventArgs &e)
 {
-//    if (mActiveGui->mMoving == false){
-//        for (int i=mGuis.size()-1; i>-1; i--){
-//            // ignore guis that are invisible //
-//            if (mGuis[i]->getVisible() && mGuis[i]->hitTest(e)){
-//                if (mGuis[i] != mActiveGui) mGuis[i]->focus();
-//            }else if(mGuis[i]->hitTest(e))
-//                if (mGuis[i] == mActiveGui) mGuis[i]->focusLost();
-//        }
-//    }
-    
+    ofVec4f tempVec = e;
+    tempVec -= transformMatrix.getTranslation();
+    tempVec = transformMatrix.getInverse().postMult(tempVec);
+    ofMouseEventArgs modified_e = e;
+    modified_e.set(tempVec.x, tempVec.y);
+
+    mouseMovedTransformed(modified_e);
+}
+
+void ofxDatGui::mouseMovedTransformed(ofMouseEventArgs &e){
     if(!mMoving){
         if(hitTest(e) && !getFocused() && !mActiveGui->hitTest(e)){
             mActiveGui->focusLost();
             focus();
         }
     }
-
+    
     if(this == mActiveGui){
         for (auto &item : items)
             item->mouseMoved(e);
@@ -1003,25 +1006,37 @@ void ofxDatGui::mouseMoved(ofMouseEventArgs &e)
 
 void ofxDatGui::mouseDragged(ofMouseEventArgs &e)
 {
+    ofVec4f tempVec = e;
+    tempVec -= transformMatrix.getTranslation();
+    tempVec = transformMatrix.getInverse().postMult(tempVec);
+    ofMouseEventArgs modified_e = e;
+    modified_e.set(tempVec.x, tempVec.y);
+    
     if(e.button == 0){
         if(this == mActiveGui){
             for (auto &item : items)
-                item->mouseDragged(e);
+                item->mouseDragged(modified_e);
             
             if (mGuiHeader != nullptr && mGuiHeader->getDraggable() && mGuiHeader->getFocused()){
                 // track that we're moving to force preserve focus //
                 mMoving = true;
-                moveGui(e - mGuiHeader->getDragOffset());
+                moveGui(modified_e - mGuiHeader->getDragOffset());
             }
         }
     }
     else if(e.button == 2){
-        mouseMoved(e);
+        mouseMovedTransformed(modified_e);
     }
 }
 
 void ofxDatGui::mousePressed(ofMouseEventArgs &e)
 {
+    ofVec4f tempVec = e;
+    tempVec -= transformMatrix.getTranslation();
+    tempVec = transformMatrix.getInverse().postMult(tempVec);
+    ofMouseEventArgs modified_e = e;
+    modified_e.set(tempVec.x, tempVec.y);
+    
 //    if(hitTest(e)){
 //        mMouseDown = true;
 //        focus();
@@ -1039,19 +1054,25 @@ void ofxDatGui::mousePressed(ofMouseEventArgs &e)
     
     //if(this == mActiveGui){
         for (auto &item : items)
-            item->mousePressed(e);
+            item->mousePressed(modified_e);
     //}
     
 }
 
 void ofxDatGui::mouseReleased(ofMouseEventArgs &e)
 {
+    ofVec4f tempVec = e;
+    tempVec -= transformMatrix.getTranslation();
+    tempVec = transformMatrix.getInverse().postMult(tempVec);
+    ofMouseEventArgs modified_e = e;
+    modified_e.set(tempVec.x, tempVec.y);
+    
     mMouseDown = false;
 
     for (auto &item : items)
-        item->mouseReleased(e);
+        item->mouseReleased(modified_e);
     
-    mouseMoved(e);
+    mouseMovedTransformed(modified_e);
     
 }
 

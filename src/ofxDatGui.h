@@ -40,6 +40,7 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
         void keyPressed(ofKeyEventArgs &e);
         void keyReleased(ofKeyEventArgs &e);
         void mouseMoved(ofMouseEventArgs &e);
+        void mouseMovedTransformed(ofMouseEventArgs &e);
         void mouseDragged(ofMouseEventArgs &e);
         void mousePressed(ofMouseEventArgs &e);
         void mouseReleased(ofMouseEventArgs &e);
@@ -63,6 +64,7 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
         void setTheme(ofxDatGuiTheme* t, bool applyImmediately = false);
         void setAutoDraw(bool autodraw, int priority = 0);
         void setLabelAlignment(ofxDatGuiAlignment align);
+        void setTransformMatrix(ofMatrix4x4 matrix){transformMatrix = matrix;};
         static void setAssetPath(string path);
         static string getAssetPath();
     
@@ -137,6 +139,7 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
     
         ofPoint mPosition;
         ofRectangle mGuiBounds;
+        ofMatrix4x4 transformMatrix;
         ofxDatGuiAnchor mAnchor;
         ofxDatGuiHeader* mGuiHeader;
         ofxDatGuiFooter* mGuiFooter;
