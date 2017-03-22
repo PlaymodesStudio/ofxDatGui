@@ -42,14 +42,14 @@ ofxDatGui::ofxDatGui(ofxDatGuiAnchor anchor)
 
 ofxDatGui::~ofxDatGui()
 {
-    for (auto i:items) delete i;
-    mGuis.erase(std::remove(mGuis.begin(), mGuis.end(), this), mGuis.end());
-    if (mActiveGui == this) mActiveGui = mGuis.size() > 0 ? mGuis[0] : nullptr;
     ofRemoveListener(ofEvents().draw, this, &ofxDatGui::draw, OF_EVENT_ORDER_AFTER_APP + mIndex);
     ofRemoveListener(ofEvents().update, this, &ofxDatGui::update, OF_EVENT_ORDER_BEFORE_APP - mIndex);
     ofRemoveListener(ofEvents().windowResized, this, &ofxDatGui::onWindowResized, OF_EVENT_ORDER_BEFORE_APP);
     ofUnregisterKeyEvents(this);
     ofUnregisterMouseEvents(this);
+    for (auto i:items) delete i;
+    mGuis.erase(std::remove(mGuis.begin(), mGuis.end(), this), mGuis.end());
+    if (mActiveGui == this) mActiveGui = mGuis.size() > 0 ? mGuis[0] : nullptr;
 }
 
 void ofxDatGui::init()
@@ -200,9 +200,9 @@ void ofxDatGui::setVisible(bool visible)
 {
     mVisible = visible;
     if(mVisible)
-        ofRegisterMouseEvents(this);
+        ofRegisterMouseEvents(this, OF_EVENT_ORDER_BEFORE_APP);
     else
-        ofUnregisterMouseEvents(this);
+        ofUnregisterMouseEvents(this, OF_EVENT_ORDER_BEFORE_APP);
 }
 
 void ofxDatGui::setEnabled(bool enabled)
@@ -804,10 +804,13 @@ void ofxDatGui::onInternalEventCallback(ofxDatGuiInternalEvent e)
 
 bool ofxDatGui::hitTest(ofPoint pt)
 {
+    ofVec4f tempVec = pt;
+    tempVec -= transformMatrix.getTranslation();
+    tempVec = transformMatrix.getInverse().postMult(tempVec);
     if (mMoving){
         return true;
     }   else{
-        return mGuiBounds.inside(pt);
+        return mGuiBounds.inside(tempVec);
     }
 }
 
@@ -986,21 +989,17 @@ void ofxDatGui::mouseMoved(ofMouseEventArgs &e)
     tempVec = transformMatrix.getInverse().postMult(tempVec);
     ofMouseEventArgs modified_e = e;
     modified_e.set(tempVec.x, tempVec.y);
-
-    mouseMovedTransformed(modified_e);
-}
-
-void ofxDatGui::mouseMovedTransformed(ofMouseEventArgs &e){
+    
     if(!mMoving){
-        if(hitTest(e) && !getFocused() && !mActiveGui->hitTest(e)){
+        if(hitTest(e) && !getFocused() && !mActiveGui->hitTest(e) && getVisible()){
             mActiveGui->focusLost();
             focus();
         }
     }
-    
+
     if(this == mActiveGui){
         for (auto &item : items)
-            item->mouseMoved(e);
+            item->mouseMoved(modified_e);
     }
 }
 
@@ -1025,7 +1024,7 @@ void ofxDatGui::mouseDragged(ofMouseEventArgs &e)
         }
     }
     else if(e.button == 2){
-        mouseMovedTransformed(modified_e);
+        mouseMoved(e);
     }
 }
 
@@ -1072,7 +1071,7 @@ void ofxDatGui::mouseReleased(ofMouseEventArgs &e)
     for (auto &item : items)
         item->mouseReleased(modified_e);
     
-    mouseMovedTransformed(modified_e);
+    mouseMoved(e);
     
 }
 

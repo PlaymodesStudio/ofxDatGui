@@ -40,7 +40,6 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
         void keyPressed(ofKeyEventArgs &e);
         void keyReleased(ofKeyEventArgs &e);
         void mouseMoved(ofMouseEventArgs &e);
-        void mouseMovedTransformed(ofMouseEventArgs &e);
         void mouseDragged(ofMouseEventArgs &e);
         void mousePressed(ofMouseEventArgs &e);
         void mouseReleased(ofMouseEventArgs &e);
