@@ -45,8 +45,8 @@ ofxDatGui::~ofxDatGui()
     ofRemoveListener(ofEvents().draw, this, &ofxDatGui::draw, OF_EVENT_ORDER_AFTER_APP + mIndex);
     ofRemoveListener(ofEvents().update, this, &ofxDatGui::update, OF_EVENT_ORDER_BEFORE_APP - mIndex);
     ofRemoveListener(ofEvents().windowResized, this, &ofxDatGui::onWindowResized, OF_EVENT_ORDER_BEFORE_APP);
-    ofUnregisterKeyEvents(this);
-    ofUnregisterMouseEvents(this);
+    ofUnregisterKeyEvents(this, OF_EVENT_ORDER_BEFORE_APP);
+    ofUnregisterMouseEvents(this, OF_EVENT_ORDER_BEFORE_APP);
     for (auto i:items) delete i;
     mGuis.erase(std::remove(mGuis.begin(), mGuis.end(), this), mGuis.end());
     if (mActiveGui == this) mActiveGui = mGuis.size() > 0 ? mGuis[0] : nullptr;
