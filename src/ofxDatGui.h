@@ -70,6 +70,7 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
         int getWidth();
         int getHeight();
         bool getFocused();
+        bool getExpanded();
         bool getVisible();
         bool getAutoDraw();
         bool getMouseDown();

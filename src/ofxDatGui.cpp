@@ -157,6 +157,11 @@ bool ofxDatGui::getFocused()
     return mActiveGui == this;
 }
 
+bool ofxDatGui::getExpanded()
+{
+    return mExpanded;
+}
+
 void ofxDatGui::setWidth(int width, float labelWidth)
 {
     mWidth = width;
