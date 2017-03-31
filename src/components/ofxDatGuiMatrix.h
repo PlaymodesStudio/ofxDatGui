@@ -244,6 +244,7 @@ class ofxDatGuiMatrix : public ofxDatGuiComponent {
     
         static ofxDatGuiMatrix* getInstance() { return new ofxDatGuiMatrix("X", 0); }
     
+        void setNumButtons(int i){mNumButtons=i;};
     protected:
     
         void onMouseRelease(ofPoint m)
