@@ -58,6 +58,8 @@ class ofxDatGuiSlider : public ofxDatGuiComponent {
         ~ofxDatGuiSlider()
         {
             delete mInput;
+            if(mParamI != nullptr) mParamI->removeListener(this, &ofxDatGuiSlider::onParamI);
+            if(mParamF != nullptr) mParamF->removeListener(this, &ofxDatGuiSlider::onParamF);
         }
     
         void setTheme(const ofxDatGuiTheme* theme)

@@ -63,12 +63,14 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
         void setTheme(ofxDatGuiTheme* t, bool applyImmediately = false);
         void setAutoDraw(bool autodraw, int priority = 0);
         void setLabelAlignment(ofxDatGuiAlignment align);
+        void setTransformMatrix(ofMatrix4x4 matrix){transformMatrix = matrix;};
         static void setAssetPath(string path);
         static string getAssetPath();
     
         int getWidth();
         int getHeight();
         bool getFocused();
+        bool getExpanded();
         bool getVisible();
         bool getAutoDraw();
         bool getMouseDown();
@@ -137,6 +139,7 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
     
         ofPoint mPosition;
         ofRectangle mGuiBounds;
+        ofMatrix4x4 transformMatrix;
         ofxDatGuiAnchor mAnchor;
         ofxDatGuiHeader* mGuiHeader;
         ofxDatGuiFooter* mGuiFooter;
