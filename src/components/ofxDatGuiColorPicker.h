@@ -64,7 +64,7 @@ class ofxDatGuiColorPicker : public ofxDatGuiTextInput {
         {
             ofxDatGuiTextInput::setTheme(theme);
             mStyle.stripe.color = theme->stripe.colorPicker;
-            pickerRect = ofRectangle(0, 0, mInput.getWidth(), (mStyle.height + mStyle.padding) * 3);
+            pickerRect = ofRectangle(0, 0, mInput.getWidth(), (mStyle.height*4 + mStyle.padding) * 3);
             rainbow.image = theme->icon.rainbow;
             rainbow.rect = ofRectangle(0, 0, theme->layout.colorPicker.rainbowWidth, pickerRect.height - (mStyle.padding * 2));
             gradientRect = ofRectangle(0, 0, pickerRect.width - rainbow.rect.width - (mStyle.padding * 3), rainbow.rect.height);

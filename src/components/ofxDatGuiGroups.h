@@ -466,6 +466,9 @@ class ofxDatGuiDropdown : public ofxDatGuiGroup {
                 children.push_back(opt);
             }
             setTheme(ofxDatGuiComponent::theme.get());
+            setLabelColor(getTheme()->color.label*2);
+
+            
         }
     
         void setTheme(const ofxDatGuiTheme* theme)
@@ -531,6 +534,7 @@ class ofxDatGuiDropdown : public ofxDatGuiGroup {
         {
             for(int i=0; i<children.size(); i++) if (e.target == children[i]) mOption = i;
             setLabel(children[mOption]->getLabel());
+            setLabelColor(getTheme()->color.label*2);
             collapse();
             if (dropdownEventCallback != nullptr) {
                 ofxDatGuiDropdownEvent e1(this, mIndex, mOption);
