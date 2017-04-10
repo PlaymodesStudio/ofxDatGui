@@ -687,6 +687,18 @@ ofxDatGuiFooter* ofxDatGui::getFooter()
     return o;
 }
 
+ofxDatGuiComponent* ofxDatGui::getComponent(string key)
+{
+    for (int i=0; i<items.size(); i++) {
+        if (items[i]->is(key)) return items[i];
+        // iterate over component's children and return the first match we find //
+        for (int j=0; j<items[i]->children.size(); j++) {
+            if (items[i]->children[j]->is(key)) return items[i]->children[j];
+        }
+    }
+    return NULL;
+}
+
 ofxDatGuiComponent* ofxDatGui::getComponent(ofxDatGuiType type, string label)
 {
     for (int i=0; i<items.size(); i++) {
