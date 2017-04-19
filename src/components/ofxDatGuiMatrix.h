@@ -195,6 +195,7 @@ class ofxDatGuiMatrix : public ofxDatGuiComponent {
         void setRadioMode(bool enabled)
         {
             mRadioMode = enabled;
+            
         }
     
         bool hitTest(ofPoint m)
@@ -242,9 +243,17 @@ class ofxDatGuiMatrix : public ofxDatGuiComponent {
             return &btns[index];
         }
     
+        void clearAll()
+        {
+           for(int i=0; i<btns.size(); i++)
+           {
+               btns[i].setSelected(false);
+           }
+        }
+    
         static ofxDatGuiMatrix* getInstance() { return new ofxDatGuiMatrix("X", 0); }
     
-        void setNumButtons(int i){mNumButtons=i;};
+        void setNumButtons(int i){mNumButtons=i;attachButtons(this->getTheme());};
     protected:
     
         void onMouseRelease(ofPoint m)
