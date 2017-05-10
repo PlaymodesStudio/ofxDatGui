@@ -46,7 +46,6 @@ ofxDatGuiComponent::ofxDatGuiComponent(string label)
 ofxDatGuiComponent::~ofxDatGuiComponent()
 {
     onFocusLost();
-//  cout << "ofxDatGuiComponent "<< mName << " destroyed" << endl;
     unregisterEvents(true, true);
 }
 
