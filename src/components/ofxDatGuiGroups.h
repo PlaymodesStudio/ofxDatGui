@@ -471,6 +471,23 @@ class ofxDatGuiDropdown : public ofxDatGuiGroup {
             
         }
     
+        void addOption(string option)
+        {
+            ofxDatGuiDropdownOption* opt = new ofxDatGuiDropdownOption(option);
+            opt->setIndex(children.size());
+            opt->onButtonEvent(this, &ofxDatGuiDropdown::onOptionSelected);
+            children.push_back(opt);
+        }
+    
+        void addOption(string option, int position)
+        {
+            ofxDatGuiDropdownOption* opt = new ofxDatGuiDropdownOption(option);
+            opt->setIndex(children.size());
+            opt->onButtonEvent(this, &ofxDatGuiDropdown::onOptionSelected);
+            children.insert(children.begin() + position, opt);
+        }
+
+    
         void setTheme(const ofxDatGuiTheme* theme)
         {
             setComponentStyle(theme);
@@ -524,6 +541,11 @@ class ofxDatGuiDropdown : public ofxDatGuiGroup {
             }
             return res;
         }
+    
+    int getNumOptions()
+    {
+        return children.size();
+    }
     
 
         static ofxDatGuiDropdown* getInstance() { return new ofxDatGuiDropdown("X"); }
