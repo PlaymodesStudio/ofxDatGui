@@ -31,7 +31,7 @@ class ofxDatGuiScrollView : public ofxDatGuiComponent {
         {
             mAutoHeight = true;
             mNumVisible = nVisible;
-            setTheme(ofxDatGuiComponent::theme.get());
+            setTheme(ofxDatGuiComponent::getTheme());
             ofAddListener(ofEvents().mouseScrolled, this, &ofxDatGuiScrollView::onMouseScrolled, OF_EVENT_ORDER_BEFORE_APP);
         }
     
@@ -160,6 +160,11 @@ class ofxDatGuiScrollView : public ofxDatGuiComponent {
             return children.size();
         }
     
+        bool getIsExpanded()
+        {
+            return true;
+        }
+    
     /*
         list presentation
     */
@@ -178,6 +183,7 @@ class ofxDatGuiScrollView : public ofxDatGuiComponent {
             mRect.width = width;
             for (auto i:children) i->setWidth(mRect.width, labelWidth);
             if (mAutoHeight) autoSize();
+            ofxDatGuiComponent::setWidth(width, labelWidth);
         }
     
         void setHeight(int height)
@@ -230,6 +236,17 @@ class ofxDatGuiScrollView : public ofxDatGuiComponent {
                 ofSetColor(ofColor::white);
                 mView.draw(mRect.x, mRect.y);
             ofPopStyle();
+            if(mMouseOver){
+                ofLog() << "Mouse over scroll";
+                ofPushStyle();
+                ofSetColor(127, 127, 127, 127);
+                ofPushMatrix();
+                ofRotate(90);
+                ofTranslate(mRect.x + mRect.width, mRect.y);
+                ofDrawRectRounded(0, 0, 2, 10, 5);
+                ofPopMatrix();
+                ofPopStyle();
+            }
         }
 
     private:
