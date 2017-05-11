@@ -165,6 +165,7 @@ class ofxDatGuiScrollView : public ofxDatGuiComponent {
             return true;
         }
     
+    
     /*
         list presentation
     */
@@ -183,7 +184,6 @@ class ofxDatGuiScrollView : public ofxDatGuiComponent {
             mRect.width = width;
             for (auto i:children) i->setWidth(mRect.width, labelWidth);
             if (mAutoHeight) autoSize();
-            ofxDatGuiComponent::setWidth(width, labelWidth);
         }
     
         void setHeight(int height)
@@ -197,6 +197,10 @@ class ofxDatGuiScrollView : public ofxDatGuiComponent {
         {
             mRect.x = x;
             mRect.y = y;
+//            for (auto &i : children){
+//                i->setMask(mRect);
+//                i->setPosition(0, y);
+//            }
         }
     
         void setItemSpacing(int spacing)
@@ -236,18 +240,109 @@ class ofxDatGuiScrollView : public ofxDatGuiComponent {
                 ofSetColor(ofColor::white);
                 mView.draw(mRect.x, mRect.y);
             ofPopStyle();
-            if(mMouseOver){
-                ofLog() << "Mouse over scroll";
-                ofPushStyle();
-                ofSetColor(127, 127, 127, 127);
-                ofPushMatrix();
-                ofRotate(90);
-                ofTranslate(mRect.x + mRect.width, mRect.y);
-                ofDrawRectRounded(0, 0, 2, 10, 5);
-                ofPopMatrix();
-                ofPopStyle();
+//            if(mMouseOver){
+//                ofLog() << "Mouse over scroll";
+//                ofPushStyle();
+//                ofSetColor(127, 127, 127, 127);
+//                ofPushMatrix();
+//                ofRotate(90);
+//                ofTranslate(mRect.x + mRect.width, mRect.y);
+//                ofDrawRectRounded(0, 0, 2, 10, 5);
+//                ofPopMatrix();
+//                ofPopStyle();
+//            }
+        }
+    
+    void mouseMoved(ofMouseEventArgs &e)
+    {
+        if(this->hitTest(e)){
+            if(!mMouseOver)
+                onMouseEnter(e);
+        }
+        else if(mMouseOver)
+            onMouseLeave(e);
+        
+        ofMouseEventArgs eMoved = ofMouseEventArgs(e.type, e.x - mRect.x, e.y - mRect.y, e.button);
+        if (this->getIsExpanded())
+            for(int i=0; i<children.size(); i++)
+                children[i]->mouseMoved(eMoved);
+    }
+    
+    void mouseDragged(ofMouseEventArgs &e)
+    {
+        if(mMouseDown){
+            onMouseDrag(e);
+        }
+        
+        ofMouseEventArgs eMoved = ofMouseEventArgs(e.type, e.x - mRect.x, e.y - mRect.y, e.button);
+        if (this->getIsExpanded())
+            for(int i=0; i<children.size(); i++)
+                children[i]->mouseDragged(eMoved);
+    }
+    
+    void mousePressed(ofMouseEventArgs &e)
+    {
+        if(mMouseOver){
+            if(e.button == 0)
+                onMousePress(e);
+            else if(e.button == 2){
+                if (rightClickEventCallback != nullptr) {
+                    ofxDatGuiRightClickEvent ev(this, 1);
+                    rightClickEventCallback(ev);
+                }   else{
+                    ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
+                }
             }
         }
+        
+        else if(e.button == 0)
+            onMouseOutsidePress();
+        
+        ofMouseEventArgs eMoved = ofMouseEventArgs(e.type, e.x - mRect.x, e.y - mRect.y, e.button);
+        
+        if (this->getIsExpanded())
+            for(int i=0; i<children.size(); i++)
+                children[i]->mousePressed(eMoved);
+    }
+    
+    void mouseReleased(ofMouseEventArgs &e)
+    {
+        if(e.button == 0){
+            if(mMouseDown)
+                onMouseRelease(e);
+        }else if(e.button == 2){
+            if(mMouseOver){
+                if (rightClickEventCallback != nullptr) {
+                    ofxDatGuiRightClickEvent ev(this, 0);
+                    rightClickEventCallback(ev);
+                }   else{
+                    ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
+                }
+            }
+        }
+        
+        ofMouseEventArgs eMoved = ofMouseEventArgs(e.type, e.x - mRect.x, e.y - mRect.y, e.button);
+        
+        if (this->getIsExpanded())
+            for(int i=0; i<children.size(); i++)
+                children[i]->mouseReleased(eMoved);
+    }
+    
+    void mouseEntered(ofMouseEventArgs &e)
+    {
+        
+    }
+    
+    void mouseExited(ofMouseEventArgs &e)
+    {
+        
+    }
+    
+    void mouseScrolled(ofMouseEventArgs &e)
+    {
+        
+    }
+
 
     private:
     
