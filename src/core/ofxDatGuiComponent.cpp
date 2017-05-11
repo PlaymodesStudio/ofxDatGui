@@ -231,6 +231,7 @@ void ofxDatGuiComponent::setFocused(bool focused)
         onFocus();
     }   else{
         onFocusLost();
+        for(auto i:children) i->onFocusLost();
     }
 }
 
