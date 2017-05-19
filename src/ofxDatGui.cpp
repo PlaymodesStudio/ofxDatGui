@@ -77,6 +77,9 @@ void ofxDatGui::init()
     mActiveGui = this;
     mGuis.push_back(this);
     ofAddListener(ofEvents().windowResized, this, &ofxDatGui::onWindowResized, OF_EVENT_ORDER_BEFORE_APP);
+    
+    ofRegisterKeyEvents(this);
+    ofRegisterMouseEvents(this, OF_EVENT_ORDER_BEFORE_APP);
 }
 
 /* 
@@ -220,8 +223,8 @@ void ofxDatGui::setAutoDraw(bool autodraw, int priority)
     mAutoDraw = autodraw;
     ofRemoveListener(ofEvents().draw, this, &ofxDatGui::draw, OF_EVENT_ORDER_AFTER_APP + mIndex);
     ofRemoveListener(ofEvents().update, this, &ofxDatGui::update, OF_EVENT_ORDER_BEFORE_APP - mIndex);
-    ofUnregisterMouseEvents(this);
-    ofUnregisterKeyEvents(this);
+//    ofUnregisterMouseEvents(this, OF_EVENT_ORDER_BEFORE_APP);
+//    ofUnregisterKeyEvents(this);
     if (mAutoDraw){
         mIndex = priority;
         ofAddListener(ofEvents().draw, this, &ofxDatGui::draw, OF_EVENT_ORDER_AFTER_APP + mIndex);
