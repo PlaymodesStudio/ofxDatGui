@@ -74,18 +74,21 @@ class ofxDatGuiColorPicker : public ofxDatGuiTextInput {
     
         void setColor(ofColor color)
         {
+//            mShowPicker = false;
             mColor = color;
             setTextFieldInputColor();
         }
     
         void setColor(int hex)
         {
+//            mShowPicker = false;
             mColor = ofColor::fromHex(hex);
             setTextFieldInputColor();
         }
     
         void setColor(int r, int g, int b, int a = 255)
         {
+//            mShowPicker = false;
             mColor = ofColor(r, g, b, a);
             setTextFieldInputColor();
         }
@@ -154,6 +157,18 @@ class ofxDatGuiColorPicker : public ofxDatGuiTextInput {
     
     protected:
     
+    void onFocus()
+    {
+        
+        ofxDatGuiComponent::onFocus();
+    }
+    
+    void onFocusLost()
+    {
+        onMouseLeave(ofPoint(0,0));
+        ofxDatGuiComponent::onFocusLost();
+    }
+    
         int getHeight()
         {
             return mInput.getHeight() + (mShowPicker ? pickerRect.height : 0);
@@ -183,6 +198,7 @@ class ofxDatGuiColorPicker : public ofxDatGuiTextInput {
     
         void onMousePress(ofPoint mouse)
         {
+            if(mShowPicker){
             ofxDatGuiComponent::onMousePress(mouse);
             if (hitTest(mouse)){
                 unsigned char p[3];
@@ -215,6 +231,7 @@ class ofxDatGuiColorPicker : public ofxDatGuiTextInput {
                 }
             }
             if (mInput.hitTest(mouse)) mInput.onFocus();
+            }
         }
     
         void onMouseRelease(ofPoint mouse)
@@ -225,6 +242,7 @@ class ofxDatGuiColorPicker : public ofxDatGuiTextInput {
     
         void onMouseDrag(ofPoint mouse)
         {
+            if(mShowPicker){
             unsigned char p[3];
             if (rainbowClicked)
             {
@@ -256,6 +274,7 @@ class ofxDatGuiColorPicker : public ofxDatGuiTextInput {
                     ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
                 }
                 setTextFieldInputColor();
+            }
             }
         }
 
