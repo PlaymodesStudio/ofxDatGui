@@ -86,6 +86,7 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
         ofxDatGuiSlider* addSlider(ofParameter<int> & p);
         ofxDatGuiSlider* addSlider(ofParameter<float> & p);
         ofxDatGuiTextInput* addTextInput(string label, string value = "");
+        ofxDatGuiParagraph* addParagraph(string label, string value = "");
         ofxDatGuiDropdown* addDropdown(string label, vector<string> options);
         ofxDatGuiScrollView* addScrollView(string label, int nVisible);
         ofxDatGuiFRM* addFRM(float refresh = 1.0f);
@@ -171,6 +172,7 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
         void on2dPadEventCallback(ofxDatGui2dPadEvent e);
         void onColorPickerEventCallback(ofxDatGuiColorPickerEvent e);
         void onMatrixEventCallback(ofxDatGuiMatrixEvent e);
+        void onParagraphEventCallback(ofxDatGuiParagraphEvent e);
         void onRightClickEventCallback(ofxDatGuiRightClickEvent e);
 
 };

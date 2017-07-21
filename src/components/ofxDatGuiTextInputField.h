@@ -184,6 +184,10 @@ class ofxDatGuiTextInputField : public ofxDatGuiInteractiveObject{
     
         void onKeyPressed(int key)
         {
+            if ((key == OF_KEY_RETURN || key == OF_KEY_TAB)){
+                onFocusLost();
+                return;
+            }
             if (!keyIsValid(key)) return;
             if (mHighlightText) {
             // if key is printable or delete
@@ -271,7 +275,7 @@ class ofxDatGuiTextInputField : public ofxDatGuiInteractiveObject{
             }
         }
     
-    private:
+    protected:
     
         string mText;
         string mRendered;

@@ -206,6 +206,20 @@ class ofxDatGuiInteractiveObject{
             internalEventCallback = callback;
         }
     
+    // paragraph events //
+    typedef std::function<void(ofxDatGuiParagraphEvent)> onParagraphEventCallback;
+    onParagraphEventCallback paragraphEventCallback;
+    
+    template<typename T, typename args, class ListenerClass>
+    void onParagraphEvent(T* owner, void (ListenerClass::*listenerMethod)(args))
+    {
+        paragraphEventCallback = std::bind(listenerMethod, owner, std::placeholders::_1);
+    }
+    
+    void onParagraphEvent(onParagraphEventCallback callback) {
+        paragraphEventCallback = callback;
+    }
+    
     // rightClick events //
         typedef std::function<void(ofxDatGuiRightClickEvent)> onRightClickEventCallback;
         onRightClickEventCallback rightClickEventCallback;

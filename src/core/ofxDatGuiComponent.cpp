@@ -468,10 +468,6 @@ void ofxDatGuiComponent::onMouseDrag(ofPoint m) { }
 void ofxDatGuiComponent::onKeyPressed(ofKeyEventArgs &e)
 {
     onKeyPressed(e.key);
-    if ((e.key == OF_KEY_RETURN || e.key == OF_KEY_TAB)){
-        onFocusLost();
-        ofRemoveListener(ofEvents().keyPressed, this, &ofxDatGuiComponent::onKeyPressed);
-    }
 }
 
 

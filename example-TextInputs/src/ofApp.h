@@ -12,7 +12,10 @@ class ofApp : public ofBaseApp{
 		
         ofxDatGuiTextInput* input;
         void onTextInputEvent(ofxDatGuiTextInputEvent e);
+    void onParagraphEvent(ofxDatGuiParagraphEvent e);
     
         ofTrueTypeFont font;
+    
+    ofxDatGui* gui;
     
 };

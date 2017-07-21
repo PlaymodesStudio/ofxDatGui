@@ -571,3 +571,341 @@ class ofxDatGuiDropdown : public ofxDatGuiGroup {
 };
 
 
+class ofxDatGuiParagraphInput : public ofxDatGuiTextInputField{
+public:
+    
+    ofxDatGuiParagraphInput() : ofxDatGuiTextInputField()
+    {
+//        paragraph.setAlignment(ofxParagraph::ALIGN_LEFT);
+        mPadding = 2;
+//        paragraph.drawBorder(ofColor::fromHex(0x777777));
+        mFocused = false;
+//        height = paragraph.getHeight();
+    }
+    
+    void setTheme(const ofxDatGuiTheme* theme)
+    {
+        font = theme->font.ptr;
+//        paragraph.setFont(theme->font.ptr);
+//        paragraph.setLeading(theme->font.size *.65);
+//        paragraph.setSpacing(theme->font.size *.7);
+//        paragraph.setIndent(0);
+//        paragraph.setBorderPadding(mPadding);
+//        setHeight(paragraph.getHeight());
+//        paragraph.setColor(theme->color.textInput.text);
+//        mInputRect.height = theme->layout.height - (theme->layout.padding * 2);
+        color.active.background = theme->color.textInput.backgroundOnActive;
+        color.inactive.background = theme->color.inputAreaBackground;
+        color.active.text = theme->color.label;
+        color.inactive.text = theme->color.textInput.text;
+        color.highlight = theme->color.textInput.highlight;
+//        mUpperCaseText = theme->layout.textInput.forceUpperCase;
+//        mHighlightPadding = theme->layout.textInput.highlightPadding;
+//        setText(mText);
+    }
+    
+    void setInitialText(string text)
+    {
+        mText = text;
+        mTextChanged = true;
+        setHeight(((getNumLines()+1) * font->getLineHeight()) + mPadding*2);
+    }
+    
+    void setText(string text)
+    {
+        mText = text;
+        mTextChanged = true;
+//        paragraph.setText(text);
+        setHeight(((getNumLines()+1) * font->getLineHeight()) + mPadding*2);
+        
+        ofxDatGuiInternalEvent e(ofxDatGuiEventType::INPUT_CHANGED, 0);
+        internalEventCallback(e);
+    }
+    
+    void setWidth(int w)
+    {
+//        paragraph.setWidth(w - mPadding*2);
+        ofxDatGuiTextInputField::setWidth(w);
+    }
+    
+    void setHeight(int h)
+    {
+        if(h != height){
+//            mInputRect.height = h + paragraph.getStringHeight()*.5;
+            height = h;
+            ofNotifyEvent(heightChanged, h, this);
+        }
+    }
+    
+    int getNumLines(){
+        return ofStringTimesInString(mText, "\n");
+    }
+    
+    int getHeight()
+    {
+        return height;
+    }
+    
+    void setPosition(int x, int y)
+    {
+//        paragraph.setPosition(x + mPadding, y + paragraph.getStringHeight()*1.5);
+//        paragraph.setLeading(20);
+//        paragraph.setSpacing(2);
+        ofxDatGuiTextInputField::setPosition(x, y);
+    }
+
+    void draw()
+    {
+        ofPushStyle();
+        // draw the input field background //
+        ofSetColor(color.inactive.background);
+        ofDrawRectangle(mInputRect);
+
+        //draw paragraph
+        ofSetColor(color.active.text);
+        
+        font->draw(mText, mInputRect.x + mPadding, mInputRect.y + font->getLineHeight());
+        ofPopStyle();
+    }
+    
+    void onKeyPressed(int key)
+    {
+        //if (!keyIsValid(key)) return;
+        if (mHighlightText) {
+            // if key is printable or delete
+//            if ((key >= 32 && key <= 255) || key == OF_KEY_BACKSPACE || key == OF_KEY_DEL) {
+//                setText("");
+//                setCursorIndex(0);
+//            }
+        }
+        if (key == OF_KEY_BACKSPACE){
+            // delete character at cursor position //
+            if (mCursorIndex > 0) {
+                setText(mText.substr(0, mCursorIndex - 1) + mText.substr(mCursorIndex));
+                setCursorIndex(mCursorIndex - 1);
+            }
+        } else if (key == OF_KEY_RETURN) {
+            setText(mText.substr(0, mCursorIndex) + '\n' + mText.substr(mCursorIndex));
+            setCursorIndex(mCursorIndex + 1);
+        } else if (key == OF_KEY_LEFT) {
+            setCursorIndex(max( (int) mCursorIndex - 1, 0));
+        } else if (key == OF_KEY_RIGHT) {
+            setCursorIndex(min( mCursorIndex + 1, (unsigned int) mText.size()));
+        } else if (key == OF_KEY_UP) {
+            int lineStart = inversedFind(mText, "\n", mText.size() - mCursorIndex);
+            int previousLineStart = mText.size() - inversedFind(mText, "\n", lineStart + 1);
+            
+            int newPos = previousLineStart + (mCursorIndex - (mText.size() - lineStart));
+            setCursorIndex(max((unsigned int) newPos, (unsigned int) 0));
+        } else if (key == OF_KEY_DOWN) {
+            int lineEnd = mText.find("\n", mCursorIndex);
+            int nextLineEnd = mText.find("\n", lineEnd + 1);
+            int lineStart = mText.size() - inversedFind(mText, "\n", mText.size() - mCursorIndex);
+            int newPos = min((unsigned int)lineEnd + (mCursorIndex - lineStart), (unsigned int)nextLineEnd);
+            setCursorIndex(min((unsigned int) newPos, (unsigned int) mText.size()));
+        } else if (key == 'v' && ofGetKeyPressed(OF_KEY_COMMAND))  {
+            setText(ofGetWindowPtr()->getClipboardString());
+        } else {
+            // insert character at cursor position //
+            mText = mText.substr(0, mCursorIndex) + (char)key + mText.substr(mCursorIndex);
+            setCursorIndex(mCursorIndex + 1);
+        }
+        mHighlightText = false;
+        setText(mText);
+    }
+    
+    int inversedFind(string s, string toSearch, int initialPos){
+        reverse(s.begin(), s.end());
+        return s.find(toSearch, initialPos);
+    }
+    
+    ofEvent<int>    heightChanged;
+    
+private:
+    shared_ptr<ofxSmartFont>    font;
+    int height;
+    int mPadding;
+    int lineNum;
+    int mCursorFromLineStart;
+};
+
+
+class ofxDatGuiParagraph : public ofxDatGuiGroup{
+public:
+    
+    ofxDatGuiParagraph(string label, string initalText = "Hola que hace") : ofxDatGuiGroup(label)
+    {
+        
+        mType = ofxDatGuiType::PARAGRAPH;
+//        ofxDatGuiParagraphInput* opt = new ofxDatGuiParagraphInput();
+//        children.push_back(opt);
+        mInput.onInternalEvent(this, &ofxDatGuiParagraph::onInputChanged);
+        setTheme(ofxDatGuiComponent::theme.get());
+        setLabelColor(getTheme()->color.label*2);
+        mInput.setInitialText(initalText);
+        ofAddListener(mInput.heightChanged, this, &ofxDatGuiParagraph::heightChangedListener);
+    }
+   
+    void setTheme(const ofxDatGuiTheme* theme)
+    {
+        setComponentStyle(theme);
+        mIconOpen = theme->icon.groupOpen;
+        mIconClosed = theme->icon.groupClosed;
+        mStyle.stripe.color = theme->stripe.dropdown;
+        mInput.setTheme(theme);
+        setWidth(theme->layout.width, theme->layout.labelWidth);
+    }
+
+    void setWidth(int width, float labelWidth = 1)
+    {
+        ofxDatGuiComponent::setWidth(width, labelWidth);
+        mLabel.width = mStyle.width;
+        mLabel.rightAlignedXpos = mIcon.x - mLabel.margin;
+        ofxDatGuiComponent::positionLabel();
+        mInput.setWidth(width);
+    }
+    
+    void setPosition(int x, int y)
+    {
+        ofxDatGuiComponent::setPosition(x, y);
+        
+        ofxDatGuiGroup::setPosition(x, y);
+        mInput.setPosition(x, y + mStyle.height);
+        
+        layout();
+    }
+    
+    void expand()
+    {
+        mIsExpanded = true;
+        layout();
+        mInput.onFocus();
+    }
+    
+    void toggle()
+    {
+        mIsExpanded = !mIsExpanded;
+        layout();
+    }
+    
+    void collapse()
+    {
+        mIsExpanded = false;
+        layout();
+        mInput.onFocusLost();
+    }
+    
+    void draw()
+    {
+        if (mVisible){
+            ofPushStyle();
+            ofxDatGuiButton::draw();
+            if (mIsExpanded) {
+                mInput.draw();
+                int mHeight = mStyle.height;
+                ofSetColor(mStyle.guiBackground, mStyle.opacity);
+                ofDrawRectangle(x, y+mHeight, mStyle.width, mStyle.vMargin);
+                for(int i=0; i<children.size(); i++) {
+                    mHeight += mStyle.vMargin;
+                    children[i]->draw();
+                    mHeight += children[i]->getHeight();
+                    if (i == children.size()-1) break;
+                    ofSetColor(mStyle.guiBackground, mStyle.opacity);
+                    ofDrawRectangle(x, y+mHeight, mStyle.width, mStyle.vMargin);
+                }
+                ofSetColor(mIcon.color);
+                mIconOpen->draw(x+mIcon.x, y+mIcon.y, mIcon.size, mIcon.size);
+            }   else{
+                ofSetColor(mIcon.color);
+                mIconClosed->draw(x+mIcon.x, y+mIcon.y, mIcon.size, mIcon.size);
+            }
+            ofPopStyle();
+        }
+    }
+    
+    void onFocus()
+    {
+        mInput.onFocus();
+        ofxDatGuiComponent::onFocus();
+    }
+    
+    void onFocusLost()
+    {
+        ofxDatGuiComponent::onFocusLost();
+    }
+    
+    static ofxDatGuiParagraph* getInstance() { return new ofxDatGuiParagraph("X");}
+
+private:
+    
+    void heightChangedListener(int &height)
+    {
+        layout();
+        if (internalEventCallback != nullptr){
+            ofxDatGuiInternalEvent e(ofxDatGuiEventType::DROPDOWN_TOGGLED, mIndex);
+            internalEventCallback(e);
+        }
+    }
+    
+    void onInputChanged(ofxDatGuiInternalEvent e){
+        // dispatch event out to main application //
+        if (paragraphEventCallback != nullptr) {
+            ofxDatGuiParagraphEvent ev(this, mInput.getText());
+            paragraphEventCallback(ev);
+        }   else{
+            ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
+        }
+    }
+    
+    void layout()
+    {
+        mHeight = mStyle.height + mStyle.vMargin;
+        if(mIsExpanded){
+            mHeight += mInput.getHeight();
+        }
+        
+    }
+    
+    void onKeyPressed(int key)
+    {
+        if (mIsExpanded)
+            mInput.onKeyPressed(key);
+    }
+    
+    void onMouseEnter(ofPoint m)
+    {
+        ofxDatGuiGroup::onMouseEnter(m);
+    }
+    
+    void onMouseLeave(ofPoint m)
+    {
+        ofxDatGuiGroup::onMouseLeave(m);
+    }
+    
+    void onMousePress(ofPoint m)
+    {
+        ofxDatGuiGroup::onMousePress(m);
+    }
+    
+    void onMouseRelease(ofPoint m)
+    {
+        if (mFocused){
+            // open & close the group when its header is clicked //
+            ofxDatGuiComponent::onMouseRelease(m);
+            mIsExpanded ? collapse() : expand();
+            if (internalEventCallback != nullptr){
+                ofxDatGuiInternalEvent e(ofxDatGuiEventType::DROPDOWN_TOGGLED, mIndex);
+                internalEventCallback(e);
+            }
+        }
+    }
+    
+    void onMouseOutsidePress()
+    {
+        ofxDatGuiGroup::onMouseOutsidePress();
+    }
+    
+    ofxDatGuiParagraphInput mInput;
+};
+
+

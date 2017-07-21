@@ -16,6 +16,15 @@ void ofApp::setup()
     input->setWidth(800, .2);
     input->setPosition(ofGetWidth()/2 - input->getWidth()/2, 240);
     font.load("ofxbraitsch/fonts/Verdana.ttf", 24);
+    
+    gui = new ofxDatGui();
+    gui->addHeader("MOVEME");
+    gui->addTextInput("Innout", "tezt2");
+    gui->addParagraph("Paragraph", "test");
+    gui->addSlider("testlodeser", 0, 1);
+    
+    gui->onTextInputEvent(this, &ofApp::onTextInputEvent);
+    gui->onParagraphEvent(this, &ofApp::onParagraphEvent);
 }
 
 void ofApp::onTextInputEvent(ofxDatGuiTextInputEvent e)
@@ -24,6 +33,10 @@ void ofApp::onTextInputEvent(ofxDatGuiTextInputEvent e)
     cout << "From Event Object: " << e.text << endl;
 // although you can also retrieve it from the event target //
     cout << "From Event Target: " << e.target->getText() << endl;
+}
+
+void ofApp::onParagraphEvent(ofxDatGuiParagraphEvent e){
+    cout << e.text << endl;
 }
 
 void ofApp::update()

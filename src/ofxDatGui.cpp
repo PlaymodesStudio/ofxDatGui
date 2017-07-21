@@ -367,6 +367,14 @@ ofxDatGuiTextInput* ofxDatGui::addTextInput(string label, string value)
     return input;
 }
 
+ofxDatGuiParagraph* ofxDatGui::addParagraph(string label, string value)
+{
+    ofxDatGuiParagraph* paragraph = new ofxDatGuiParagraph(label, value);
+    paragraph->onParagraphEvent(this, &ofxDatGui::onParagraphEventCallback);
+    attachItem(paragraph);
+    return paragraph;
+}
+
 ofxDatGuiColorPicker* ofxDatGui::addColorPicker(string label, ofColor color)
 {
     ofxDatGuiColorPicker* picker = new ofxDatGuiColorPicker(label, color);
@@ -809,6 +817,15 @@ void ofxDatGui::onMatrixEventCallback(ofxDatGuiMatrixEvent e)
 {
     if (matrixEventCallback != nullptr) {
         matrixEventCallback(e);
+    }   else{
+        ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
+    }
+}
+
+void ofxDatGui::onParagraphEventCallback(ofxDatGuiParagraphEvent e)
+{
+    if (paragraphEventCallback != nullptr) {
+        paragraphEventCallback(e);
     }   else{
         ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
     }

@@ -32,6 +32,7 @@ class ofxDatGuiColorPicker;
 class ofxDatGuiMatrix;
 class ofxDatGuiScrollView;
 class ofxDatGuiComponent;
+class ofxDatGuiParagraph;
 
 enum ofxDatGuiEventType
 {
@@ -173,6 +174,17 @@ class ofxDatGuiMatrixEvent{
     int child;
     bool enabled;
     ofxDatGuiMatrix* target;
+};
+
+class ofxDatGuiParagraphEvent{
+public:
+    ofxDatGuiParagraphEvent(ofxDatGuiParagraph* t, std::string s)
+    {
+        text = s;
+        target = t;
+    }
+    std::string text;
+    ofxDatGuiParagraph* target;
 };
 
 class ofxDatGuiRightClickEvent{

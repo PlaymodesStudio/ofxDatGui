@@ -112,8 +112,9 @@ class ofxDatGuiTextInput : public ofxDatGuiComponent {
         void onKeyPressed(int key)
         {
             if (key != OF_KEY_UP &&
-                key != OF_KEY_DOWN)
-            mInput.onKeyPressed(key);
+                key != OF_KEY_DOWN){
+                mInput.onKeyPressed(key);
+            }
         }
     
         virtual void onInputChanged(ofxDatGuiInternalEvent e)
