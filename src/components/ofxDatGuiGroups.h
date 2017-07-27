@@ -608,14 +608,19 @@ public:
     {
         mText = text;
         mTextChanged = true;
-        setHeight(((getNumLines()+1) * font->getLineHeight()) + mPadding*2);
+        setHeight(((getNumLines()) * font->getLineHeight()) + mPadding*2);
+    }
+    
+    void setCursorToEnd()
+    {
+        lineNum = getNumLines() - 1;
+        setCursorIndex(mText.size());
     }
     
     void setText(string text)
     {
         mText = text;
         mTextChanged = true;
-//        paragraph.setText(text);
         setHeight(((getNumLines()+1) * font->getLineHeight()) + mPadding*2);
         
         ofxDatGuiInternalEvent e(ofxDatGuiEventType::INPUT_CHANGED, 0);
@@ -638,7 +643,7 @@ public:
     }
     
     int getNumLines(){
-        return ofStringTimesInString(mText, "\n");
+        return ofStringTimesInString(mText, "\n") + 1;
     }
     
     int getHeight()
@@ -663,55 +668,93 @@ public:
 
         //draw paragraph
         ofSetColor(color.active.text);
-        
+        if((ofGetFrameNum() % 40) < 20){
+            int lineStart = mText.size() - inversedFind(mText, "\n", mText.size() - mCursorIndex);
+            if(lineStart > mCursorIndex) lineStart = 0;
+            int widthFromLineStart = font->width(mText.substr(lineStart, mCursorFromLineStart));
+            ofPoint linePos;
+            linePos.x = mInputRect.x + mPadding + widthFromLineStart;
+            linePos.y = mInputRect.y + (0.5*font->getLineHeight()) + (lineNum * font->getLineHeight());
+            ofPushStyle();
+            ofSetColor(ofColor::white);
+            ofSetLineWidth(1);
+            ofDrawLine(linePos.x, linePos.y - font->getLineHeight()/2, linePos.x, linePos.y + font->getLineHeight()/2);
+            ofPopStyle();
+        }
         font->draw(mText, mInputRect.x + mPadding, mInputRect.y + font->getLineHeight());
         ofPopStyle();
     }
     
     void onKeyPressed(int key)
     {
-        //if (!keyIsValid(key)) return;
-        if (mHighlightText) {
-            // if key is printable or delete
-//            if ((key >= 32 && key <= 255) || key == OF_KEY_BACKSPACE || key == OF_KEY_DEL) {
-//                setText("");
-//                setCursorIndex(0);
-//            }
+        switch(key){
+            case OF_KEY_SHIFT:
+            case OF_KEY_LEFT_SHIFT:
+            case OF_KEY_RIGHT_SHIFT:
+            case OF_KEY_ALT:
+            case OF_KEY_CONTROL:
+            case OF_KEY_COMMAND:
+                return;
         }
         if (key == OF_KEY_BACKSPACE){
             // delete character at cursor position //
             if (mCursorIndex > 0) {
+                if(mText[mCursorIndex-1] == '\n') lineNum -= 1;
                 setText(mText.substr(0, mCursorIndex - 1) + mText.substr(mCursorIndex));
                 setCursorIndex(mCursorIndex - 1);
             }
         } else if (key == OF_KEY_RETURN) {
             setText(mText.substr(0, mCursorIndex) + '\n' + mText.substr(mCursorIndex));
+            lineNum += 1;
             setCursorIndex(mCursorIndex + 1);
         } else if (key == OF_KEY_LEFT) {
-            setCursorIndex(max( (int) mCursorIndex - 1, 0));
-        } else if (key == OF_KEY_RIGHT) {
-            setCursorIndex(min( mCursorIndex + 1, (unsigned int) mText.size()));
-        } else if (key == OF_KEY_UP) {
-            int lineStart = inversedFind(mText, "\n", mText.size() - mCursorIndex);
-            int previousLineStart = mText.size() - inversedFind(mText, "\n", lineStart + 1);
-            
-            int newPos = previousLineStart + (mCursorIndex - (mText.size() - lineStart));
-            setCursorIndex(max((unsigned int) newPos, (unsigned int) 0));
-        } else if (key == OF_KEY_DOWN) {
-            int lineEnd = mText.find("\n", mCursorIndex);
-            int nextLineEnd = mText.find("\n", lineEnd + 1);
+            int newCursor = max( (int) mCursorIndex - 1, 0);
             int lineStart = mText.size() - inversedFind(mText, "\n", mText.size() - mCursorIndex);
-            int newPos = min((unsigned int)lineEnd + (mCursorIndex - lineStart), (unsigned int)nextLineEnd);
-            setCursorIndex(min((unsigned int) newPos, (unsigned int) mText.size()));
+            if(lineStart == mCursorIndex){
+                lineNum -= 1;
+            }
+            setCursorIndex(newCursor);
+        } else if (key == OF_KEY_RIGHT) {
+            int newCursor = min( mCursorIndex + 1, (unsigned int) mText.size());
+            int lineStart = mText.size() - inversedFind(mText, "\n", mText.size() - newCursor);
+            if(lineStart == newCursor){
+                lineNum += 1;
+            }
+            setCursorIndex(newCursor);
+        } else if (key == OF_KEY_UP) {
+            if(lineNum > 0){
+                int lineStart = inversedFind(mText, "\n", mText.size() - mCursorIndex);
+                int previousLineStart = mText.size() - inversedFind(mText, "\n", lineStart + 1);
+                if(previousLineStart > mCursorIndex) previousLineStart = 0;
+                int newPos = min(previousLineStart + mCursorFromLineStart, (int)mText.size() - lineStart - 1);// (mCursorIndex - (mText.size() - lineStart));
+                setCursorIndex(max((unsigned int) newPos, (unsigned int) 0));
+                lineNum -= 1;
+            }
+        } else if (key == OF_KEY_DOWN) {
+            if(lineNum < getNumLines()-1){
+                int nextlineStart = mText.find("\n", mCursorIndex) + 1;
+                int nextLineEnd = mText.find("\n", nextlineStart);
+                int newPos = min((unsigned int)nextlineStart + mCursorFromLineStart, (unsigned int)nextLineEnd);
+                setCursorIndex(min((unsigned int) newPos, (unsigned int) mText.size()));
+                lineNum += 1;
+            }
         } else if (key == 'v' && ofGetKeyPressed(OF_KEY_COMMAND))  {
-            setText(ofGetWindowPtr()->getClipboardString());
-        } else {
+            mText += ofGetWindowPtr()->getClipboardString();
+            setCursorIndex(mCursorIndex + ofGetWindowPtr()->getClipboardString().size());
+        } else{
             // insert character at cursor position //
             mText = mText.substr(0, mCursorIndex) + (char)key + mText.substr(mCursorIndex);
             setCursorIndex(mCursorIndex + 1);
         }
         mHighlightText = false;
         setText(mText);
+    }
+    
+    void setCursorIndex(int index){
+        int lineStart = mText.size() - inversedFind(mText, "\n", mText.size() - index);
+        if(lineStart > index) lineStart = 0;
+        mCursorFromLineStart = index - lineStart;
+        ofxDatGuiTextInputField::setCursorIndex(index);
     }
     
     int inversedFind(string s, string toSearch, int initialPos){
@@ -733,7 +776,7 @@ private:
 class ofxDatGuiParagraph : public ofxDatGuiGroup{
 public:
     
-    ofxDatGuiParagraph(string label, string initalText = "Hola que hace") : ofxDatGuiGroup(label)
+    ofxDatGuiParagraph(string label, string initalText = "This is a paragraph") : ofxDatGuiGroup(label)
     {
         
         mType = ofxDatGuiType::PARAGRAPH;
@@ -743,7 +786,12 @@ public:
         setTheme(ofxDatGuiComponent::theme.get());
         setLabelColor(getTheme()->color.label*2);
         mInput.setInitialText(initalText);
+        mInput.setCursorToEnd();
         ofAddListener(mInput.heightChanged, this, &ofxDatGuiParagraph::heightChangedListener);
+    }
+    
+    void setTextWithoutEvent(string text){
+        mInput.setInitialText(text);
     }
    
     void setTheme(const ofxDatGuiTheme* theme)

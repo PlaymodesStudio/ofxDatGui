@@ -669,6 +669,23 @@ ofxDatGuiDropdown* ofxDatGui::getDropdown(string dl)
     return o;
 }
 
+ofxDatGuiParagraph* ofxDatGui::getParagraph(string tl, string fl)
+{
+    ofxDatGuiParagraph* o = nullptr;
+    if (fl != ""){
+        ofxDatGuiFolder* f = static_cast<ofxDatGuiFolder*>(getComponent(ofxDatGuiType::FOLDER, fl));
+        if (f) o = static_cast<ofxDatGuiParagraph*>(f->getComponent(ofxDatGuiType::PARAGRAPH, tl));
+    }   else{
+        o = static_cast<ofxDatGuiParagraph*>(getComponent(ofxDatGuiType::PARAGRAPH, tl));
+    }
+    if (o==nullptr){
+//        o = ofxDatGuiParagraph::getInstance();
+//        ofxDatGuiLog::write(ofxDatGuiMsg::COMPONENT_NOT_FOUND, fl!="" ? fl+"-"+tl : tl);
+//        trash.push_back(o);
+    }
+    return o;
+}
+
 ofxDatGuiFolder* ofxDatGui::getFolder(string fl)
 {
     ofxDatGuiFolder* o = static_cast<ofxDatGuiFolder*>(getComponent(ofxDatGuiType::FOLDER, fl));

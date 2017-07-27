@@ -114,6 +114,7 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
         ofxDatGuiValuePlotter* getValuePlotter(string label, string folder = "");
         ofxDatGuiFolder* getFolder(string label);
         ofxDatGuiDropdown* getDropdown(string label);
+        ofxDatGuiParagraph* getParagraph(string label, string folder = "");
         ofxDatGuiComponent* getComponent(string key);
         ofxDatGuiComponent* getComponent(ofxDatGuiType type, string label);
     
