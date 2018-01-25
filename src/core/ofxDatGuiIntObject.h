@@ -107,6 +107,20 @@ class ofxDatGuiInteractiveObject{
         void onSliderEvent(onSliderEventCallback callback) {
             sliderEventCallback = callback;
         }
+    
+    // multislider events //
+        typedef std::function<void(ofxDatGuiMultiSliderEvent)> onMultiSliderEventCallback;
+        onMultiSliderEventCallback multiSliderEventCallback;
+    
+        template<typename T, typename args, class ListenerClass>
+        void onMultiSliderEvent(T* owner, void (ListenerClass::*listenerMethod)(args))
+        {
+            multiSliderEventCallback = std::bind(listenerMethod, owner, std::placeholders::_1);
+        }
+    
+        void onMultiSliderEvent(onMultiSliderEventCallback callback) {
+            multiSliderEventCallback = callback;
+        }
 
     // text input events //
         typedef std::function<void(ofxDatGuiTextInputEvent)> onTextInputEventCallback;

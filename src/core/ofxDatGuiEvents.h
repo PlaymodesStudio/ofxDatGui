@@ -25,6 +25,7 @@
 class ofxDatGuiButton;
 class ofxDatGuiToggle;
 class ofxDatGuiSlider;
+class ofxDatGuiMultiSlider;
 class ofxDatGuiDropdown;
 class ofxDatGuiTextInput;
 class ofxDatGui2dPad;
@@ -93,6 +94,20 @@ class ofxDatGuiSliderEvent{
     float value;
     float scale;
     ofxDatGuiSlider* target;
+};
+
+class ofxDatGuiMultiSliderEvent{
+    
+public:
+    ofxDatGuiMultiSliderEvent(ofxDatGuiMultiSlider* t, vector<float> v, float s)
+    {
+        value = v;
+        scale = s;
+        target = t;
+    }
+    vector<float> value;
+    float scale;
+    ofxDatGuiMultiSlider* target;
 };
 
 class ofxDatGuiTextInputEvent{

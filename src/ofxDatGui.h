@@ -85,6 +85,12 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
         ofxDatGuiSlider* addSlider(string label, float min, float max, float val);
         ofxDatGuiSlider* addSlider(ofParameter<int> & p);
         ofxDatGuiSlider* addSlider(ofParameter<float> & p);
+    ofxDatGuiMultiSlider* addMultiSlider(string label, float min, float max);
+    ofxDatGuiMultiSlider* addMultiSlider(string label, float min, float max, vector<float> val);
+    ofxDatGuiMultiSlider* addMultiSlider(string label, float min, float max, vector<int> val);
+    ofxDatGuiMultiSlider* addMultiSlider(ofParameter<vector<int>> & p);
+    ofxDatGuiMultiSlider* addMultiSlider(ofParameter<vector<float>> & p);
+
         ofxDatGuiTextInput* addTextInput(string label, string value = "");
         ofxDatGuiDropdown* addDropdown(string label, vector<string> options);
         ofxDatGuiScrollView* addScrollView(string label, int nVisible);
@@ -165,6 +171,7 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
         void onButtonEventCallback(ofxDatGuiButtonEvent e);
         void onToggleEventCallback(ofxDatGuiToggleEvent e);
         void onSliderEventCallback(ofxDatGuiSliderEvent e);
+        void onMultiSliderEventCallback(ofxDatGuiMultiSliderEvent e);
         void onTextInputEventCallback(ofxDatGuiTextInputEvent e);
         void onDropdownEventCallback(ofxDatGuiDropdownEvent e);
         void onScrollViewEventCallback(ofxDatGuiScrollViewEvent e);

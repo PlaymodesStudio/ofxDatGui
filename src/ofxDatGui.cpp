@@ -358,6 +358,45 @@ ofxDatGuiSlider* ofxDatGui::addSlider(string label, float min, float max, float 
     attachItem(slider);
     return slider;
 }
+//--
+ofxDatGuiMultiSlider* ofxDatGui::addMultiSlider(ofParameter<vector<int>>& p)
+{
+    ofxDatGuiMultiSlider* slider = new ofxDatGuiMultiSlider(p);
+    slider->onSliderEvent(this, &ofxDatGui::onSliderEventCallback);
+    attachItem(slider);
+    return slider;
+}
+
+ofxDatGuiMultiSlider* ofxDatGui::addMultiSlider(ofParameter<vector<float>>& p)
+{
+    ofxDatGuiMultiSlider* slider = new ofxDatGuiMultiSlider(p);
+    slider->onSliderEvent(this, &ofxDatGui::onSliderEventCallback);
+    attachItem(slider);
+    return slider;
+}
+
+ofxDatGuiMultiSlider* ofxDatGui::addMultiSlider(string label, float min, float max)
+{
+    // default to halfway between min & max values //
+    ofxDatGuiMultiSlider* slider = addMultiSlider(label, min, max);
+    return slider;
+}
+
+ofxDatGuiMultiSlider* ofxDatGui::addMultiSlider(string label, float min, float max, vector<float> val)
+{
+    ofxDatGuiMultiSlider* slider = new ofxDatGuiMultiSlider(label, min, max, val);
+    slider->onMultiSliderEvent(this, &ofxDatGui::onMultiSliderEventCallback);
+    attachItem(slider);
+    return slider;
+}
+
+ofxDatGuiMultiSlider* ofxDatGui::addMultiSlider(string label, float min, float max, vector<int> val)
+{
+    ofxDatGuiMultiSlider* slider = new ofxDatGuiMultiSlider(label, min, max, val);
+    slider->onMultiSliderEvent(this, &ofxDatGui::onMultiSliderEventCallback);
+    attachItem(slider);
+    return slider;
+}
 
 ofxDatGuiTextInput* ofxDatGui::addTextInput(string label, string value)
 {
@@ -753,6 +792,15 @@ void ofxDatGui::onSliderEventCallback(ofxDatGuiSliderEvent e)
 {
     if (sliderEventCallback != nullptr) {
         sliderEventCallback(e);
+    }   else{
+        ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
+    }
+}
+
+void ofxDatGui::onMultiSliderEventCallback(ofxDatGuiMultiSliderEvent e)
+{
+    if (multiSliderEventCallback != nullptr) {
+        multiSliderEventCallback(e);
     }   else{
         ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
     }
