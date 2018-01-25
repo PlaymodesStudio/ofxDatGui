@@ -229,6 +229,15 @@ class ofxDatGuiFolder : public ofxDatGuiGroup {
             }
         }
     
+    void dispatchMultiSliderEvent(ofxDatGuiMultiSliderEvent e)
+    {
+        if (multiSliderEventCallback != nullptr) {
+            multiSliderEventCallback(e);
+        }   else{
+            ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
+        }
+    }
+    
         void dispatchTextInputEvent(ofxDatGuiTextInputEvent e)
         {
             if (textInputEventCallback != nullptr) {
