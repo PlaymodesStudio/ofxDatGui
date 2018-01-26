@@ -499,6 +499,8 @@ public:
         }
         else{
             mValue = vector<float>(values.begin(), values.end());
+            mNormalizedValues = mValue;
+            for(auto &normVal : mNormalizedValues) normVal = ofMap(normVal, mMin, mMax, 0, 1, true);
         }
     }
     
@@ -517,7 +519,8 @@ public:
         }
         else{
             mValue = vector<float>(values.begin(), values.end());
-            //setScale(-1);
+            mNormalizedValues = mValue;
+            for(auto &normVal : mNormalizedValues) normVal = ofMap(normVal, mMin, mMax, 0, 1, true);
         }
     }
     
@@ -627,11 +630,13 @@ public:
             mesh.setMode(OF_PRIMITIVE_TRIANGLES);
 
             for(int i = 0; i < numBars; i++){
-                mesh.addVertex(ofPoint((i*wid) + rightPosition, ((1-mValue[i])*elementHeight)+topPosition));
-                mesh.addVertex(ofPoint((i*wid) + rightPosition, (elementHeight+topPosition)));
-                mesh.addVertex(ofPoint(((i+1)*wid) + rightPosition, ((1-mValue[i])*elementHeight)+topPosition));
+                float indexedValue = mNormalizedValues[i];
                 
-                mesh.addVertex(ofPoint(((i+1)*wid) + rightPosition, ((1-mValue[i])*elementHeight)+topPosition));
+                mesh.addVertex(ofPoint((i*wid) + rightPosition, ((1-indexedValue)*elementHeight)+topPosition));
+                mesh.addVertex(ofPoint((i*wid) + rightPosition, (elementHeight+topPosition)));
+                mesh.addVertex(ofPoint(((i+1)*wid) + rightPosition, ((1-indexedValue)*elementHeight)+topPosition));
+                
+                mesh.addVertex(ofPoint(((i+1)*wid) + rightPosition, ((1-indexedValue)*elementHeight)+topPosition));
                 mesh.addVertex(ofPoint((i*wid) + rightPosition, (elementHeight+topPosition)));
                 mesh.addVertex(ofPoint(((i+1)*wid) + rightPosition, elementHeight+topPosition));
                 
@@ -749,6 +754,7 @@ private:
     float   mMin;
     float   mMax;
     vector<float>  mValue;
+    vector<float>   mNormalizedValues;
     double  mScale;
     int     mPrecision;
     bool    mTruncateValue;
