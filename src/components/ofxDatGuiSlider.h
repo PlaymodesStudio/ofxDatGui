@@ -622,9 +622,29 @@ public:
             int numBars = mValue.size();
             float wid = (float)(mStyle.width - mLabel.width - mStyle.padding*1.5) /numBars;
             float elementHeight = mStyle.height-(mStyle.padding*2);
+
+            ofMesh mesh;
+            mesh.setMode(OF_PRIMITIVE_TRIANGLES);
+
             for(int i = 0; i < numBars; i++){
-                ofDrawRectangle((i*wid) + rightPosition, ((1-mValue[i])*elementHeight)+topPosition, wid, mValue[i]*elementHeight);
+                mesh.addVertex(ofPoint((i*wid) + rightPosition, ((1-mValue[i])*elementHeight)+topPosition));
+                mesh.addVertex(ofPoint((i*wid) + rightPosition, (elementHeight+topPosition)));
+                mesh.addVertex(ofPoint(((i+1)*wid) + rightPosition, ((1-mValue[i])*elementHeight)+topPosition));
+                
+                mesh.addVertex(ofPoint(((i+1)*wid) + rightPosition, ((1-mValue[i])*elementHeight)+topPosition));
+                mesh.addVertex(ofPoint((i*wid) + rightPosition, (elementHeight+topPosition)));
+                mesh.addVertex(ofPoint(((i+1)*wid) + rightPosition, elementHeight+topPosition));
+                
+                mesh.addIndex((i*6));
+                mesh.addIndex((i*6)+1);
+                mesh.addIndex((i*6)+2);
+                mesh.addIndex((i*6)+3);
+                mesh.addIndex((i*6)+4);
+                mesh.addIndex((i*6)+5);
             }
+            
+            mesh.draw();
+            
         }
         
         ofPopStyle();
