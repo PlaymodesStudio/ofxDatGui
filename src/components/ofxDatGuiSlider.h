@@ -30,6 +30,7 @@ class ofxDatGuiSlider : public ofxDatGuiComponent {
     
         ofxDatGuiSlider(string label, float min, float max, double val) : ofxDatGuiComponent(label)
         {
+            mDefaultValue = val;
             mMin = min;
             mMax = max;
             setPrecision(2);
@@ -116,6 +117,10 @@ class ofxDatGuiSlider : public ofxDatGuiComponent {
                 onInvalidMinMaxValues();
             }
         }
+    
+    void setDefaultValue(){
+        setValue(mDefaultValue);
+    }
     
     void setValue(double value)
     {
@@ -321,6 +326,7 @@ class ofxDatGuiSlider : public ofxDatGuiComponent {
     
         float   mMin;
         float   mMax;
+        double  mDefaultValue;
         double  mValue;
         double  mScale;
         int     mPrecision;
@@ -384,10 +390,11 @@ public:
     
     ofxDatGuiMultiSlider(string label, float min, float max, vector<float> val) : ofxDatGuiComponent(label)
     {
+        mDefaultValue = val[0];
         mMin = min;
         mMax = max;
         setPrecision(2);
-        mType = ofxDatGuiType::SLIDER;
+        mType = ofxDatGuiType::MULTI_SLIDER;
         mInput = new ofxDatGuiTextInputField();
         mInput->setTextInputFieldType(ofxDatGuiInputType::NUMERIC);
         mInput->onInternalEvent(this, &ofxDatGuiMultiSlider::onInputChanged);
@@ -397,10 +404,11 @@ public:
     
     ofxDatGuiMultiSlider(string label, float min, float max, vector<int> val) : ofxDatGuiComponent(label)
     {
+        mDefaultValue = (float)val[0];
         mMin = min;
         mMax = max;
         setPrecision(0);
-        mType = ofxDatGuiType::SLIDER;
+        mType = ofxDatGuiType::MULTI_SLIDER;
         mInput = new ofxDatGuiTextInputField();
         mInput->setTextInputFieldType(ofxDatGuiInputType::NUMERIC);
         mInput->onInternalEvent(this, &ofxDatGuiMultiSlider::onInputChanged);
@@ -482,6 +490,11 @@ public:
         }   else{
             onInvalidMinMaxValues();
         }
+    }
+    
+    void setDefaultValue()
+    {
+        setValue(vector<float>(1, mDefaultValue));
     }
     
     void setValue(vector<int> values)
@@ -753,6 +766,7 @@ private:
     
     float   mMin;
     float   mMax;
+    float   mDefaultValue;
     vector<float>  mValue;
     vector<float>   mNormalizedValues;
     double  mScale;
