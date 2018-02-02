@@ -111,6 +111,8 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
         ofxDatGuiButton* getButton(string label, string folder = "");
         ofxDatGuiToggle* getToggle(string label, string folder = "");
         ofxDatGuiSlider* getSlider(string label, string folder = "");
+        ofxDatGuiMultiSlider* getMultiSlider(string label, string folder = "");
+
         ofxDatGui2dPad* get2dPad(string label, string folder = "");
         ofxDatGuiTextInput* getTextInput(string label, string folder = "");
         ofxDatGuiColorPicker* getColorPicker(string label, string folder = "");

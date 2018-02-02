@@ -587,6 +587,23 @@ ofxDatGuiSlider* ofxDatGui::getSlider(string sl, string fl)
     return o;
 }
 
+ofxDatGuiMultiSlider* ofxDatGui::getMultiSlider(string sl, string fl)
+{
+    ofxDatGuiMultiSlider* o = nullptr;
+    if (fl != ""){
+        ofxDatGuiFolder* f = static_cast<ofxDatGuiFolder*>(getComponent(ofxDatGuiType::FOLDER, fl));
+        if (f) o = static_cast<ofxDatGuiMultiSlider*>(f->getComponent(ofxDatGuiType::MULTI_SLIDER, sl));
+    }   else{
+        o = static_cast<ofxDatGuiMultiSlider*>(getComponent(ofxDatGuiType::MULTI_SLIDER, sl));
+    }
+    if (o==nullptr){
+        o = ofxDatGuiMultiSlider::getInstance();
+        ofxDatGuiLog::write(ofxDatGuiMsg::COMPONENT_NOT_FOUND, fl!="" ? fl+"-"+sl : sl);
+        trash.push_back(o);
+    }
+    return o;
+}
+
 ofxDatGuiTextInput* ofxDatGui::getTextInput(string tl, string fl)
 {
     ofxDatGuiTextInput* o = nullptr;
