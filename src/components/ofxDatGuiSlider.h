@@ -120,6 +120,7 @@ class ofxDatGuiSlider : public ofxDatGuiComponent {
     
     void setDefaultValue(){
         setValue(mDefaultValue);
+        dispatchSliderChangedEvent();
     }
     
     void setValue(double value)
@@ -495,6 +496,7 @@ public:
     void setDefaultValue()
     {
         setValue(vector<float>(1, mDefaultValue));
+        dispatchSliderChangedEvent();
     }
     
     void setValue(vector<int> values)
