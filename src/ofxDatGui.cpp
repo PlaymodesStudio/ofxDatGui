@@ -847,7 +847,7 @@ bool ofxDatGui::hitTest(ofPoint pt)
     if (mMoving){
         return true;
     }   else{
-        return mGuiBounds.inside(tempVec);
+        return mGuiBounds.inside(tempVec.x, tempVec.y);
     }
 }
 
@@ -1024,8 +1024,8 @@ void ofxDatGui::mouseMoved(ofMouseEventArgs &e)
     ofVec4f tempVec = e;
     tempVec -= transformMatrix.getTranslation();
     tempVec = transformMatrix.getInverse().postMult(tempVec);
-    ofMouseEventArgs modified_e = e;
-    modified_e.set(tempVec.x, tempVec.y);
+    ofMouseEventArgs modified_e = ofMouseEventArgs(e.type, tempVec.x, tempVec.y, e.button);
+
     
     if(!mMoving){
         if(hitTest(e) && !getFocused() && !mActiveGui->hitTest(e) && getVisible()){
@@ -1045,8 +1045,7 @@ void ofxDatGui::mouseDragged(ofMouseEventArgs &e)
     ofVec4f tempVec = e;
     tempVec -= transformMatrix.getTranslation();
     tempVec = transformMatrix.getInverse().postMult(tempVec);
-    ofMouseEventArgs modified_e = e;
-    modified_e.set(tempVec.x, tempVec.y);
+    ofMouseEventArgs modified_e = ofMouseEventArgs(e.type, tempVec.x, tempVec.y, e.button);
     
     if(e.button == 0){
         if(this == mActiveGui){
@@ -1070,8 +1069,8 @@ void ofxDatGui::mousePressed(ofMouseEventArgs &e)
     ofVec4f tempVec = e;
     tempVec -= transformMatrix.getTranslation();
     tempVec = transformMatrix.getInverse().postMult(tempVec);
-    ofMouseEventArgs modified_e = e;
-    modified_e.set(tempVec.x, tempVec.y);
+    ofMouseEventArgs modified_e = ofMouseEventArgs(e.type, tempVec.x, tempVec.y, e.button);
+
     
 //    if(hitTest(e)){
 //        mMouseDown = true;
@@ -1100,8 +1099,8 @@ void ofxDatGui::mouseReleased(ofMouseEventArgs &e)
     ofVec4f tempVec = e;
     tempVec -= transformMatrix.getTranslation();
     tempVec = transformMatrix.getInverse().postMult(tempVec);
-    ofMouseEventArgs modified_e = e;
-    modified_e.set(tempVec.x, tempVec.y);
+    ofMouseEventArgs modified_e = ofMouseEventArgs(e.type, tempVec.x, tempVec.y, e.button);
+
     
     mMouseDown = false;
 
