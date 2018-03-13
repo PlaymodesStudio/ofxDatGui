@@ -213,6 +213,11 @@ class ofxDatGuiScrollView : public ofxDatGuiComponent {
             mBackground = color;
         }
     
+    void setNumVisible(int nVisible)
+    {
+        mNumVisible = nVisible;
+        autoSize();
+    }
     /*
         update & draw
     */
@@ -360,6 +365,11 @@ class ofxDatGuiScrollView : public ofxDatGuiComponent {
         {
             mRect.height = ((mTheme->layout.height + mSpacing) * mNumVisible) - mSpacing;
             if (mRect.width > 0 && mRect.height > 0) mView.allocate( mRect.width, mRect.height );
+            if (children.size() > 0){
+                int btnH = children.front()->getHeight() + mSpacing;
+                children.front()->setPosition(0, mY);
+                for(int i=0; i<children.size(); i++) children[i]->setPosition(0, mY + (btnH * i));
+            }
         }
     
         void onMouseScrolled(ofMouseEventArgs &e)
