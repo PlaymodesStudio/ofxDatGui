@@ -207,8 +207,10 @@ void ofxDatGui::setPosition(ofxDatGuiAnchor anchor)
 void ofxDatGui::setVisible(bool visible)
 {
     mVisible = visible;
-    if(mVisible)
+    if(mVisible){
         ofRegisterMouseEvents(this, OF_EVENT_ORDER_BEFORE_APP);
+        focus();
+    }
     else
         ofUnregisterMouseEvents(this, OF_EVENT_ORDER_BEFORE_APP);
 }
