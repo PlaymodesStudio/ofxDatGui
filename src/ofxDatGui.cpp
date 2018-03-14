@@ -42,8 +42,8 @@ ofxDatGui::ofxDatGui(ofxDatGuiAnchor anchor)
 
 ofxDatGui::~ofxDatGui()
 {
-    ofRemoveListener(ofEvents().draw, this, &ofxDatGui::draw, OF_EVENT_ORDER_AFTER_APP + mIndex);
-    ofRemoveListener(ofEvents().update, this, &ofxDatGui::update, OF_EVENT_ORDER_BEFORE_APP - mIndex);
+    ofRemoveListener(ofEvents().draw, this, &ofxDatGui::drawEvent, OF_EVENT_ORDER_AFTER_APP + mIndex);
+    ofRemoveListener(ofEvents().update, this, &ofxDatGui::updateEvent, OF_EVENT_ORDER_BEFORE_APP - mIndex);
     ofRemoveListener(ofEvents().windowResized, this, &ofxDatGui::onWindowResized, OF_EVENT_ORDER_BEFORE_APP);
     ofUnregisterKeyEvents(this, OF_EVENT_ORDER_BEFORE_APP);
     ofUnregisterMouseEvents(this, OF_EVENT_ORDER_BEFORE_APP);
@@ -101,8 +101,10 @@ void ofxDatGui::focus()
                 break;
             }
         }
-        for (int i=0; i<mGuis.size(); i++) {
-            if (mGuis[i]->getAutoDraw()) mGuis[i]->setAutoDraw(true, i);
+        if(getAutoDraw()){
+            for (int i=0; i<mGuis.size(); i++) {
+                if (mGuis[i]->getAutoDraw()) mGuis[i]->setAutoDraw(true, i);
+            }
         }
 //        for (int i=0; i<mGuis.size(); i++) {
 //            if(mGuis[i] != mActiveGui) mGuis[i]->focusLost();
@@ -223,14 +225,14 @@ void ofxDatGui::setEnabled(bool enabled)
 void ofxDatGui::setAutoDraw(bool autodraw, int priority)
 {
     mAutoDraw = autodraw;
-    ofRemoveListener(ofEvents().draw, this, &ofxDatGui::draw, OF_EVENT_ORDER_AFTER_APP + mIndex);
-    ofRemoveListener(ofEvents().update, this, &ofxDatGui::update, OF_EVENT_ORDER_BEFORE_APP - mIndex);
+    ofRemoveListener(ofEvents().draw, this, &ofxDatGui::drawEvent, OF_EVENT_ORDER_AFTER_APP + mIndex);
+    ofRemoveListener(ofEvents().update, this, &ofxDatGui::updateEvent, OF_EVENT_ORDER_BEFORE_APP - mIndex);
 //    ofUnregisterMouseEvents(this, OF_EVENT_ORDER_BEFORE_APP);
 //    ofUnregisterKeyEvents(this);
     if (mAutoDraw){
         mIndex = priority;
-        ofAddListener(ofEvents().draw, this, &ofxDatGui::draw, OF_EVENT_ORDER_AFTER_APP + mIndex);
-        ofAddListener(ofEvents().update, this, &ofxDatGui::update, OF_EVENT_ORDER_BEFORE_APP - mIndex);
+        ofAddListener(ofEvents().draw, this, &ofxDatGui::drawEvent, OF_EVENT_ORDER_AFTER_APP + mIndex);
+        ofAddListener(ofEvents().update, this, &ofxDatGui::updateEvent, OF_EVENT_ORDER_BEFORE_APP - mIndex);
         ofRegisterKeyEvents(this);
         ofRegisterMouseEvents(this, OF_EVENT_ORDER_BEFORE_APP);
     }
@@ -971,7 +973,11 @@ void ofxDatGui::layoutGui()
     update & draw loop
 */
 
-void ofxDatGui::update(ofEventArgs &e)
+void ofxDatGui::updateEvent(ofEventArgs &e){
+    update();
+}
+
+void ofxDatGui::update()
 {
     if (!mVisible) return;
 
@@ -1050,23 +1056,28 @@ void ofxDatGui::update(ofEventArgs &e)
     trash.clear();
 }
 
-void ofxDatGui::draw(ofEventArgs &e)
+void ofxDatGui::drawEvent(ofEventArgs &e)
+{
+    draw();
+}
+
+void ofxDatGui::draw()
 {
     if (mVisible == false) return;
     ofPushMatrix();
     ofMultMatrix(transformMatrix);
     ofPushStyle();
-        ofFill();
-        ofSetColor(mGuiBackground, mAlpha * 255);
-        if (mExpanded == false){
-            ofDrawRectangle(mPosition.x, mPosition.y, mWidth, mGuiFooter->getHeight());
-            mGuiFooter->draw();
-        }   else{
-            ofDrawRectangle(mPosition.x, mPosition.y, mWidth, mHeight - mRowSpacing);
-            for (int i=0; i<items.size(); i++) items[i]->draw();
+    ofFill();
+    ofSetColor(mGuiBackground, mAlpha * 255);
+    if (mExpanded == false){
+        ofDrawRectangle(mPosition.x, mPosition.y, mWidth, mGuiFooter->getHeight());
+        mGuiFooter->draw();
+    }   else{
+        ofDrawRectangle(mPosition.x, mPosition.y, mWidth, mHeight - mRowSpacing);
+        for (int i=0; i<items.size(); i++) items[i]->draw();
         // color pickers overlap other components when expanded so they must be drawn last //
-            for (int i=0; i<items.size(); i++) items[i]->drawColorPicker();
-        }
+        for (int i=0; i<items.size(); i++) items[i]->drawColorPicker();
+    }
     ofPopStyle();
     ofPopMatrix();
 }

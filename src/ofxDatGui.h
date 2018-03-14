@@ -33,8 +33,10 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
         ofxDatGui(ofxDatGuiAnchor anchor = ofxDatGuiAnchor::TOP_LEFT);
         ~ofxDatGui();
 
-        void draw(ofEventArgs &e);
-        void update(ofEventArgs &e);
+        void drawEvent(ofEventArgs &e);
+        void draw();
+        void updateEvent(ofEventArgs &e);
+        void update();
         void onWindowResized(ofResizeEventArgs &e);
     
         void keyPressed(ofKeyEventArgs &e);
