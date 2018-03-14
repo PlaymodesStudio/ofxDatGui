@@ -25,16 +25,18 @@
 ofxDatGui* ofxDatGui::mActiveGui;
 vector<ofxDatGui*> ofxDatGui::mGuis;
 
-ofxDatGui::ofxDatGui(int x, int y)
+ofxDatGui::ofxDatGui(int x, int y, shared_ptr<ofAppBaseWindow> win)
 {
+    window = win;
     mPosition.x = x;
     mPosition.y = y;
     mAnchor = ofxDatGuiAnchor::NO_ANCHOR;
     init();
 }
 
-ofxDatGui::ofxDatGui(ofxDatGuiAnchor anchor)
+ofxDatGui::ofxDatGui(ofxDatGuiAnchor anchor, shared_ptr<ofAppBaseWindow> win)
 {
+    window = win;
     init();
     mAnchor = anchor;
     anchorGui();
@@ -225,16 +227,36 @@ void ofxDatGui::setEnabled(bool enabled)
 void ofxDatGui::setAutoDraw(bool autodraw, int priority)
 {
     mAutoDraw = autodraw;
-    ofRemoveListener(ofEvents().draw, this, &ofxDatGui::drawEvent, OF_EVENT_ORDER_AFTER_APP + mIndex);
-    ofRemoveListener(ofEvents().update, this, &ofxDatGui::updateEvent, OF_EVENT_ORDER_BEFORE_APP - mIndex);
-//    ofUnregisterMouseEvents(this, OF_EVENT_ORDER_BEFORE_APP);
-//    ofUnregisterKeyEvents(this);
+    if(window == nullptr){
+        ofRemoveListener(ofEvents().draw, this, &ofxDatGui::drawEvent, OF_EVENT_ORDER_AFTER_APP + mIndex);
+        ofRemoveListener(ofEvents().update, this, &ofxDatGui::updateEvent, OF_EVENT_ORDER_BEFORE_APP - mIndex);
+    }else{
+        ofRemoveListener(window->events().draw, this, &ofxDatGui::drawEvent, OF_EVENT_ORDER_AFTER_APP + mIndex);
+        ofRemoveListener(window->events().update, this, &ofxDatGui::updateEvent, OF_EVENT_ORDER_BEFORE_APP - mIndex);
+    }
     if (mAutoDraw){
         mIndex = priority;
-        ofAddListener(ofEvents().draw, this, &ofxDatGui::drawEvent, OF_EVENT_ORDER_AFTER_APP + mIndex);
-        ofAddListener(ofEvents().update, this, &ofxDatGui::updateEvent, OF_EVENT_ORDER_BEFORE_APP - mIndex);
-        ofRegisterKeyEvents(this);
-        ofRegisterMouseEvents(this, OF_EVENT_ORDER_BEFORE_APP);
+        if(window == nullptr){
+            ofAddListener(ofEvents().draw, this, &ofxDatGui::drawEvent, OF_EVENT_ORDER_AFTER_APP + mIndex);
+            ofAddListener(ofEvents().update, this, &ofxDatGui::updateEvent, OF_EVENT_ORDER_BEFORE_APP - mIndex);
+            ofRegisterKeyEvents(this);
+            ofRegisterMouseEvents(this, OF_EVENT_ORDER_BEFORE_APP);
+        }
+        else{
+            ofAddListener(window->events().draw, this, &ofxDatGui::drawEvent, OF_EVENT_ORDER_AFTER_APP + mIndex);
+            ofAddListener(window->events().update, this, &ofxDatGui::updateEvent, OF_EVENT_ORDER_BEFORE_APP - mIndex);
+            
+            ofAddListener(window->events().keyPressed, this, &ofxDatGui::keyPressed);
+            ofAddListener(window->events().keyReleased, this, &ofxDatGui::keyReleased);
+            
+            ofAddListener(window->events().mouseDragged,this,&ofxDatGui::mouseDragged,OF_EVENT_ORDER_BEFORE_APP);
+            ofAddListener(window->events().mouseMoved,this,&ofxDatGui::mouseMoved,OF_EVENT_ORDER_BEFORE_APP);
+            ofAddListener(window->events().mousePressed,this,&ofxDatGui::mousePressed,OF_EVENT_ORDER_BEFORE_APP);
+            ofAddListener(window->events().mouseReleased,this,&ofxDatGui::mouseReleased,OF_EVENT_ORDER_BEFORE_APP);
+            ofAddListener(window->events().mouseScrolled,this,&ofxDatGui::mouseScrolled,OF_EVENT_ORDER_BEFORE_APP);
+            ofAddListener(window->events().mouseEntered,this,&ofxDatGui::mouseEntered,OF_EVENT_ORDER_BEFORE_APP);
+            ofAddListener(window->events().mouseExited,this,&ofxDatGui::mouseExited,OF_EVENT_ORDER_BEFORE_APP);
+        }
     }
 }
 

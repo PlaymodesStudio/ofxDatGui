@@ -29,8 +29,8 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
     
     public:
     
-        ofxDatGui(int x, int y);
-        ofxDatGui(ofxDatGuiAnchor anchor = ofxDatGuiAnchor::TOP_LEFT);
+        ofxDatGui(int x, int y, shared_ptr<ofAppBaseWindow> win = nullptr);
+        ofxDatGui(ofxDatGuiAnchor anchor = ofxDatGuiAnchor::TOP_LEFT, shared_ptr<ofAppBaseWindow> win = nullptr);
         ~ofxDatGui();
 
         void drawEvent(ofEventArgs &e);
@@ -161,6 +161,8 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
         static ofxDatGui* mActiveGui;
         static vector<ofxDatGui*> mGuis;
         static unique_ptr<ofxDatGuiTheme> theme;
+    
+        shared_ptr<ofAppBaseWindow> window;
     
         void init();
         void layoutGui();
