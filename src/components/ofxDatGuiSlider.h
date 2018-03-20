@@ -638,33 +638,53 @@ public:
             int topPosition = (y+mStyle.padding);
             int rightPosition = x+mLabel.width;
             int numBars = mValue.size();
-            float wid = (float)(mStyle.width - mLabel.width - mStyle.padding*1.5) /numBars;
+            float totalWidth = (mStyle.width - mLabel.width - mStyle.padding*1.5);
+            float wid = (float)totalWidth/numBars;
             float elementHeight = mStyle.height-(mStyle.padding*2);
 
             ofMesh mesh;
             mesh.setMode(OF_PRIMITIVE_TRIANGLES);
 
-            for(int i = 0; i < numBars; i++){
-                float indexedValue = mNormalizedValues[i];
-                
-                mesh.addVertex(ofPoint((i*wid) + rightPosition, ((1-indexedValue)*elementHeight)+topPosition));
-                mesh.addVertex(ofPoint((i*wid) + rightPosition, (elementHeight+topPosition)));
-                mesh.addVertex(ofPoint(((i+1)*wid) + rightPosition, ((1-indexedValue)*elementHeight)+topPosition));
-                
-                mesh.addVertex(ofPoint(((i+1)*wid) + rightPosition, ((1-indexedValue)*elementHeight)+topPosition));
-                mesh.addVertex(ofPoint((i*wid) + rightPosition, (elementHeight+topPosition)));
-                mesh.addVertex(ofPoint(((i+1)*wid) + rightPosition, elementHeight+topPosition));
-                
-                mesh.addIndex((i*6));
-                mesh.addIndex((i*6)+1);
-                mesh.addIndex((i*6)+2);
-                mesh.addIndex((i*6)+3);
-                mesh.addIndex((i*6)+4);
-                mesh.addIndex((i*6)+5);
+            if(totalWidth >= numBars){
+                for(int i = 0; i < numBars; i++){
+                    float indexedValue = mNormalizedValues[i];
+                    mesh.addVertex(ofPoint((i*wid) + rightPosition, ((1-indexedValue)*elementHeight)+topPosition));
+                    mesh.addVertex(ofPoint((i*wid) + rightPosition, (elementHeight+topPosition)));
+                    mesh.addVertex(ofPoint(((i+1)*wid) + rightPosition, ((1-indexedValue)*elementHeight)+topPosition));
+                    
+                    mesh.addVertex(ofPoint(((i+1)*wid) + rightPosition, ((1-indexedValue)*elementHeight)+topPosition));
+                    mesh.addVertex(ofPoint((i*wid) + rightPosition, (elementHeight+topPosition)));
+                    mesh.addVertex(ofPoint(((i+1)*wid) + rightPosition, elementHeight+topPosition));
+                    
+                    mesh.addIndex((i*6));
+                    mesh.addIndex((i*6)+1);
+                    mesh.addIndex((i*6)+2);
+                    mesh.addIndex((i*6)+3);
+                    mesh.addIndex((i*6)+4);
+                    mesh.addIndex((i*6)+5);
+                }
             }
-            
+            else{
+                for(int i = 0; i < totalWidth; i++){
+                    int resampledIndex = int((float)i/wid);
+                    float indexedValue = mNormalizedValues[resampledIndex];
+                    mesh.addVertex(ofPoint(i + rightPosition, ((1-indexedValue)*elementHeight)+topPosition));
+                    mesh.addVertex(ofPoint(i + rightPosition, (elementHeight+topPosition)));
+                    mesh.addVertex(ofPoint(i+1 + rightPosition, ((1-indexedValue)*elementHeight)+topPosition));
+                    
+                    mesh.addVertex(ofPoint(i+1 + rightPosition, ((1-indexedValue)*elementHeight)+topPosition));
+                    mesh.addVertex(ofPoint(i + rightPosition, (elementHeight+topPosition)));
+                    mesh.addVertex(ofPoint(i+1 + rightPosition, elementHeight+topPosition));
+                    
+                    mesh.addIndex((i*6));
+                    mesh.addIndex((i*6)+1);
+                    mesh.addIndex((i*6)+2);
+                    mesh.addIndex((i*6)+3);
+                    mesh.addIndex((i*6)+4);
+                    mesh.addIndex((i*6)+5);
+                }
+            }
             mesh.draw();
-            
         }
         
         ofPopStyle();
