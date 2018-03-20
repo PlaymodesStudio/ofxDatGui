@@ -72,6 +72,10 @@ class ofxDatGuiComponent : public ofxDatGuiInteractiveObject
     
         vector<ofxDatGuiComponent*> children;
 
+    shared_ptr<ofAppBaseWindow> window;
+    
+    void setWindow(shared_ptr<ofAppBaseWindow> w){window = w;};
+    
     void draw(ofEventArgs &e);
         virtual void draw();
     void update(ofEventArgs &e);
