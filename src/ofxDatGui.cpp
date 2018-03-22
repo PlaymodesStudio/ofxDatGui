@@ -22,8 +22,10 @@
 
 #include "ofxDatGui.h"
 
-ofxDatGui* ofxDatGui::mActiveGui;
-vector<ofxDatGui*> ofxDatGui::mGuis;
+//ofxDatGui* ofxDatGui::mActiveGui;
+//vector<ofxDatGui*> ofxDatGui::mGuis;
+unordered_map<shared_ptr<ofAppBaseWindow>, ofxDatGui*> ofxDatGui::mActiveGuiPerWindow;
+unordered_map<shared_ptr<ofAppBaseWindow>, vector<ofxDatGui*>> ofxDatGui::mGuisPerWindow;
 
 ofxDatGui::ofxDatGui(int x, int y, shared_ptr<ofAppBaseWindow> win)
 {
@@ -67,8 +69,8 @@ ofxDatGui::~ofxDatGui()
         ofRemoveListener(window->events().mouseExited,this,&ofxDatGui::mouseExited,OF_EVENT_ORDER_BEFORE_APP);
     }
     for (auto i:items) delete i;
-    mGuis.erase(std::remove(mGuis.begin(), mGuis.end(), this), mGuis.end());
-    if (mActiveGui == this) mActiveGui = mGuis.size() > 0 ? mGuis[0] : nullptr;
+    mGuisPerWindow[window].erase(std::remove(mGuisPerWindow[window].begin(), mGuisPerWindow[window].end(), this), mGuisPerWindow[window].end());
+    if (mActiveGuiPerWindow[window] == this) mActiveGuiPerWindow[window] = mGuisPerWindow[window].size() > 0 ? mGuisPerWindow[window][0] : nullptr;
 }
 
 void ofxDatGui::init()
@@ -90,11 +92,13 @@ void ofxDatGui::init()
     mGuiBackground = ofxDatGuiComponent::getTheme()->color.guiBackground;
     
 // enable autodraw by default //
-    setAutoDraw(true, mGuis.size());
+    setAutoDraw(true, mGuisPerWindow[window].size());
     
 // assign focus to this newly created gui //
-    mActiveGui = this;
-    mGuis.push_back(this);
+//    mActiveGui = this;
+    mActiveGuiPerWindow[window] = this;
+//    mGuis.push_back(this);
+    mGuisPerWindow[window].push_back(this);
     if(window == nullptr){
         ofAddListener(ofEvents().windowResized, this, &ofxDatGui::onWindowResized, OF_EVENT_ORDER_BEFORE_APP);
         ofRegisterKeyEvents(this);
@@ -123,21 +127,34 @@ void ofxDatGui::init()
 void ofxDatGui::focus()
 {
     //TODO: Register events. And unregister the rest of the gui events.
-    if (mActiveGui!= this){
+//    if (mActiveGui!= this){
+    if (mActiveGuiPerWindow[window]!= this){
     // enable and make visible if hidden //
         mVisible = true;
         mEnabled = true;
-        mActiveGui = this;
+//        mActiveGui = this;
+        mActiveGuiPerWindow[window] = this;
     // update the draw order //
-        for (int i=0; i<mGuis.size(); i++) {
-            if (mGuis[i] == mActiveGui) {
-                std::swap(mGuis[i], mGuis[mGuis.size()-1]);
+//        for (int i=0; i<mGuis.size(); i++) {
+//            if (mGuis[i] == mActiveGui) {
+//                std::swap(mGuis[i], mGuis[mGuis.size()-1]);
+//                break;
+//            }
+//        }
+        for (int i=0; i<mGuisPerWindow[window].size(); i++) {
+            if (mGuisPerWindow[window][i] == mActiveGuiPerWindow[window]) {
+                std::swap(mGuisPerWindow[window][i], mGuisPerWindow[window].back());
                 break;
             }
         }
+//        if(getAutoDraw()){
+//            for (int i=0; i<mGuis.size(); i++) {
+//                if (mGuis[i]->getAutoDraw()) mGuis[i]->setAutoDraw(true, i);
+//            }
+//        }
         if(getAutoDraw()){
-            for (int i=0; i<mGuis.size(); i++) {
-                if (mGuis[i]->getAutoDraw()) mGuis[i]->setAutoDraw(true, i);
+            for (int i=0; i<mGuisPerWindow[window].size(); i++) {
+                if (mGuisPerWindow[window][i]->getAutoDraw()) mGuisPerWindow[window][i]->setAutoDraw(true, i);
             }
         }
 //        for (int i=0; i<mGuis.size(); i++) {
@@ -213,7 +230,7 @@ bool ofxDatGui::getVisible()
 
 bool ofxDatGui::getFocused()
 {
-    return mActiveGui == this;
+    return mActiveGuiPerWindow[window] == this;
 }
 
 bool ofxDatGui::getExpanded()
@@ -1170,15 +1187,15 @@ void ofxDatGui::mouseMoved(ofMouseEventArgs &e)
 
     
     if(!mMoving){
-        if(hitTest(e) && !getFocused() && !mActiveGui->hitTest(e) && getVisible()){
+        if(hitTest(e) && !getFocused() && !mActiveGuiPerWindow[window]->hitTest(e) && getVisible()){
             if(mAutoDraw){
-                mActiveGui->focusLost();
+                mActiveGuiPerWindow[window]->focusLost();
             }
             focus();
         }
     }
 
-    if(this == mActiveGui){
+    if(this == mActiveGuiPerWindow[window]){
         for (auto &item : items)
             item->mouseMoved(modified_e);
     }
@@ -1192,7 +1209,7 @@ void ofxDatGui::mouseDragged(ofMouseEventArgs &e)
     ofMouseEventArgs modified_e = ofMouseEventArgs(e.type, tempVec.x, tempVec.y, e.button);
     
     if(e.button == 0){
-        if(this == mActiveGui){
+        if(this == mActiveGuiPerWindow[window]){
             for (auto &item : items)
                 item->mouseDragged(modified_e);
             

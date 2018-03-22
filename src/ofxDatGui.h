@@ -158,8 +158,10 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
         ofxDatGuiAlignment mAlignment;
         vector<ofxDatGuiComponent*> items;
         vector<ofxDatGuiComponent*> trash;
-        static ofxDatGui* mActiveGui;
-        static vector<ofxDatGui*> mGuis;
+//        static ofxDatGui* mActiveGui;
+        static unordered_map<shared_ptr<ofAppBaseWindow>, ofxDatGui*> mActiveGuiPerWindow;
+//        static vector<ofxDatGui*> mGuis;
+        static unordered_map<shared_ptr<ofAppBaseWindow>, vector<ofxDatGui*>> mGuisPerWindow;
         static unique_ptr<ofxDatGuiTheme> theme;
     
         shared_ptr<ofAppBaseWindow> window;
