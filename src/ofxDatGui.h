@@ -77,6 +77,7 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
         bool getAutoDraw();
         bool getMouseDown();
         ofPoint getPosition();
+        int getNumComponents();
     
         ofxDatGuiHeader* addHeader(string label = "", bool draggable = true);
         ofxDatGuiFooter* addFooter();
@@ -124,7 +125,11 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
         ofxDatGuiFolder* getFolder(string label);
         ofxDatGuiDropdown* getDropdown(string label);
         ofxDatGuiComponent* getComponent(string key);
+        ofxDatGuiComponent* getComponent(int index);
         ofxDatGuiComponent* getComponent(ofxDatGuiType type, string label);
+    
+        void removeComponent(string key);
+        void removeComponent(int index);
     
         bool hitTest(ofPoint pt);
     

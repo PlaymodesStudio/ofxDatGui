@@ -75,6 +75,7 @@ ofxDatGui::~ofxDatGui()
 
 void ofxDatGui::init()
 {
+    mTheme = nullptr;
     mMoving = false;
     mVisible = true;
     mEnabled = true;
@@ -248,11 +249,11 @@ void ofxDatGui::setWidth(int width, float labelWidth)
 
 void ofxDatGui::setTheme(ofxDatGuiTheme* t, bool applyImmediately)
 {
+    mTheme = t;
     if (applyImmediately){
         for(auto item:items) item->setTheme(t);
     }   else{
     // apply on next update call //
-        mTheme = t;
         mThemeChanged = true;
     }
     mRowSpacing = t->layout.vMargin;
@@ -347,6 +348,11 @@ int ofxDatGui::getHeight()
 ofPoint ofxDatGui::getPosition()
 {
     return ofPoint(mPosition.x, mPosition.y);
+}
+
+int ofxDatGui::getNumComponents()
+{
+    return items.size();
 }
 
 void ofxDatGui::setAssetPath(string path)
@@ -596,6 +602,7 @@ void ofxDatGui::attachItem(ofxDatGuiComponent* item)
     }   else {
         items.push_back( item );
     }
+    if(mTheme != nullptr) item->setTheme(mTheme);
     item->onInternalEvent(this, &ofxDatGui::onInternalEventCallback);
     item->onRightClickEvent(this, &ofxDatGui::onRightClickEventCallback);
     layoutGui();
@@ -851,6 +858,16 @@ ofxDatGuiComponent* ofxDatGui::getComponent(string key)
     return NULL;
 }
 
+ofxDatGuiComponent* ofxDatGui::getComponent(int index)
+{
+    if(index < items.size()){
+        if(items[index] != mGuiHeader && items[index] != mGuiFooter){
+            return items[index];
+        }
+    }
+    return NULL;
+}
+
 ofxDatGuiComponent* ofxDatGui::getComponent(ofxDatGuiType type, string label)
 {
     for (int i=0; i<items.size(); i++) {
@@ -864,6 +881,22 @@ ofxDatGuiComponent* ofxDatGui::getComponent(ofxDatGuiType type, string label)
     }
     return NULL;
 }
+
+void ofxDatGui::removeComponent(string key)
+{
+    for (int i=0; i<items.size(); i++) {
+        if (items[i]->is(key)) items.erase(items.begin()+i);
+    }
+    layoutGui();
+}
+
+
+void ofxDatGui::removeComponent(int index)
+{
+    items.erase(items.begin()+index);
+    layoutGui();
+}
+
 
 /*
     event callbacks
@@ -1072,7 +1105,7 @@ void ofxDatGui::update()
     
     if (mThemeChanged || mWidthChanged) layoutGui();
 
-    mTheme = nullptr;
+    //mTheme = nullptr;
     mAlphaChanged = false;
     mWidthChanged = false;
     mThemeChanged = false;
