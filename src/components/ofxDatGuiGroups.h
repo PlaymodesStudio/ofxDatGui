@@ -85,7 +85,8 @@ class ofxDatGuiGroup : public ofxDatGuiButton {
         {
             return children.size();
         }
-        int clear()
+    
+        void clear()
         {
             children.clear();
         }
