@@ -74,6 +74,15 @@ float ofxSmartFont::getLineHeight()
     return ttf.getLineHeight();
 }
 
+ofMesh ofxSmartFont::getStringMesh(string text, float x, float y)
+{
+    return ttf.getStringMesh(text, x, y);
+}
+
+ofTexture ofxSmartFont::getFontTexture(){
+    return texture;
+}
+
 /*
     static methods
 */

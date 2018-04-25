@@ -45,6 +45,8 @@ class ofxSmartFont {
         float width(string s, int x=0, int y=0);
         float height(string s, int x=0, int y=0);
         float getLineHeight();
+        ofMesh getStringMesh(string text, float x, float y);
+        ofTexture getFontTexture();
     
     /*
         static methods
@@ -72,6 +74,7 @@ class ofxSmartFont {
                 log("ERROR!! file : " + mFile + " NOT FOUND");
             }   else{
                 log("new font added : " +mName+" @ pt size "+std::to_string(mSize));
+                texture = ttf.getFontTexture();
             }
         }
     
@@ -81,6 +84,7 @@ class ofxSmartFont {
         string mFile;
         string mName;
         ofTrueTypeFont ttf;
+        ofTexture texture;
     
 };
 

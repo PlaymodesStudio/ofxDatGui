@@ -175,6 +175,11 @@ void ofxDatGuiComponent::setComponentStyle(const ofxDatGuiTheme* theme)
     setLabel(mLabel.text);
     setWidth(theme->layout.width, theme->layout.labelWidth);
     for (int i=0; i<children.size(); i++) children[i]->setTheme(theme);
+    if (mType != ofxDatGuiType::DROPDOWN_OPTION){
+        mLabel.mesh = mFont->getStringMesh(mLabel.rendered, x+mLabel.x, y+mStyle.height/2 + mLabel.rect.height/2);
+    }   else{
+        mLabel.mesh = mFont->getStringMesh("* "+mLabel.rendered, x+mLabel.x, y+mStyle.height/2 + mLabel.rect.height/2);
+    }
 }
 
 void ofxDatGuiComponent::setWidth(int width, float labelWidth)
@@ -201,6 +206,11 @@ void ofxDatGuiComponent::positionLabel()
         mLabel.x = (mLabel.width / 2) - (mLabel.rect.width / 2);
     }   else if (mLabel.alignment == ofxDatGuiAlignment::RIGHT){
         mLabel.x = mLabel.rightAlignedXpos - mLabel.rect.width;
+    }
+    if (mType != ofxDatGuiType::DROPDOWN_OPTION){
+        mLabel.mesh = mFont->getStringMesh(mLabel.rendered, x+mLabel.x, y+mStyle.height/2 + mLabel.rect.height/2);
+    }   else{
+        mLabel.mesh = mFont->getStringMesh("* "+mLabel.rendered, x+mLabel.x, y+mStyle.height/2 + mLabel.rect.height/2);
     }
 }
 
@@ -229,6 +239,7 @@ void ofxDatGuiComponent::setPosition(int x, int y)
     this->x = x;
     this->y = y;
     for(int i=0; i<children.size(); i++) children[i]->setPosition(x, this->y + (mStyle.height+mStyle.vMargin)*(i+1));
+    positionLabel();
 }
 
 void ofxDatGuiComponent::setVisible(bool visible)
@@ -425,11 +436,9 @@ void ofxDatGuiComponent::drawBackground()
 void ofxDatGuiComponent::drawLabel()
 {
     ofSetColor(mLabel.color);
-    if (mType != ofxDatGuiType::DROPDOWN_OPTION){
-        mFont->draw(mLabel.rendered, x+mLabel.x, y+mStyle.height/2 + mLabel.rect.height/2);
-    }   else{
-        mFont->draw("* "+mLabel.rendered, x+mLabel.x, y+mStyle.height/2 + mLabel.rect.height/2);
-    }
+    mFont->getFontTexture().bind();
+    mLabel.mesh.draw();
+    mFont->getFontTexture().unbind();
 }
 
 void ofxDatGuiComponent::drawStripe()

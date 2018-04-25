@@ -172,6 +172,7 @@ class ofxDatGuiComponent : public ofxDatGuiInteractiveObject
             ofRectangle rect;
             bool forceUpperCase;
             ofxDatGuiAlignment alignment;
+            ofVboMesh mesh;
         } mLabel;
     
         struct {
@@ -180,6 +181,9 @@ class ofxDatGuiComponent : public ofxDatGuiInteractiveObject
             int size;
             ofColor color;
         } mIcon;
+    
+        void bindFont();
+        void unbindFont();
     
         void drawLabel();
         void drawBorder();
