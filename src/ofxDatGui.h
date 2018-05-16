@@ -65,7 +65,7 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
         void setTheme(ofxDatGuiTheme* t, bool applyImmediately = false);
         void setAutoDraw(bool autodraw, int priority = 0);
         void setLabelAlignment(ofxDatGuiAlignment align);
-        void setTransformMatrix(ofMatrix4x4 matrix){transformMatrix = matrix;};
+        void setTransformMatrix(ofMatrix4x4 matrix);
         static void setAssetPath(string path);
         static string getAssetPath();
     

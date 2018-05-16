@@ -335,6 +335,11 @@ void ofxDatGui::setLabelAlignment(ofxDatGuiAlignment align)
     mAlignmentChanged = true;
 }
 
+void ofxDatGui::setTransformMatrix(ofMatrix4x4 matrix){
+    transformMatrix = matrix;
+    mGuiFooter->setTransformMatrix(matrix);
+}
+
 int ofxDatGui::getWidth()
 {
     return mWidth;
