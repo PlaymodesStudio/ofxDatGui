@@ -36,6 +36,8 @@ ofxDatGuiComponent::ofxDatGuiComponent(string label)
     mMouseDown = false;
     mStyle.opacity = 255;
     this->x = 0; this->y = 0;
+    isListeningEvents = false;
+    transformMatrix = ofMatrix4x4();
     mAnchor = ofxDatGuiAnchor::NO_ANCHOR;
     mLabel.text = label;
     mLabel.alignment = ofxDatGuiAlignment::LEFT;
@@ -56,6 +58,7 @@ ofxDatGuiComponent::~ofxDatGuiComponent()
 void ofxDatGuiComponent::registerEvents(bool mouseAndKeyEvents, bool drawUpdateEvent)
 {
     if(mouseAndKeyEvents){
+        isListeningEvents = true;
         if(window == nullptr){
             ofRegisterKeyEvents(this);
             ofRegisterMouseEvents(this, OF_EVENT_ORDER_BEFORE_APP);
@@ -86,6 +89,7 @@ void ofxDatGuiComponent::registerEvents(bool mouseAndKeyEvents, bool drawUpdateE
 void ofxDatGuiComponent::unregisterEvents(bool mouseAndKeyEvents, bool drawUpdateEvent)
 {
     if(mouseAndKeyEvents){
+        isListeningEvents = false;
         if(window == nullptr){
             ofUnregisterKeyEvents(this);
             ofUnregisterMouseEvents(this, OF_EVENT_ORDER_BEFORE_APP);
@@ -547,12 +551,22 @@ void ofxDatGuiComponent::keyReleased(ofKeyEventArgs &e)
 
 void ofxDatGuiComponent::mouseMoved(ofMouseEventArgs &e)
 {
-    if(this->hitTest(e)){
+    ofMouseEventArgs modified_e;
+    if(isListeningEvents){
+        ofVec4f tempVec = e;
+        tempVec -= transformMatrix.getTranslation();
+        tempVec = transformMatrix.getInverse().postMult(tempVec);
+        modified_e = ofMouseEventArgs(e.type, tempVec.x, tempVec.y, e.button);
+    }else{
+        modified_e = e;
+    }
+    
+    if(this->hitTest(modified_e)){
        if(!mMouseOver)
-           onMouseEnter(e);
+           onMouseEnter(modified_e);
     }
     else if(mMouseOver)
-        onMouseLeave(e);
+        onMouseLeave(modified_e);
     
     if (this->getIsExpanded())
         for(int i=0; i<children.size(); i++)
@@ -561,20 +575,40 @@ void ofxDatGuiComponent::mouseMoved(ofMouseEventArgs &e)
 
 void ofxDatGuiComponent::mouseDragged(ofMouseEventArgs &e)
 {
+    ofMouseEventArgs modified_e;
+    if(isListeningEvents){
+        ofVec4f tempVec = e;
+        tempVec -= transformMatrix.getTranslation();
+        tempVec = transformMatrix.getInverse().postMult(tempVec);
+        modified_e = ofMouseEventArgs(e.type, tempVec.x, tempVec.y, e.button);
+    }else{
+        modified_e = e;
+    }
+    
     if(mMouseDown){
-        onMouseDrag(e);
+        onMouseDrag(modified_e);
     }
     
     if (this->getIsExpanded())
         for(int i=0; i<children.size(); i++)
-            children[i]->mouseDragged(e);
+            children[i]->mouseDragged(modified_e);
 }
 
 void ofxDatGuiComponent::mousePressed(ofMouseEventArgs &e)
 {
+    ofMouseEventArgs modified_e;
+    if(isListeningEvents){
+        ofVec4f tempVec = e;
+        tempVec -= transformMatrix.getTranslation();
+        tempVec = transformMatrix.getInverse().postMult(tempVec);
+        modified_e = ofMouseEventArgs(e.type, tempVec.x, tempVec.y, e.button);
+    }else{
+        modified_e = e;
+    }
+    
     if(mMouseOver){
         if(e.button == 0)
-            onMousePress(e);
+            onMousePress(modified_e);
         else if(e.button == 2){
             if (rightClickEventCallback != nullptr) {
                 ofxDatGuiRightClickEvent ev(this, 1);
@@ -590,14 +624,24 @@ void ofxDatGuiComponent::mousePressed(ofMouseEventArgs &e)
     
     if (this->getIsExpanded())
         for(int i=0; i<children.size(); i++)
-            children[i]->mousePressed(e);
+            children[i]->mousePressed(modified_e);
 }
 
 void ofxDatGuiComponent::mouseReleased(ofMouseEventArgs &e)
 {
+    ofMouseEventArgs modified_e;
+    if(isListeningEvents){
+        ofVec4f tempVec = e;
+        tempVec -= transformMatrix.getTranslation();
+        tempVec = transformMatrix.getInverse().postMult(tempVec);
+        modified_e = ofMouseEventArgs(e.type, tempVec.x, tempVec.y, e.button);
+    }else{
+        modified_e = e;
+    }
+    
     if(e.button == 0){
         if(mMouseDown)
-            onMouseRelease(e);
+            onMouseRelease(modified_e);
     }else if(e.button == 2){
         if(mMouseOver){
             if (rightClickEventCallback != nullptr) {
@@ -611,7 +655,7 @@ void ofxDatGuiComponent::mouseReleased(ofMouseEventArgs &e)
     
     if (this->getIsExpanded())
         for(int i=0; i<children.size(); i++)
-            children[i]->mouseReleased(e);
+            children[i]->mouseReleased(modified_e);
 }
 
 void ofxDatGuiComponent::mouseEntered(ofMouseEventArgs &e)

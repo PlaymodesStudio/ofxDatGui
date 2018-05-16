@@ -86,6 +86,8 @@ class ofxDatGuiComponent : public ofxDatGuiInteractiveObject
         virtual void setTheme(const ofxDatGuiTheme* theme) = 0;
         virtual void setWidth(int width, float labelWidth);
         virtual void setLabelAlignment(ofxDatGuiAlignment align);
+        void setTransformMatrix(ofMatrix4x4 matrix){transformMatrix = matrix;};
+
     
         virtual int  getWidth();
         virtual int  getHeight();
@@ -129,7 +131,9 @@ class ofxDatGuiComponent : public ofxDatGuiInteractiveObject
         bool mEnabled;
         bool mMouseOver;
         bool mMouseDown;
+        bool isListeningEvents;
         ofRectangle mMask;
+        ofMatrix4x4 transformMatrix;
         ofxDatGuiType mType;
         ofxDatGuiAnchor mAnchor;
         shared_ptr<ofxSmartFont> mFont;
