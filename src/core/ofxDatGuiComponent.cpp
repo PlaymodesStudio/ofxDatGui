@@ -465,6 +465,11 @@ void ofxDatGuiComponent::drawColorPicker() { }
     events
 */
 
+bool ofxDatGuiComponent::hitComponentTest(ofPoint m){
+    int w = mStyle.border.width;
+    return ofRectangle(x-w, y-w, mStyle.width+(w*2), mStyle.height+(w*2)).inside(m.x, m.y);
+}
+
 bool ofxDatGuiComponent::hitTest(ofPoint m)
 {
     if (mMask.height > 0 && (m.y < 0 || m.y > mMask.height)) return false;
@@ -606,17 +611,18 @@ void ofxDatGuiComponent::mousePressed(ofMouseEventArgs &e)
         modified_e = e;
     }
     
+    if(e.button == 2 && this->hitComponentTest(modified_e)){
+        if (rightClickEventCallback != nullptr) {
+            ofxDatGuiRightClickEvent ev(this, 1);
+            rightClickEventCallback(ev);
+        }   else{
+            ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
+        }
+    }
+    
     if(mMouseOver){
         if(e.button == 0)
             onMousePress(modified_e);
-        else if(e.button == 2){
-            if (rightClickEventCallback != nullptr) {
-                ofxDatGuiRightClickEvent ev(this, 1);
-                rightClickEventCallback(ev);
-            }   else{
-                ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
-            }
-        }
     }
         
     else if(e.button == 0)
@@ -642,14 +648,12 @@ void ofxDatGuiComponent::mouseReleased(ofMouseEventArgs &e)
     if(e.button == 0){
         if(mMouseDown)
             onMouseRelease(modified_e);
-    }else if(e.button == 2){
-        if(mMouseOver){
-            if (rightClickEventCallback != nullptr) {
-                ofxDatGuiRightClickEvent ev(this, 0);
-                rightClickEventCallback(ev);
-            }   else{
-                ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
-            }
+    }else if(e.button == 2 && this->hitComponentTest(modified_e)){
+        if (rightClickEventCallback != nullptr) {
+            ofxDatGuiRightClickEvent ev(this, 0);
+            rightClickEventCallback(ev);
+        }   else{
+            ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
         }
     }
     

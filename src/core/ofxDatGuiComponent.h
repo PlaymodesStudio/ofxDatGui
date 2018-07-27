@@ -80,6 +80,7 @@ class ofxDatGuiComponent : public ofxDatGuiInteractiveObject
         virtual void draw();
     void update(ofEventArgs &e);
         virtual void update();
+        virtual bool hitComponentTest(ofPoint m);
         virtual bool hitTest(ofPoint m);
 
         virtual void setPosition(int x, int y);
