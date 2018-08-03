@@ -193,6 +193,12 @@ class ofxDatGuiScrollView : public ofxDatGuiComponent {
             mRect.height = height;
             if (mRect.width > 0 && mRect.height > 0) mView.allocate( mRect.width, mRect.height );
         }
+    
+    void resetScroll(){
+        int btnH = children.front()->getHeight() + mSpacing;
+        children.front()->setPosition(0, 0);
+        for(int i=0; i<children.size(); i++) children[i]->setPosition(0, 0 + (btnH * i));
+    }
 
         void setPosition(int x, int y)
         {
