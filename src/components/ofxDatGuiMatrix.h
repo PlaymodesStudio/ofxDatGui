@@ -74,6 +74,7 @@ class ofxDatGuiMatrixButton : public ofxDatGuiInteractiveObject {
         void setSelected(bool selected)
         {
             mSelected = selected;
+            onMouseOut();
         }
     
         bool getSelected()
@@ -243,6 +244,16 @@ class ofxDatGuiMatrix : public ofxDatGuiComponent {
         {
             clear();
             for (int i=0; i<v.size(); i++) btns[v[i]].setSelected(true);
+        }
+    
+        void select(int index)
+        {
+            btns[index].setSelected(true);
+        }
+    
+        void deselect(int index)
+        {
+            btns[index].setSelected(false);
         }
     
         vector<int> getSelected()
