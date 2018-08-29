@@ -133,6 +133,7 @@ class ofxDatGuiComponent : public ofxDatGuiInteractiveObject
         bool mMouseOver;
         bool mMouseDown;
         bool isListeningEvents;
+        bool labelChanged;
         ofRectangle mMask;
         ofMatrix4x4 transformMatrix;
         ofxDatGuiType mType;

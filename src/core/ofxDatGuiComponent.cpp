@@ -34,6 +34,7 @@ ofxDatGuiComponent::ofxDatGuiComponent(string label)
     mFocused = false;
     mMouseOver = false;
     mMouseDown = false;
+    labelChanged = false;
     mStyle.opacity = 255;
     this->x = 0; this->y = 0;
     isListeningEvents = false;
@@ -333,7 +334,7 @@ void ofxDatGuiComponent::setLabel(string label)
     mLabel.text = label;
     mLabel.rendered = mLabel.forceUpperCase ? ofToUpper(mLabel.text) : mLabel.rendered = mLabel.text;
     mLabel.rect = mFont->rect(mLabel.rendered);
-    positionLabel();
+    labelChanged = true;
 }
 
 string ofxDatGuiComponent::getLabel()
@@ -412,7 +413,10 @@ void ofxDatGuiComponent::update(ofEventArgs &e)
 
 void ofxDatGuiComponent::update()
 {
-
+    if(labelChanged){
+        positionLabel();
+        labelChanged = false;
+    }
 }
 
 void ofxDatGuiComponent::draw(ofEventArgs &e)
