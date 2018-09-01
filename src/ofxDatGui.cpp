@@ -282,11 +282,32 @@ void ofxDatGui::setVisible(bool visible)
 {
     mVisible = visible;
     if(mVisible){
-        ofRegisterMouseEvents(this, OF_EVENT_ORDER_BEFORE_APP);
+        if(window == nullptr){
+            ofRegisterMouseEvents(this, OF_EVENT_ORDER_BEFORE_APP);
+        }else{
+            ofAddListener(window->events().mouseDragged,this,&ofxDatGui::mouseDragged,OF_EVENT_ORDER_BEFORE_APP);
+            ofAddListener(window->events().mouseMoved,this,&ofxDatGui::mouseMoved,OF_EVENT_ORDER_BEFORE_APP);
+            ofAddListener(window->events().mousePressed,this,&ofxDatGui::mousePressed,OF_EVENT_ORDER_BEFORE_APP);
+            ofAddListener(window->events().mouseReleased,this,&ofxDatGui::mouseReleased,OF_EVENT_ORDER_BEFORE_APP);
+            ofAddListener(window->events().mouseScrolled,this,&ofxDatGui::mouseScrolled,OF_EVENT_ORDER_BEFORE_APP);
+            ofAddListener(window->events().mouseEntered,this,&ofxDatGui::mouseEntered,OF_EVENT_ORDER_BEFORE_APP);
+            ofAddListener(window->events().mouseExited,this,&ofxDatGui::mouseExited,OF_EVENT_ORDER_BEFORE_APP);
+        }
         focus();
     }
-    else
-        ofUnregisterMouseEvents(this, OF_EVENT_ORDER_BEFORE_APP);
+    else{
+        if(window == nullptr){
+            ofUnregisterMouseEvents(this, OF_EVENT_ORDER_BEFORE_APP);
+        }else{
+            ofRemoveListener(window->events().mouseDragged,this,&ofxDatGui::mouseDragged,OF_EVENT_ORDER_BEFORE_APP);
+            ofRemoveListener(window->events().mouseMoved,this,&ofxDatGui::mouseMoved,OF_EVENT_ORDER_BEFORE_APP);
+            ofRemoveListener(window->events().mousePressed,this,&ofxDatGui::mousePressed,OF_EVENT_ORDER_BEFORE_APP);
+            ofRemoveListener(window->events().mouseReleased,this,&ofxDatGui::mouseReleased,OF_EVENT_ORDER_BEFORE_APP);
+            ofRemoveListener(window->events().mouseScrolled,this,&ofxDatGui::mouseScrolled,OF_EVENT_ORDER_BEFORE_APP);
+            ofRemoveListener(window->events().mouseEntered,this,&ofxDatGui::mouseEntered,OF_EVENT_ORDER_BEFORE_APP);
+            ofRemoveListener(window->events().mouseExited,this,&ofxDatGui::mouseExited,OF_EVENT_ORDER_BEFORE_APP);
+        }
+    }
 }
 
 void ofxDatGui::setEnabled(bool enabled)
