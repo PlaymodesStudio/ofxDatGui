@@ -116,7 +116,6 @@ class ofxDatGuiComponent : public ofxDatGuiInteractiveObject
         virtual void onMouseDrag(ofPoint m);
         virtual void onMouseLeave(ofPoint m);
         virtual void onMouseRelease(ofPoint m);
-        void onKeyPressed(ofKeyEventArgs &e);
         void onWindowResized(ofResizeEventArgs &e);
 
         static const ofxDatGuiTheme* getTheme();

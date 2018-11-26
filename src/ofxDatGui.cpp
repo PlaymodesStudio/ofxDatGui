@@ -1229,12 +1229,14 @@ void ofxDatGui::onWindowResized(ofResizeEventArgs &e)
 
 void ofxDatGui::keyPressed(ofKeyEventArgs &e)
 {
-    
+    for (auto &item : items)
+        item->keyPressed(e);
 }
 
 void ofxDatGui::keyReleased(ofKeyEventArgs &e)
 {
-    
+    for (auto &item : items)
+        item->keyReleased(e);
 }
 
 void ofxDatGui::mouseMoved(ofMouseEventArgs &e)

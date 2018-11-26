@@ -1,3 +1,4 @@
+
 /*
     Copyright (C) 2015 Stephen Braitsch [http://braitsch.io]
 
@@ -58,65 +59,70 @@ ofxDatGuiComponent::~ofxDatGuiComponent()
 
 void ofxDatGuiComponent::registerEvents(bool mouseAndKeyEvents, bool drawUpdateEvent)
 {
-    if(mouseAndKeyEvents){
+    if(!isListeningEvents){
+        if(mouseAndKeyEvents){
+            isListeningEvents = true;
+            if(window == nullptr){
+                ofRegisterKeyEvents(this);
+                ofRegisterMouseEvents(this, OF_EVENT_ORDER_BEFORE_APP);
+            }else{
+                ofAddListener(window->events().keyPressed, this, &ofxDatGuiComponent::keyPressed);
+                ofAddListener(window->events().keyReleased, this, &ofxDatGuiComponent::keyReleased);
+                
+                ofAddListener(window->events().mouseDragged,this,&ofxDatGuiComponent::mouseDragged,OF_EVENT_ORDER_BEFORE_APP);
+                ofAddListener(window->events().mouseMoved,this,&ofxDatGuiComponent::mouseMoved,OF_EVENT_ORDER_BEFORE_APP);
+                ofAddListener(window->events().mousePressed,this,&ofxDatGuiComponent::mousePressed,OF_EVENT_ORDER_BEFORE_APP);
+                ofAddListener(window->events().mouseReleased,this,&ofxDatGuiComponent::mouseReleased,OF_EVENT_ORDER_BEFORE_APP);
+                ofAddListener(window->events().mouseScrolled,this,&ofxDatGuiComponent::mouseScrolled,OF_EVENT_ORDER_BEFORE_APP);
+                ofAddListener(window->events().mouseEntered,this,&ofxDatGuiComponent::mouseEntered,OF_EVENT_ORDER_BEFORE_APP);
+                ofAddListener(window->events().mouseExited,this,&ofxDatGuiComponent::mouseExited,OF_EVENT_ORDER_BEFORE_APP);
+            }
+        }
+        if(drawUpdateEvent){
+            if(window == nullptr){
+                ofAddListener(ofEvents().draw, this, &ofxDatGuiComponent::draw, OF_EVENT_ORDER_AFTER_APP + mIndex);
+                ofAddListener(ofEvents().update, this, &ofxDatGuiComponent::update, OF_EVENT_ORDER_AFTER_APP + mIndex);
+            }else{
+                ofAddListener(window->events().draw, this, &ofxDatGuiComponent::draw, OF_EVENT_ORDER_AFTER_APP + mIndex);
+                ofAddListener(window->events().update, this, &ofxDatGuiComponent::update, OF_EVENT_ORDER_AFTER_APP + mIndex);
+            }
+        }
         isListeningEvents = true;
-        if(window == nullptr){
-            ofRegisterKeyEvents(this);
-            ofRegisterMouseEvents(this, OF_EVENT_ORDER_BEFORE_APP);
-        }else{
-            ofAddListener(window->events().keyPressed, this, &ofxDatGuiComponent::keyPressed);
-            ofAddListener(window->events().keyReleased, this, &ofxDatGuiComponent::keyReleased);
-            
-            ofAddListener(window->events().mouseDragged,this,&ofxDatGuiComponent::mouseDragged,OF_EVENT_ORDER_BEFORE_APP);
-            ofAddListener(window->events().mouseMoved,this,&ofxDatGuiComponent::mouseMoved,OF_EVENT_ORDER_BEFORE_APP);
-            ofAddListener(window->events().mousePressed,this,&ofxDatGuiComponent::mousePressed,OF_EVENT_ORDER_BEFORE_APP);
-            ofAddListener(window->events().mouseReleased,this,&ofxDatGuiComponent::mouseReleased,OF_EVENT_ORDER_BEFORE_APP);
-            ofAddListener(window->events().mouseScrolled,this,&ofxDatGuiComponent::mouseScrolled,OF_EVENT_ORDER_BEFORE_APP);
-            ofAddListener(window->events().mouseEntered,this,&ofxDatGuiComponent::mouseEntered,OF_EVENT_ORDER_BEFORE_APP);
-            ofAddListener(window->events().mouseExited,this,&ofxDatGuiComponent::mouseExited,OF_EVENT_ORDER_BEFORE_APP);
-        }
-    }
-    if(drawUpdateEvent){
-        if(window == nullptr){
-            ofAddListener(ofEvents().draw, this, &ofxDatGuiComponent::draw, OF_EVENT_ORDER_AFTER_APP + mIndex);
-            ofAddListener(ofEvents().update, this, &ofxDatGuiComponent::update, OF_EVENT_ORDER_AFTER_APP + mIndex);
-        }else{
-            ofAddListener(window->events().draw, this, &ofxDatGuiComponent::draw, OF_EVENT_ORDER_AFTER_APP + mIndex);
-            ofAddListener(window->events().update, this, &ofxDatGuiComponent::update, OF_EVENT_ORDER_AFTER_APP + mIndex);
-        }
     }
 }
 
 void ofxDatGuiComponent::unregisterEvents(bool mouseAndKeyEvents, bool drawUpdateEvent)
 {
-    if(mouseAndKeyEvents){
+    if(isListeningEvents){
+        if(mouseAndKeyEvents){
+            isListeningEvents = false;
+            if(window == nullptr){
+                ofUnregisterKeyEvents(this);
+                ofUnregisterMouseEvents(this, OF_EVENT_ORDER_BEFORE_APP);
+            }else{
+                ofRemoveListener(window->events().keyPressed, this, &ofxDatGuiComponent::keyPressed);
+                ofRemoveListener(window->events().keyReleased, this, &ofxDatGuiComponent::keyReleased);
+                
+                ofRemoveListener(window->events().mouseDragged,this,&ofxDatGuiComponent::mouseDragged,OF_EVENT_ORDER_BEFORE_APP);
+                ofRemoveListener(window->events().mouseMoved,this,&ofxDatGuiComponent::mouseMoved,OF_EVENT_ORDER_BEFORE_APP);
+                ofRemoveListener(window->events().mousePressed,this,&ofxDatGuiComponent::mousePressed,OF_EVENT_ORDER_BEFORE_APP);
+                ofRemoveListener(window->events().mouseReleased,this,&ofxDatGuiComponent::mouseReleased,OF_EVENT_ORDER_BEFORE_APP);
+                ofRemoveListener(window->events().mouseScrolled,this,&ofxDatGuiComponent::mouseScrolled,OF_EVENT_ORDER_BEFORE_APP);
+                ofRemoveListener(window->events().mouseEntered,this,&ofxDatGuiComponent::mouseEntered,OF_EVENT_ORDER_BEFORE_APP);
+                ofRemoveListener(window->events().mouseExited,this,&ofxDatGuiComponent::mouseExited,OF_EVENT_ORDER_BEFORE_APP);
+            }
+        }
+        if(drawUpdateEvent){
+            if(window == nullptr){
+                ofRemoveListener(ofEvents().draw, this, &ofxDatGuiComponent::draw, OF_EVENT_ORDER_AFTER_APP + mIndex);
+                ofRemoveListener(ofEvents().update, this, &ofxDatGuiComponent::update, OF_EVENT_ORDER_AFTER_APP + mIndex);
+            }else{
+                ofRemoveListener(window->events().draw, this, &ofxDatGuiComponent::draw, OF_EVENT_ORDER_AFTER_APP + mIndex);
+                ofRemoveListener(window->events().update, this, &ofxDatGuiComponent::update, OF_EVENT_ORDER_BEFORE_APP + mIndex);
+            }
+        }
         isListeningEvents = false;
-        if(window == nullptr){
-            ofUnregisterKeyEvents(this);
-            ofUnregisterMouseEvents(this, OF_EVENT_ORDER_BEFORE_APP);
-        }else{
-            ofRemoveListener(window->events().keyPressed, this, &ofxDatGuiComponent::keyPressed);
-            ofRemoveListener(window->events().keyReleased, this, &ofxDatGuiComponent::keyReleased);
-            
-            ofRemoveListener(window->events().mouseDragged,this,&ofxDatGuiComponent::mouseDragged,OF_EVENT_ORDER_BEFORE_APP);
-            ofRemoveListener(window->events().mouseMoved,this,&ofxDatGuiComponent::mouseMoved,OF_EVENT_ORDER_BEFORE_APP);
-            ofRemoveListener(window->events().mousePressed,this,&ofxDatGuiComponent::mousePressed,OF_EVENT_ORDER_BEFORE_APP);
-            ofRemoveListener(window->events().mouseReleased,this,&ofxDatGuiComponent::mouseReleased,OF_EVENT_ORDER_BEFORE_APP);
-            ofRemoveListener(window->events().mouseScrolled,this,&ofxDatGuiComponent::mouseScrolled,OF_EVENT_ORDER_BEFORE_APP);
-            ofRemoveListener(window->events().mouseEntered,this,&ofxDatGuiComponent::mouseEntered,OF_EVENT_ORDER_BEFORE_APP);
-            ofRemoveListener(window->events().mouseExited,this,&ofxDatGuiComponent::mouseExited,OF_EVENT_ORDER_BEFORE_APP);
-        }
     }
-    if(drawUpdateEvent){
-        if(window == nullptr){
-            ofRemoveListener(ofEvents().draw, this, &ofxDatGuiComponent::draw, OF_EVENT_ORDER_AFTER_APP + mIndex);
-            ofRemoveListener(ofEvents().update, this, &ofxDatGuiComponent::update, OF_EVENT_ORDER_AFTER_APP + mIndex);
-        }else{
-            ofRemoveListener(window->events().draw, this, &ofxDatGuiComponent::draw, OF_EVENT_ORDER_AFTER_APP + mIndex);
-            ofRemoveListener(window->events().update, this, &ofxDatGuiComponent::update, OF_EVENT_ORDER_BEFORE_APP + mIndex);
-        }
-    }
-
 }
 
 void ofxDatGuiComponent::setIndex(int index)
@@ -509,7 +515,6 @@ void ofxDatGuiComponent::onMouseOutsidePress()
 void ofxDatGuiComponent::onFocus()
 {
     mFocused = true;
-    ofAddListener(ofEvents().keyPressed, this, &ofxDatGuiComponent::onKeyPressed);
 }
 
 void ofxDatGuiComponent::onFocusLost()
@@ -517,21 +522,10 @@ void ofxDatGuiComponent::onFocusLost()
     mFocused = false;
     mMouseDown = false;
     mMouseOver = false;
-    ofRemoveListener(ofEvents().keyPressed, this, &ofxDatGuiComponent::onKeyPressed);
 }
 
 void ofxDatGuiComponent::onKeyPressed(int key) { }
 void ofxDatGuiComponent::onMouseDrag(ofPoint m) { }
-
-void ofxDatGuiComponent::onKeyPressed(ofKeyEventArgs &e)
-{
-    onKeyPressed(e.key);
-    if ((e.key == OF_KEY_RETURN || e.key == OF_KEY_TAB)){
-        onFocusLost();
-        ofRemoveListener(ofEvents().keyPressed, this, &ofxDatGuiComponent::onKeyPressed);
-    }
-}
-
 
 
 void ofxDatGuiComponent::onWindowResized()
@@ -550,7 +544,13 @@ void ofxDatGuiComponent::onWindowResized(ofResizeEventArgs &e)
 
 void ofxDatGuiComponent::keyPressed(ofKeyEventArgs &e)
 {
-    
+    if(mFocused){
+        if(e.key == OF_KEY_RETURN || e.key == OF_KEY_TAB){
+            onFocusLost();
+        }else{
+            onKeyPressed(e.key);
+        }
+    }
 }
 
 void ofxDatGuiComponent::keyReleased(ofKeyEventArgs &e)
