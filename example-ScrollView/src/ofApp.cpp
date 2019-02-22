@@ -54,7 +54,7 @@ void ofApp::draw()
 
 void ofApp::onScrollViewEvent(ofxDatGuiScrollViewEvent e)
 {
-    cout << e.target->getLabel() << " [index " << e.index << "] selected in [" << e.parent->getName() << "]" << endl;
+    cout << e.target->getLabel() << " [index " << e.target->getIndex() << "] selected in [" << e.parent->getName() << "]" << endl;
 }
 
 void ofApp::onAddNewItemButtonClick(ofxDatGuiButtonEvent e)

@@ -332,7 +332,7 @@ bool ofxDatGuiComponent::getIsExpanded()
 }
 
 /*
-    visual customization
+    component label
 */
 
 void ofxDatGuiComponent::setLabel(string label)
@@ -352,6 +352,37 @@ void ofxDatGuiComponent::setLabelColor(ofColor c)
 {
     mLabel.color = c;
 }
+
+ofColor ofxDatGuiComponent::getLabelColor()
+{
+    return mLabel.color;
+}
+
+void ofxDatGuiComponent::setLabelUpperCase(bool toUpper)
+{
+    mLabel.forceUpperCase = toUpper;
+    setLabel(mLabel.text);
+}
+
+bool ofxDatGuiComponent::getLabelUpperCase()
+{
+    return mLabel.forceUpperCase;
+}
+
+//void ofxDatGuiComponent::positionLabel()
+//{
+//    if (mLabel.alignment == ofxDatGuiAlignment::LEFT){
+//        mLabel.x = mLabel.margin;
+//    }   else if (mLabel.alignment == ofxDatGuiAlignment::CENTER){
+//        mLabel.x = (mLabel.width / 2) - (mLabel.rect.width / 2);
+//    }   else if (mLabel.alignment == ofxDatGuiAlignment::RIGHT){
+//        mLabel.x = mLabel.rightAlignedXpos - mLabel.rect.width;
+//    }
+//}
+
+/*
+    visual customization
+*/
 
 void ofxDatGuiComponent::setBackgroundColor(ofColor color)
 {

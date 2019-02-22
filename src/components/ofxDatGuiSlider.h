@@ -28,7 +28,7 @@ class ofxDatGuiSlider : public ofxDatGuiComponent {
 
     public:
     
-        ofxDatGuiSlider(string label, float min, float max, double val) : ofxDatGuiComponent(label)
+        ofxDatGuiSlider(string label, float min, float max, float val) : ofxDatGuiComponent(label)
         {
             mDefaultValue = val;
             mMin = min;
@@ -38,8 +38,8 @@ class ofxDatGuiSlider : public ofxDatGuiComponent {
             mInput = new ofxDatGuiTextInputField();
             mInput->setTextInputFieldType(ofxDatGuiInputType::NUMERIC);
             mInput->onInternalEvent(this, &ofxDatGuiSlider::onInputChanged);
-            setTheme(ofxDatGuiComponent::theme.get());
-            setValue(val);
+            setTheme(ofxDatGuiComponent::getTheme());
+            setValue(val, false); // don't dispatch a change event when component is constructed //
         }
     
         ofxDatGuiSlider(string label, float min, float max) : ofxDatGuiSlider(label, min, max, (max+min)/2) {}
@@ -91,10 +91,9 @@ class ofxDatGuiSlider : public ofxDatGuiComponent {
             mInput->setPosition(x + mInputX, y + mStyle.padding);
         }
     
-        void setPrecision(int precision, bool truncateValue = true)
+        void setPrecision(int precision)
         {
             mPrecision = precision;
-            mTruncateValue = truncateValue;
             if (mPrecision > MAX_PRECISION) mPrecision = MAX_PRECISION;
         }
     
@@ -118,42 +117,27 @@ class ofxDatGuiSlider : public ofxDatGuiComponent {
             }
         }
     
-    void setDefaultValue(){
-        setValue(mDefaultValue);
-        dispatchSliderChangedEvent();
-    }
-    
-    void setValue(double value)
-    {
-        mValue = value;
-        if (mValue > mMax){
-            mValue = mMax;
-        }   else if (mValue < mMin){
-            mValue = mMin;
+        void setValue(float value, bool dispatchEvent = true)
+        {
+            value = round(value, mPrecision);
+            if (value != mValue){
+                mValue = value;
+                if (mValue > mMax){
+                    mValue = mMax;
+                }   else if (mValue < mMin){
+                    mValue = mMin;
+                }
+                calculateScale();
+                if (dispatchEvent) dispatchSliderChangedEvent();
+            }
         }
-        if (mTruncateValue) mValue = round(mValue, mPrecision);
-        calculateScale();
-    }
     
-    
-    
-        double getValue()
+        float getValue()
         {
             return mValue;
         }
     
-        void printValue()
-        {
-            if (mTruncateValue == false){
-                cout << setprecision(16) << getValue() << endl;
-            }   else{
-                int n = ofToString(mValue).find(".");
-                if (n == -1) n = ofToString(mValue).length();
-                cout << setprecision(mPrecision + n) << mValue << endl;
-            }
-        }
-    
-        void setScale(double scale)
+        void setScale(float scale)
         {
             mScale = scale;
             if (mScale < 0 || mScale > 1){
@@ -163,7 +147,7 @@ class ofxDatGuiSlider : public ofxDatGuiComponent {
             mValue = ((mMax-mMin) * mScale) + mMin;
         }
     
-        double getScale()
+        float getScale()
         {
             return mScale;
         }
@@ -242,6 +226,16 @@ class ofxDatGuiSlider : public ofxDatGuiComponent {
             }
         }
     
+        void dispatchEvent()
+        {
+            if (sliderEventCallback != nullptr) {
+                ofxDatGuiSliderEvent e(this, mValue, mScale);
+                sliderEventCallback(e);
+            }   else{
+                ofxDatGuiLog::write("ofxDatGuiSlider", ofxDatGuiMsg::EVENT_HANDLER_NULL);
+            }
+        }
+    
         static ofxDatGuiSlider* getInstance() { return new ofxDatGuiSlider("X", 0, 100); }
     
     protected:
@@ -256,7 +250,7 @@ class ofxDatGuiSlider : public ofxDatGuiComponent {
             if (s == mScale) return;
             mScale = s;
             mValue = ((mMax-mMin) * mScale) + mMin;
-            if (mTruncateValue) mValue = round(mValue, mPrecision);
+            //if (mTruncateValue) mValue = round(mValue, mPrecision);
             setTextInput();
             dispatchSliderChangedEvent();
         }
@@ -277,6 +271,15 @@ class ofxDatGuiSlider : public ofxDatGuiComponent {
         void onMouseDrag(ofPoint m)
         {
             moveSlider(m);
+//            if (mFocused && mInput->hasFocus() == false){
+//                float s = (m.x-x-mLabel.width)/mSliderWidth;
+//                if (s > .999) s = 1;
+//                if (s < .001) s = 0;
+//        // don't dispatch an event if scale hasn't changed //
+//                if (s == mScale) return;
+//                mScale = s;
+//                setValue(((mMax-mMin) * mScale) + mMin);
+//            }
         }
     
         void onMouseRelease(ofPoint m)
@@ -299,7 +302,6 @@ class ofxDatGuiSlider : public ofxDatGuiComponent {
         void onInputChanged(ofxDatGuiInternalEvent e)
         {
             setValue(ofToFloat(mInput->getText()));
-            dispatchSliderChangedEvent();
         }
     
         void dispatchSliderChangedEvent()
@@ -315,23 +317,17 @@ class ofxDatGuiSlider : public ofxDatGuiComponent {
                 mParamF->set(mValue);
             }
         // dispatch event out to main application //
-            if (sliderEventCallback != nullptr) {
-                ofxDatGuiSliderEvent e(this, mValue, mScale);
-                sliderEventCallback(e);
-            }   else{
-                ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
-            }
+            dispatchEvent();
         }
 
     private:
     
         float   mMin;
         float   mMax;
-        double  mDefaultValue;
-        double  mValue;
-        double  mScale;
+        float  mDefaultValue;
+        float  mValue;
+        float  mScale;
         int     mPrecision;
-        bool    mTruncateValue;
         int     mInputX;
         int     mInputWidth;
         int     mSliderWidth;
@@ -368,7 +364,7 @@ class ofxDatGuiSlider : public ofxDatGuiComponent {
             mInput->setText(v);
         }
     
-        double round(double num, int precision)
+        float round(float num, int precision)
         {
             return roundf(num * pow(10, precision)) / pow(10, precision);
         }
@@ -399,7 +395,7 @@ public:
         mInput = new ofxDatGuiTextInputField();
         mInput->setTextInputFieldType(ofxDatGuiInputType::NUMERIC);
         mInput->onInternalEvent(this, &ofxDatGuiMultiSlider::onInputChanged);
-        setTheme(ofxDatGuiComponent::theme.get());
+        setTheme(ofxDatGuiComponent::getTheme());
         setValue(val);
     }
     
@@ -413,7 +409,7 @@ public:
         mInput = new ofxDatGuiTextInputField();
         mInput->setTextInputFieldType(ofxDatGuiInputType::NUMERIC);
         mInput->onInternalEvent(this, &ofxDatGuiMultiSlider::onInputChanged);
-        setTheme(ofxDatGuiComponent::theme.get());
+        setTheme(ofxDatGuiComponent::getTheme());
         setValue(val);
     }
     

@@ -42,8 +42,11 @@ class ofxDatGuiComponent : public ofxDatGuiInteractiveObject
         bool    is(string name);
     
         void    setLabel(string label);
-        void    setLabelColor(ofColor color);
         string  getLabel();
+        void    setLabelColor(ofColor color);
+        ofColor getLabelColor();
+        void    setLabelUpperCase(bool toUpper);
+        bool    getLabelUpperCase();
     
         void    setBackgroundColor(ofColor color);
         void    setBackgroundColorOnMouseOver(ofColor color);
@@ -138,7 +141,6 @@ class ofxDatGuiComponent : public ofxDatGuiInteractiveObject
         ofxDatGuiType mType;
         ofxDatGuiAnchor mAnchor;
         shared_ptr<ofxSmartFont> mFont;
-        static unique_ptr<ofxDatGuiTheme> theme;
     
         struct{
             float width;
@@ -196,6 +198,10 @@ class ofxDatGuiComponent : public ofxDatGuiInteractiveObject
         void drawBackground();
         void positionLabel();
         void setComponentStyle(const ofxDatGuiTheme* t);
+    
+    private:
+    
+        static unique_ptr<ofxDatGuiTheme> theme;
     
 };
 
