@@ -31,14 +31,14 @@ class ofxDatGuiFRM : public ofxDatGuiTextInput {
         {
             mRefresh = refresh;
             mTime = ofGetElapsedTimef();
-            mInput.setText(ofToString(ofGetFrameRate(), 2));
+            mInput.setInitialText(ofToString(ofGetFrameRate(), 2));
         }
     
-        void update(bool ignoreMouseEvents = true)
+        void update()
         {
             if (ofGetElapsedTimef() - mTime > mRefresh){
                 mTime = ofGetElapsedTimef();
-                mInput.setText(ofToString(ofGetFrameRate(), 2));
+                mInput.setInitialText(ofToString(ofGetFrameRate(), 2));
             }
         }
         

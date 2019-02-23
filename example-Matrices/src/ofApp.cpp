@@ -15,6 +15,7 @@ void ofApp::setup()
     
 // instantiate a matrix with a button for each box in our grid //
     matrix = new ofxDatGuiMatrix("MATRIX", numCols*numRows, true);
+    matrix->registerEvents();
     
 // matrices can also function as radio buttons (only 1 on at a time)
     matrix->setRadioMode(true);
@@ -41,7 +42,7 @@ void ofApp::draw()
         float x = w * (i%numCols);
         float y = h * (floor(i/numCols));
     // fill the box if the corresponding button in the matrix is selected //
-        if (matrix->getChildAt(i)->getSelected() == true) {
+        if (matrix->getButtonAtIndex(i)->getSelected() == true) {
             ofFill();
             ofSetColor(ofColor::fromHex(0xEEEEEE));
             ofDrawRectangle(x, y, w, h);

@@ -29,13 +29,28 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
     
     public:
     
-        ofxDatGui(int x, int y);
-        ofxDatGui(ofxDatGuiAnchor anchor = ofxDatGuiAnchor::TOP_LEFT);
+        ofxDatGui(int x, int y, shared_ptr<ofAppBaseWindow> win = nullptr);
+        ofxDatGui(ofxDatGuiAnchor anchor = ofxDatGuiAnchor::TOP_LEFT, shared_ptr<ofAppBaseWindow> win = nullptr);
         ~ofxDatGui();
-    
+
+        void drawEvent(ofEventArgs &e);
         void draw();
+        void updateEvent(ofEventArgs &e);
         void update();
+        void onWindowResized(ofResizeEventArgs &e);
+    
+        void keyPressed(ofKeyEventArgs &e);
+        void keyReleased(ofKeyEventArgs &e);
+        void mouseMoved(ofMouseEventArgs &e);
+        void mouseDragged(ofMouseEventArgs &e);
+        void mousePressed(ofMouseEventArgs &e);
+        void mouseReleased(ofMouseEventArgs &e);
+        void mouseEntered(ofMouseEventArgs &e);
+        void mouseExited(ofMouseEventArgs &e);
+        void mouseScrolled(ofMouseEventArgs &e);
+    
         void focus();
+        void focusLost();
         void expand();
         void toggle();
         void collapse();
@@ -50,16 +65,19 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
         void setTheme(ofxDatGuiTheme* t, bool applyImmediately = false);
         void setAutoDraw(bool autodraw, int priority = 0);
         void setLabelAlignment(ofxDatGuiAlignment align);
+        void setTransformMatrix(ofMatrix4x4 matrix);
         static void setAssetPath(string path);
         static string getAssetPath();
     
         int getWidth();
         int getHeight();
         bool getFocused();
+        bool getExpanded();
         bool getVisible();
         bool getAutoDraw();
         bool getMouseDown();
         ofPoint getPosition();
+        int getNumComponents();
     
         ofxDatGuiHeader* addHeader(string label = "", bool draggable = true);
         ofxDatGuiFooter* addFooter();
@@ -70,8 +88,15 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
         ofxDatGuiSlider* addSlider(string label, float min, float max, float val);
         ofxDatGuiSlider* addSlider(ofParameter<int> & p);
         ofxDatGuiSlider* addSlider(ofParameter<float> & p);
+    ofxDatGuiMultiSlider* addMultiSlider(string label, float min, float max);
+    ofxDatGuiMultiSlider* addMultiSlider(string label, float min, float max, vector<float> val);
+    ofxDatGuiMultiSlider* addMultiSlider(string label, float min, float max, vector<int> val);
+    ofxDatGuiMultiSlider* addMultiSlider(ofParameter<vector<int>> & p);
+    ofxDatGuiMultiSlider* addMultiSlider(ofParameter<vector<float>> & p);
+
         ofxDatGuiTextInput* addTextInput(string label, string value = "");
         ofxDatGuiDropdown* addDropdown(string label, vector<string> options);
+        ofxDatGuiScrollView* addScrollView(string label, int nVisible);
         ofxDatGuiFRM* addFRM(float refresh = 1.0f);
         ofxDatGuiBreak* addBreak();
         ofxDatGui2dPad* add2dPad(string label);
@@ -89,6 +114,8 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
         ofxDatGuiButton* getButton(string label, string folder = "");
         ofxDatGuiToggle* getToggle(string label, string folder = "");
         ofxDatGuiSlider* getSlider(string label, string folder = "");
+        ofxDatGuiMultiSlider* getMultiSlider(string label, string folder = "");
+
         ofxDatGui2dPad* get2dPad(string label, string folder = "");
         ofxDatGuiTextInput* getTextInput(string label, string folder = "");
         ofxDatGuiColorPicker* getColorPicker(string label, string folder = "");
@@ -97,6 +124,12 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
         ofxDatGuiValuePlotter* getValuePlotter(string label, string folder = "");
         ofxDatGuiFolder* getFolder(string label);
         ofxDatGuiDropdown* getDropdown(string label);
+        ofxDatGuiComponent* getComponent(string key);
+        ofxDatGuiComponent* getComponent(int index);
+        ofxDatGuiComponent* getComponent(ofxDatGuiType type, string label);
+    
+        void removeComponent(string key);
+        void removeComponent(int index);
     
         bool hitTest(ofPoint pt);
     
@@ -122,6 +155,7 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
     
         ofPoint mPosition;
         ofRectangle mGuiBounds;
+        ofMatrix4x4 transformMatrix;
         ofxDatGuiAnchor mAnchor;
         ofxDatGuiHeader* mGuiHeader;
         ofxDatGuiFooter* mGuiFooter;
@@ -129,31 +163,34 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
         ofxDatGuiAlignment mAlignment;
         vector<ofxDatGuiComponent*> items;
         vector<ofxDatGuiComponent*> trash;
-        static ofxDatGui* mActiveGui;
-        static vector<ofxDatGui*> mGuis;
+//        static ofxDatGui* mActiveGui;
+        static unordered_map<shared_ptr<ofAppBaseWindow>, ofxDatGui*> mActiveGuiPerWindow;
+//        static vector<ofxDatGui*> mGuis;
+        static unordered_map<shared_ptr<ofAppBaseWindow>, vector<ofxDatGui*>> mGuisPerWindow;
         static unique_ptr<ofxDatGuiTheme> theme;
+    
+        shared_ptr<ofAppBaseWindow> window;
     
         void init();
         void layoutGui();
-        void anchorGui();
+    	void positionGui();
         void moveGui(ofPoint pt);
 //        bool hitTest(ofPoint pt);
         void attachItem(ofxDatGuiComponent* item);
     
-        void onDraw(ofEventArgs &e);
-        void onUpdate(ofEventArgs &e);
-        void onWindowResized(ofResizeEventArgs &e);
     
-        ofxDatGuiComponent* getComponent(string key);
-        ofxDatGuiComponent* getComponent(ofxDatGuiType type, string label);
+    
         void onInternalEventCallback(ofxDatGuiInternalEvent e);
         void onButtonEventCallback(ofxDatGuiButtonEvent e);
         void onToggleEventCallback(ofxDatGuiToggleEvent e);
         void onSliderEventCallback(ofxDatGuiSliderEvent e);
+        void onMultiSliderEventCallback(ofxDatGuiMultiSliderEvent e);
         void onTextInputEventCallback(ofxDatGuiTextInputEvent e);
         void onDropdownEventCallback(ofxDatGuiDropdownEvent e);
+        void onScrollViewEventCallback(ofxDatGuiScrollViewEvent e);
         void on2dPadEventCallback(ofxDatGui2dPadEvent e);
         void onColorPickerEventCallback(ofxDatGuiColorPickerEvent e);
         void onMatrixEventCallback(ofxDatGuiMatrixEvent e);
+        void onRightClickEventCallback(ofxDatGuiRightClickEvent e);
 
 };

@@ -22,36 +22,59 @@
 
 #include "ofxDatGui.h"
 
-ofxDatGui* ofxDatGui::mActiveGui;
-vector<ofxDatGui*> ofxDatGui::mGuis;
+//ofxDatGui* ofxDatGui::mActiveGui;
+//vector<ofxDatGui*> ofxDatGui::mGuis;
+unordered_map<shared_ptr<ofAppBaseWindow>, ofxDatGui*> ofxDatGui::mActiveGuiPerWindow;
+unordered_map<shared_ptr<ofAppBaseWindow>, vector<ofxDatGui*>> ofxDatGui::mGuisPerWindow;
 
-ofxDatGui::ofxDatGui(int x, int y)
+ofxDatGui::ofxDatGui(int x, int y, shared_ptr<ofAppBaseWindow> win)
 {
+    window = win;
     mPosition.x = x;
     mPosition.y = y;
     mAnchor = ofxDatGuiAnchor::NO_ANCHOR;
     init();
 }
 
-ofxDatGui::ofxDatGui(ofxDatGuiAnchor anchor)
+ofxDatGui::ofxDatGui(ofxDatGuiAnchor anchor, shared_ptr<ofAppBaseWindow> win)
 {
+    window = win;
     init();
     mAnchor = anchor;
-    anchorGui();
 }
 
 ofxDatGui::~ofxDatGui()
 {
+    if(window == nullptr){
+        ofRemoveListener(ofEvents().draw, this, &ofxDatGui::drawEvent, OF_EVENT_ORDER_AFTER_APP + mIndex);
+        ofRemoveListener(ofEvents().update, this, &ofxDatGui::updateEvent, OF_EVENT_ORDER_BEFORE_APP - mIndex);
+        ofRemoveListener(ofEvents().windowResized, this, &ofxDatGui::onWindowResized, OF_EVENT_ORDER_BEFORE_APP);
+        ofUnregisterKeyEvents(this, OF_EVENT_ORDER_BEFORE_APP);
+        ofUnregisterMouseEvents(this, OF_EVENT_ORDER_BEFORE_APP);
+    }else{
+        ofRemoveListener(window->events().draw, this, &ofxDatGui::drawEvent, OF_EVENT_ORDER_AFTER_APP + mIndex);
+        ofRemoveListener(window->events().update, this, &ofxDatGui::updateEvent, OF_EVENT_ORDER_BEFORE_APP - mIndex);
+        ofRemoveListener(window->events().windowResized, this, &ofxDatGui::onWindowResized, OF_EVENT_ORDER_BEFORE_APP);
+        
+        ofRemoveListener(window->events().keyPressed, this, &ofxDatGui::keyPressed);
+        ofRemoveListener(window->events().keyReleased, this, &ofxDatGui::keyReleased);
+        
+        ofRemoveListener(window->events().mouseDragged,this,&ofxDatGui::mouseDragged,OF_EVENT_ORDER_BEFORE_APP);
+        ofRemoveListener(window->events().mouseMoved,this,&ofxDatGui::mouseMoved,OF_EVENT_ORDER_BEFORE_APP);
+        ofRemoveListener(window->events().mousePressed,this,&ofxDatGui::mousePressed,OF_EVENT_ORDER_BEFORE_APP);
+        ofRemoveListener(window->events().mouseReleased,this,&ofxDatGui::mouseReleased,OF_EVENT_ORDER_BEFORE_APP);
+        ofRemoveListener(window->events().mouseScrolled,this,&ofxDatGui::mouseScrolled,OF_EVENT_ORDER_BEFORE_APP);
+        ofRemoveListener(window->events().mouseEntered,this,&ofxDatGui::mouseEntered,OF_EVENT_ORDER_BEFORE_APP);
+        ofRemoveListener(window->events().mouseExited,this,&ofxDatGui::mouseExited,OF_EVENT_ORDER_BEFORE_APP);
+    }
     for (auto i:items) delete i;
-    mGuis.erase(std::remove(mGuis.begin(), mGuis.end(), this), mGuis.end());
-    if (mActiveGui == this) mActiveGui = mGuis.size() > 0 ? mGuis[0] : nullptr;
-    ofRemoveListener(ofEvents().draw, this, &ofxDatGui::onDraw, OF_EVENT_ORDER_AFTER_APP + mIndex);
-    ofRemoveListener(ofEvents().update, this, &ofxDatGui::onUpdate, OF_EVENT_ORDER_BEFORE_APP - mIndex);
-    ofRemoveListener(ofEvents().windowResized, this, &ofxDatGui::onWindowResized, OF_EVENT_ORDER_BEFORE_APP);
+    mGuisPerWindow[window].erase(std::remove(mGuisPerWindow[window].begin(), mGuisPerWindow[window].end(), this), mGuisPerWindow[window].end());
+    if (mActiveGuiPerWindow[window] == this) mActiveGuiPerWindow[window] = mGuisPerWindow[window].size() > 0 ? mGuisPerWindow[window][0] : nullptr;
 }
 
 void ofxDatGui::init()
 {
+    mTheme = nullptr;
     mMoving = false;
     mVisible = true;
     mEnabled = true;
@@ -69,12 +92,32 @@ void ofxDatGui::init()
     mGuiBackground = ofxDatGuiComponent::getTheme()->color.guiBackground;
     
 // enable autodraw by default //
-    setAutoDraw(true, mGuis.size());
+    setAutoDraw(true, mGuisPerWindow[window].size());
     
 // assign focus to this newly created gui //
-    mActiveGui = this;
-    mGuis.push_back(this);
-    ofAddListener(ofEvents().windowResized, this, &ofxDatGui::onWindowResized, OF_EVENT_ORDER_BEFORE_APP);
+//    mActiveGui = this;
+    mActiveGuiPerWindow[window] = this;
+//    mGuis.push_back(this);
+    mGuisPerWindow[window].push_back(this);
+    if(window == nullptr){
+        ofAddListener(ofEvents().windowResized, this, &ofxDatGui::onWindowResized, OF_EVENT_ORDER_BEFORE_APP);
+        ofRegisterKeyEvents(this);
+        ofRegisterMouseEvents(this);
+    }else{
+        ofAddListener(window->events().windowResized, this, &ofxDatGui::onWindowResized, OF_EVENT_ORDER_BEFORE_APP);
+        ofAddListener(window->events().keyPressed, this, &ofxDatGui::keyPressed);
+        ofAddListener(window->events().keyReleased, this, &ofxDatGui::keyReleased);
+        
+        ofAddListener(window->events().mouseDragged,this,&ofxDatGui::mouseDragged,OF_EVENT_ORDER_BEFORE_APP);
+        ofAddListener(window->events().mouseMoved,this,&ofxDatGui::mouseMoved,OF_EVENT_ORDER_BEFORE_APP);
+        ofAddListener(window->events().mousePressed,this,&ofxDatGui::mousePressed,OF_EVENT_ORDER_BEFORE_APP);
+        ofAddListener(window->events().mouseReleased,this,&ofxDatGui::mouseReleased,OF_EVENT_ORDER_BEFORE_APP);
+        ofAddListener(window->events().mouseScrolled,this,&ofxDatGui::mouseScrolled,OF_EVENT_ORDER_BEFORE_APP);
+        ofAddListener(window->events().mouseEntered,this,&ofxDatGui::mouseEntered,OF_EVENT_ORDER_BEFORE_APP);
+        ofAddListener(window->events().mouseExited,this,&ofxDatGui::mouseExited,OF_EVENT_ORDER_BEFORE_APP);
+    }
+    
+    
 }
 
 /* 
@@ -83,21 +126,47 @@ void ofxDatGui::init()
 
 void ofxDatGui::focus()
 {
-    if (mActiveGui!= this){
+    //TODO: Register events. And unregister the rest of the gui events.
+//    if (mActiveGui!= this){
+    if (mActiveGuiPerWindow[window]!= this){
     // enable and make visible if hidden //
         mVisible = true;
         mEnabled = true;
-        mActiveGui = this;
+//        mActiveGui = this;
+        mActiveGuiPerWindow[window] = this;
     // update the draw order //
-        for (int i=0; i<mGuis.size(); i++) {
-            if (mGuis[i] == mActiveGui) {
-                std::swap(mGuis[i], mGuis[mGuis.size()-1]);
+//        for (int i=0; i<mGuis.size(); i++) {
+//            if (mGuis[i] == mActiveGui) {
+//                std::swap(mGuis[i], mGuis[mGuis.size()-1]);
+//                break;
+//            }
+//        }
+        for (int i=0; i<mGuisPerWindow[window].size(); i++) {
+            if (mGuisPerWindow[window][i] == mActiveGuiPerWindow[window]) {
+                std::swap(mGuisPerWindow[window][i], mGuisPerWindow[window].back());
                 break;
             }
         }
-        for (int i=0; i<mGuis.size(); i++) {
-            if (mGuis[i]->getAutoDraw()) mGuis[i]->setAutoDraw(true, i);
+//        if(getAutoDraw()){
+//            for (int i=0; i<mGuis.size(); i++) {
+//                if (mGuis[i]->getAutoDraw()) mGuis[i]->setAutoDraw(true, i);
+//            }
+//        }
+        if(getAutoDraw()){
+            for (int i=0; i<mGuisPerWindow[window].size(); i++) {
+                if (mGuisPerWindow[window][i]->getAutoDraw()) mGuisPerWindow[window][i]->setAutoDraw(true, i);
+            }
         }
+//        for (int i=0; i<mGuis.size(); i++) {
+//            if(mGuis[i] != mActiveGui) mGuis[i]->focusLost();
+//        }
+    }
+}
+
+void ofxDatGui::focusLost()
+{
+    for(auto &item : items){
+        item->setFocused(false);
     }
 }
 
@@ -107,6 +176,18 @@ void ofxDatGui::expand()
         mExpanded = true;
         mGuiFooter->setExpanded(mExpanded);
         mGuiFooter->setPosition(mPosition.x, mPosition.y + mHeight - mGuiFooter->getHeight() - mRowSpacing);
+        if(window == nullptr){
+            ofRegisterMouseEvents(this, OF_EVENT_ORDER_BEFORE_APP);
+        }else{
+            ofAddListener(window->events().mouseDragged,this,&ofxDatGui::mouseDragged,OF_EVENT_ORDER_BEFORE_APP);
+            ofAddListener(window->events().mouseMoved,this,&ofxDatGui::mouseMoved,OF_EVENT_ORDER_BEFORE_APP);
+            ofAddListener(window->events().mousePressed,this,&ofxDatGui::mousePressed,OF_EVENT_ORDER_BEFORE_APP);
+            ofAddListener(window->events().mouseReleased,this,&ofxDatGui::mouseReleased,OF_EVENT_ORDER_BEFORE_APP);
+            ofAddListener(window->events().mouseScrolled,this,&ofxDatGui::mouseScrolled,OF_EVENT_ORDER_BEFORE_APP);
+            ofAddListener(window->events().mouseEntered,this,&ofxDatGui::mouseEntered,OF_EVENT_ORDER_BEFORE_APP);
+            ofAddListener(window->events().mouseExited,this,&ofxDatGui::mouseExited,OF_EVENT_ORDER_BEFORE_APP);
+        }
+        mGuiFooter->unregisterEvents(true, false);
     }
 }
 
@@ -116,6 +197,18 @@ void ofxDatGui::collapse()
         mExpanded = false;
         mGuiFooter->setExpanded(mExpanded);
         mGuiFooter->setPosition(mPosition.x, mPosition.y);
+        if(window == nullptr){
+            ofUnregisterMouseEvents(this, OF_EVENT_ORDER_BEFORE_APP);
+        }else{
+            ofRemoveListener(window->events().mouseDragged,this,&ofxDatGui::mouseDragged,OF_EVENT_ORDER_BEFORE_APP);
+            ofRemoveListener(window->events().mouseMoved,this,&ofxDatGui::mouseMoved,OF_EVENT_ORDER_BEFORE_APP);
+            ofRemoveListener(window->events().mousePressed,this,&ofxDatGui::mousePressed,OF_EVENT_ORDER_BEFORE_APP);
+            ofRemoveListener(window->events().mouseReleased,this,&ofxDatGui::mouseReleased,OF_EVENT_ORDER_BEFORE_APP);
+            ofRemoveListener(window->events().mouseScrolled,this,&ofxDatGui::mouseScrolled,OF_EVENT_ORDER_BEFORE_APP);
+            ofRemoveListener(window->events().mouseEntered,this,&ofxDatGui::mouseEntered,OF_EVENT_ORDER_BEFORE_APP);
+            ofRemoveListener(window->events().mouseExited,this,&ofxDatGui::mouseExited,OF_EVENT_ORDER_BEFORE_APP);
+        }
+        mGuiFooter->registerEvents(true, false);
     }
 }
 
@@ -137,7 +230,12 @@ bool ofxDatGui::getVisible()
 
 bool ofxDatGui::getFocused()
 {
-    return mActiveGui == this;
+    return mActiveGuiPerWindow[window] == this;
+}
+
+bool ofxDatGui::getExpanded()
+{
+    return mExpanded;
 }
 
 void ofxDatGui::setWidth(int width, float labelWidth)
@@ -145,16 +243,16 @@ void ofxDatGui::setWidth(int width, float labelWidth)
     mWidth = width;
     mLabelWidth = labelWidth;
     mWidthChanged = true;
-    if (mAnchor != ofxDatGuiAnchor::NO_ANCHOR) anchorGui();
+    if (mAnchor != ofxDatGuiAnchor::NO_ANCHOR) positionGui();
 }
 
 void ofxDatGui::setTheme(ofxDatGuiTheme* t, bool applyImmediately)
 {
+    mTheme = t;
     if (applyImmediately){
         for(auto item:items) item->setTheme(t);
     }   else{
     // apply on next update call //
-        mTheme = t;
         mThemeChanged = true;
     }
     mRowSpacing = t->layout.vMargin;
@@ -176,12 +274,39 @@ void ofxDatGui::setPosition(int x, int y)
 void ofxDatGui::setPosition(ofxDatGuiAnchor anchor)
 {
     mAnchor = anchor;
-    if (mAnchor != ofxDatGuiAnchor::NO_ANCHOR) anchorGui();
+    if (mAnchor != ofxDatGuiAnchor::NO_ANCHOR) positionGui();
 }
 
 void ofxDatGui::setVisible(bool visible)
 {
     mVisible = visible;
+    if(mVisible){
+        if(window == nullptr){
+            ofRegisterMouseEvents(this, OF_EVENT_ORDER_BEFORE_APP);
+        }else{
+            ofAddListener(window->events().mouseDragged,this,&ofxDatGui::mouseDragged,OF_EVENT_ORDER_BEFORE_APP);
+            ofAddListener(window->events().mouseMoved,this,&ofxDatGui::mouseMoved,OF_EVENT_ORDER_BEFORE_APP);
+            ofAddListener(window->events().mousePressed,this,&ofxDatGui::mousePressed,OF_EVENT_ORDER_BEFORE_APP);
+            ofAddListener(window->events().mouseReleased,this,&ofxDatGui::mouseReleased,OF_EVENT_ORDER_BEFORE_APP);
+            ofAddListener(window->events().mouseScrolled,this,&ofxDatGui::mouseScrolled,OF_EVENT_ORDER_BEFORE_APP);
+            ofAddListener(window->events().mouseEntered,this,&ofxDatGui::mouseEntered,OF_EVENT_ORDER_BEFORE_APP);
+            ofAddListener(window->events().mouseExited,this,&ofxDatGui::mouseExited,OF_EVENT_ORDER_BEFORE_APP);
+        }
+        focus();
+    }
+    else{
+        if(window == nullptr){
+            ofUnregisterMouseEvents(this, OF_EVENT_ORDER_BEFORE_APP);
+        }else{
+            ofRemoveListener(window->events().mouseDragged,this,&ofxDatGui::mouseDragged,OF_EVENT_ORDER_BEFORE_APP);
+            ofRemoveListener(window->events().mouseMoved,this,&ofxDatGui::mouseMoved,OF_EVENT_ORDER_BEFORE_APP);
+            ofRemoveListener(window->events().mousePressed,this,&ofxDatGui::mousePressed,OF_EVENT_ORDER_BEFORE_APP);
+            ofRemoveListener(window->events().mouseReleased,this,&ofxDatGui::mouseReleased,OF_EVENT_ORDER_BEFORE_APP);
+            ofRemoveListener(window->events().mouseScrolled,this,&ofxDatGui::mouseScrolled,OF_EVENT_ORDER_BEFORE_APP);
+            ofRemoveListener(window->events().mouseEntered,this,&ofxDatGui::mouseEntered,OF_EVENT_ORDER_BEFORE_APP);
+            ofRemoveListener(window->events().mouseExited,this,&ofxDatGui::mouseExited,OF_EVENT_ORDER_BEFORE_APP);
+        }
+    }
 }
 
 void ofxDatGui::setEnabled(bool enabled)
@@ -192,12 +317,25 @@ void ofxDatGui::setEnabled(bool enabled)
 void ofxDatGui::setAutoDraw(bool autodraw, int priority)
 {
     mAutoDraw = autodraw;
-    ofRemoveListener(ofEvents().draw, this, &ofxDatGui::onDraw, OF_EVENT_ORDER_AFTER_APP + mIndex);
-    ofRemoveListener(ofEvents().update, this, &ofxDatGui::onUpdate, OF_EVENT_ORDER_BEFORE_APP - mIndex);
+    if(window == nullptr){
+        ofRemoveListener(ofEvents().draw, this, &ofxDatGui::drawEvent, OF_EVENT_ORDER_AFTER_APP + mIndex);
+        ofRemoveListener(ofEvents().update, this, &ofxDatGui::updateEvent, OF_EVENT_ORDER_BEFORE_APP - mIndex);
+    }else{
+        ofRemoveListener(window->events().draw, this, &ofxDatGui::drawEvent, OF_EVENT_ORDER_AFTER_APP + mIndex);
+        ofRemoveListener(window->events().update, this, &ofxDatGui::updateEvent, OF_EVENT_ORDER_BEFORE_APP - mIndex);
+    }
     if (mAutoDraw){
         mIndex = priority;
-        ofAddListener(ofEvents().draw, this, &ofxDatGui::onDraw, OF_EVENT_ORDER_AFTER_APP + mIndex);
-        ofAddListener(ofEvents().update, this, &ofxDatGui::onUpdate, OF_EVENT_ORDER_BEFORE_APP - mIndex);
+        if(window == nullptr){
+            ofAddListener(ofEvents().draw, this, &ofxDatGui::drawEvent, OF_EVENT_ORDER_AFTER_APP + mIndex);
+            ofAddListener(ofEvents().update, this, &ofxDatGui::updateEvent, OF_EVENT_ORDER_BEFORE_APP - mIndex);
+            ofRegisterKeyEvents(this);
+            ofRegisterMouseEvents(this, OF_EVENT_ORDER_BEFORE_APP);
+        }
+        else{
+            ofAddListener(window->events().draw, this, &ofxDatGui::drawEvent, OF_EVENT_ORDER_AFTER_APP + mIndex);
+            ofAddListener(window->events().update, this, &ofxDatGui::updateEvent, OF_EVENT_ORDER_BEFORE_APP - mIndex);
+        }
     }
 }
 
@@ -217,6 +355,11 @@ void ofxDatGui::setLabelAlignment(ofxDatGuiAlignment align)
     mAlignmentChanged = true;
 }
 
+void ofxDatGui::setTransformMatrix(ofMatrix4x4 matrix){
+    transformMatrix = matrix;
+    mGuiFooter->setTransformMatrix(matrix);
+}
+
 int ofxDatGui::getWidth()
 {
     return mWidth;
@@ -230,6 +373,11 @@ int ofxDatGui::getHeight()
 ofPoint ofxDatGui::getPosition()
 {
     return ofPoint(mPosition.x, mPosition.y);
+}
+
+int ofxDatGui::getNumComponents()
+{
+    return items.size();
 }
 
 void ofxDatGui::setAssetPath(string path)
@@ -264,9 +412,10 @@ ofxDatGuiHeader* ofxDatGui::addHeader(string label, bool draggable)
 ofxDatGuiFooter* ofxDatGui::addFooter()
 {
     if (mGuiFooter == nullptr){
-        mGuiFooter = new ofxDatGuiFooter();
+        mGuiFooter = new ofxDatGuiFooter(getHeader()->getName());
         items.push_back(mGuiFooter);
         mGuiFooter->onInternalEvent(this, &ofxDatGui::onInternalEventCallback);
+        mGuiFooter->setWindow(window);
         layoutGui();
 	}
     return mGuiFooter;
@@ -325,6 +474,45 @@ ofxDatGuiSlider* ofxDatGui::addSlider(string label, float min, float max, float 
     attachItem(slider);
     return slider;
 }
+//--
+ofxDatGuiMultiSlider* ofxDatGui::addMultiSlider(ofParameter<vector<int>>& p)
+{
+    ofxDatGuiMultiSlider* slider = new ofxDatGuiMultiSlider(p);
+    slider->onSliderEvent(this, &ofxDatGui::onSliderEventCallback);
+    attachItem(slider);
+    return slider;
+}
+
+ofxDatGuiMultiSlider* ofxDatGui::addMultiSlider(ofParameter<vector<float>>& p)
+{
+    ofxDatGuiMultiSlider* slider = new ofxDatGuiMultiSlider(p);
+    slider->onSliderEvent(this, &ofxDatGui::onSliderEventCallback);
+    attachItem(slider);
+    return slider;
+}
+
+ofxDatGuiMultiSlider* ofxDatGui::addMultiSlider(string label, float min, float max)
+{
+    // default to halfway between min & max values //
+    ofxDatGuiMultiSlider* slider = addMultiSlider(label, min, max);
+    return slider;
+}
+
+ofxDatGuiMultiSlider* ofxDatGui::addMultiSlider(string label, float min, float max, vector<float> val)
+{
+    ofxDatGuiMultiSlider* slider = new ofxDatGuiMultiSlider(label, min, max, val);
+    slider->onMultiSliderEvent(this, &ofxDatGui::onMultiSliderEventCallback);
+    attachItem(slider);
+    return slider;
+}
+
+ofxDatGuiMultiSlider* ofxDatGui::addMultiSlider(string label, float min, float max, vector<int> val)
+{
+    ofxDatGuiMultiSlider* slider = new ofxDatGuiMultiSlider(label, min, max, val);
+    slider->onMultiSliderEvent(this, &ofxDatGui::onMultiSliderEventCallback);
+    attachItem(slider);
+    return slider;
+}
 
 ofxDatGuiTextInput* ofxDatGui::addTextInput(string label, string value)
 {
@@ -362,6 +550,14 @@ ofxDatGuiDropdown* ofxDatGui::addDropdown(string label, vector<string> options)
     dropdown->onDropdownEvent(this, &ofxDatGui::onDropdownEventCallback);
     attachItem(dropdown);
     return dropdown;
+}
+
+ofxDatGuiScrollView* ofxDatGui::addScrollView(string label, int nVisible)
+{
+    ofxDatGuiScrollView* scrollView = new ofxDatGuiScrollView(label, nVisible);
+    scrollView->onScrollViewEvent(this, &ofxDatGui::onScrollViewEventCallback);
+    attachItem(scrollView);
+    return scrollView;
 }
 
 ofxDatGuiFRM* ofxDatGui::addFRM(float refresh)
@@ -412,6 +608,7 @@ ofxDatGuiFolder* ofxDatGui::addFolder(string label, ofColor color)
     folder->onMatrixEvent(this, &ofxDatGui::onMatrixEventCallback);
     folder->onTextInputEvent(this, &ofxDatGui::onTextInputEventCallback);
     folder->onColorPickerEvent(this, &ofxDatGui::onColorPickerEventCallback);
+    folder->onRightClickEvent(this, &ofxDatGui::onRightClickEventCallback);
     folder->onInternalEvent(this, &ofxDatGui::onInternalEventCallback);
     attachItem(folder);
     return folder;
@@ -430,7 +627,9 @@ void ofxDatGui::attachItem(ofxDatGuiComponent* item)
     }   else {
         items.push_back( item );
     }
+    if(mTheme != nullptr) item->setTheme(mTheme);
     item->onInternalEvent(this, &ofxDatGui::onInternalEventCallback);
+    item->onRightClickEvent(this, &ofxDatGui::onRightClickEventCallback);
     layoutGui();
 }
 
@@ -499,6 +698,23 @@ ofxDatGuiSlider* ofxDatGui::getSlider(string sl, string fl)
     }
     if (o==nullptr){
         o = ofxDatGuiSlider::getInstance();
+        ofxDatGuiLog::write(ofxDatGuiMsg::COMPONENT_NOT_FOUND, fl!="" ? fl+"-"+sl : sl);
+        trash.push_back(o);
+    }
+    return o;
+}
+
+ofxDatGuiMultiSlider* ofxDatGui::getMultiSlider(string sl, string fl)
+{
+    ofxDatGuiMultiSlider* o = nullptr;
+    if (fl != ""){
+        ofxDatGuiFolder* f = static_cast<ofxDatGuiFolder*>(getComponent(ofxDatGuiType::FOLDER, fl));
+        if (f) o = static_cast<ofxDatGuiMultiSlider*>(f->getComponent(ofxDatGuiType::MULTI_SLIDER, sl));
+    }   else{
+        o = static_cast<ofxDatGuiMultiSlider*>(getComponent(ofxDatGuiType::MULTI_SLIDER, sl));
+    }
+    if (o==nullptr){
+        o = ofxDatGuiMultiSlider::getInstance();
         ofxDatGuiLog::write(ofxDatGuiMsg::COMPONENT_NOT_FOUND, fl!="" ? fl+"-"+sl : sl);
         trash.push_back(o);
     }
@@ -655,6 +871,28 @@ ofxDatGuiFooter* ofxDatGui::getFooter()
     return o;
 }
 
+ofxDatGuiComponent* ofxDatGui::getComponent(string key)
+{
+    for (int i=0; i<items.size(); i++) {
+        if (items[i]->is(key)) return items[i];
+        // iterate over component's children and return the first match we find //
+        for (int j=0; j<items[i]->children.size(); j++) {
+            if (items[i]->children[j]->is(key)) return items[i]->children[j];
+        }
+    }
+    return NULL;
+}
+
+ofxDatGuiComponent* ofxDatGui::getComponent(int index)
+{
+    if(index < items.size()){
+        if(items[index] != mGuiHeader && items[index] != mGuiFooter){
+            return items[index];
+        }
+    }
+    return NULL;
+}
+
 ofxDatGuiComponent* ofxDatGui::getComponent(ofxDatGuiType type, string label)
 {
     for (int i=0; i<items.size(); i++) {
@@ -668,6 +906,22 @@ ofxDatGuiComponent* ofxDatGui::getComponent(ofxDatGuiType type, string label)
     }
     return NULL;
 }
+
+void ofxDatGui::removeComponent(string key)
+{
+    for (int i=0; i<items.size(); i++) {
+        if (items[i]->is(key)) items.erase(items.begin()+i);
+    }
+    layoutGui();
+}
+
+
+void ofxDatGui::removeComponent(int index)
+{
+    items.erase(items.begin()+index);
+    layoutGui();
+}
+
 
 /*
     event callbacks
@@ -703,6 +957,15 @@ void ofxDatGui::onSliderEventCallback(ofxDatGuiSliderEvent e)
     }
 }
 
+void ofxDatGui::onMultiSliderEventCallback(ofxDatGuiMultiSliderEvent e)
+{
+    if (multiSliderEventCallback != nullptr) {
+        multiSliderEventCallback(e);
+    }   else{
+        ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
+    }
+}
+
 void ofxDatGui::onTextInputEventCallback(ofxDatGuiTextInputEvent e)
 {
     if (textInputEventCallback != nullptr) {
@@ -721,6 +984,15 @@ void ofxDatGui::onDropdownEventCallback(ofxDatGuiDropdownEvent e)
     }
 // adjust the gui after a dropdown is closed //
     layoutGui();
+}
+
+void ofxDatGui::onScrollViewEventCallback(ofxDatGuiScrollViewEvent e)
+{
+    if (scrollViewEventCallback != nullptr) {
+        scrollViewEventCallback(e);
+    }   else{
+        ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
+    }
 }
 
 void ofxDatGui::on2dPadEventCallback(ofxDatGui2dPadEvent e)
@@ -750,10 +1022,19 @@ void ofxDatGui::onMatrixEventCallback(ofxDatGuiMatrixEvent e)
     }
 }
 
+void ofxDatGui::onRightClickEventCallback(ofxDatGuiRightClickEvent e)
+{
+    if (rightClickEventCallback != nullptr) {
+        rightClickEventCallback(e);
+    }   else{
+        ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
+    }
+}
+
 void ofxDatGui::onInternalEventCallback(ofxDatGuiInternalEvent e)
 {
 // these events are not dispatched out to the main application //
-    if (e.type == ofxDatGuiEventType::DROPDOWN_TOGGLED){
+    if (e.type == ofxDatGuiEventType::GROUP_TOGGLED){
         layoutGui();
     }   else if (e.type == ofxDatGuiEventType::GUI_TOGGLED){
         mExpanded ? collapse() : expand();
@@ -768,10 +1049,13 @@ void ofxDatGui::onInternalEventCallback(ofxDatGuiInternalEvent e)
 
 bool ofxDatGui::hitTest(ofPoint pt)
 {
+    ofVec4f tempVec = pt;
+    tempVec -= transformMatrix.getTranslation();
+    tempVec = transformMatrix.getInverse().postMult(tempVec);
     if (mMoving){
         return true;
     }   else{
-        return mGuiBounds.inside(pt);
+        return mGuiBounds.inside(tempVec.x, tempVec.y);
     }
 }
 
@@ -780,17 +1064,29 @@ void ofxDatGui::moveGui(ofPoint pt)
     mPosition.x = pt.x;
     mPosition.y = pt.y;
     mAnchor = ofxDatGuiAnchor::NO_ANCHOR;
-    layoutGui();
+    positionGui();
 }
 
-void ofxDatGui::anchorGui()
+void ofxDatGui::layoutGui()
+{
+    mHeight = 0;
+    for (int i=0; i<items.size(); i++) {
+        items[i]->setIndex(i);
+    // skip over any components that are currently invisible //
+        if (items[i]->getVisible() == false) continue;
+        mHeight += items[i]->getHeight() + mRowSpacing;
+    }
+    positionGui();
+}
+
+void ofxDatGui::positionGui()
 {
 /*
     ofGetWidth/ofGetHeight returns incorrect values after retina windows are resized in version 0.9.1 & 0.9.2
     https://github.com/openframeworks/openFrameworks/pull/4858
 */
     int multiplier = 1;
-    if (ofxDatGuiIsRetina() && ofGetVersionMajor() == 0 && ofGetVersionMinor() == 9 && (ofGetVersionPatch() == 1 || ofGetVersionPatch() == 2)){
+    if (ofxDatGuiIsHighResolution() && ofGetVersionMajor() == 0 && ofGetVersionMinor() == 9 && (ofGetVersionPatch() == 1 || ofGetVersionPatch() == 2)){
         multiplier = 2;
     }
     if (mAnchor == ofxDatGuiAnchor::TOP_LEFT){
@@ -806,18 +1102,12 @@ void ofxDatGui::anchorGui()
         mPosition.x = (ofGetWidth() / multiplier) - mWidth;
         mPosition.y = (ofGetHeight() / multiplier) - mHeight;
     }
-    layoutGui();
-}
-
-void ofxDatGui::layoutGui()
-{
-    mHeight = 0;
+    int h = 0;
     for (int i=0; i<items.size(); i++) {
-        items[i]->setIndex(i);
     // skip over any components that are currently invisible //
         if (items[i]->getVisible() == false) continue;
-        items[i]->setPosition(mPosition.x, mPosition.y + mHeight);
-        mHeight += items[i]->getHeight() + mRowSpacing;
+        items[i]->setPosition(mPosition.x, mPosition.y + h);
+        h += items[i]->getHeight() + mRowSpacing;
     }
     // move the footer back to the top of the gui //
     if (!mExpanded) mGuiFooter->setPosition(mPosition.x, mPosition.y);
@@ -827,6 +1117,10 @@ void ofxDatGui::layoutGui()
 /* 
     update & draw loop
 */
+
+void ofxDatGui::updateEvent(ofEventArgs &e){
+    update();
+}
 
 void ofxDatGui::update()
 {
@@ -842,50 +1136,50 @@ void ofxDatGui::update()
     
     if (mThemeChanged || mWidthChanged) layoutGui();
 
-    mTheme = nullptr;
+    //mTheme = nullptr;
     mAlphaChanged = false;
     mWidthChanged = false;
     mThemeChanged = false;
     mAlignmentChanged = false;
     
-    // check for gui focus change //
-    if (ofGetMousePressed() && mActiveGui->mMoving == false){
-        ofPoint mouse = ofPoint(ofGetMouseX(), ofGetMouseY());
-        for (int i=mGuis.size()-1; i>-1; i--){
-        // ignore guis that are invisible //
-            if (mGuis[i]->getVisible() && mGuis[i]->hitTest(mouse)){
-                if (mGuis[i] != mActiveGui) mGuis[i]->focus();
-                break;
-            }
-        }
-    }
+//     check for gui focus change //
+//    if (ofGetMousePressed() && mActiveGui->mMoving == false){
+//        ofPoint mouse = ofPoint(ofGetMouseX(), ofGetMouseY());
+//        for (int i=mGuis.size()-1; i>-1; i--){
+//        // ignore guis that are invisible //
+//            if (mGuis[i]->getVisible() && mGuis[i]->hitTest(mouse)){
+//                if (mGuis[i] != mActiveGui) mGuis[i]->focus();
+//                break;
+//            }
+//        }
+//    }
 
-    if (!getFocused() || !mEnabled){
+    //if (!getFocused() || !mEnabled){
     // update children but ignore mouse & keyboard events //
-        for (int i=0; i<items.size(); i++) items[i]->update(false);
-    }   else {
+        for (int i=0; i<items.size(); i++) items[i]->update();
+    //}
+    
+    if(getFocused() || mEnabled) {
         mMoving = false;
-        mMouseDown = false;
-    // this gui has focus so let's see if any of its components were interacted with //
+        // this gui has focus so let's see if any of its components were interacted with //
         if (mExpanded == false){
             mGuiFooter->update();
-            mMouseDown = mGuiFooter->getMouseDown();
         }   else{
             bool hitComponent = false;
             for (int i=0; i<items.size(); i++) {
                 if (hitComponent == false){
-                    items[i]->update(true);
+                    //items[i]->update();
                     if (items[i]->getFocused()) {
                         hitComponent = true;
                         mMouseDown = items[i]->getMouseDown();
-                        if (mGuiHeader != nullptr && mGuiHeader->getDraggable() && mGuiHeader->getFocused()){
-                    // track that we're moving to force preserve focus //
-                            mMoving = true;
-                            ofPoint mouse = ofPoint(ofGetMouseX(), ofGetMouseY());
-                            moveGui(mouse - mGuiHeader->getDragOffset());
-                        }
+//                        if (mGuiHeader != nullptr && mGuiHeader->getDraggable() && mGuiHeader->getFocused()){
+//                            // track that we're moving to force preserve focus //
+//                            mMoving = true;
+//                            ofPoint mouse = ofPoint(ofGetMouseX(), ofGetMouseY());
+//                            moveGui(mouse - mGuiHeader->getDragOffset());
+//                        }
                     }   else if (items[i]->getIsExpanded()){
-                    // check if one of its children has focus //
+                        // check if one of its children has focus //
                         for (int j=0; j<items[i]->children.size(); j++) {
                             if (items[i]->children[j]->getFocused()){
                                 hitComponent = true;
@@ -895,8 +1189,8 @@ void ofxDatGui::update()
                         }
                     }
                 }   else{
-            // update component but ignore mouse & keyboard events //
-                    items[i]->update(false);
+                    // update component but ignore mouse & keyboard events //
+                    //items[i]->update();
                     if (items[i]->getFocused()) items[i]->setFocused(false);
                 }
             }
@@ -907,37 +1201,154 @@ void ofxDatGui::update()
     trash.clear();
 }
 
-void ofxDatGui::draw()
-{
-    if (mVisible == false) return;
-    ofPushStyle();
-        ofFill();
-        ofSetColor(mGuiBackground, mAlpha * 255);
-        if (mExpanded == false){
-            ofDrawRectangle(mPosition.x, mPosition.y, mWidth, mGuiFooter->getHeight());
-            mGuiFooter->draw();
-        }   else{
-            ofDrawRectangle(mPosition.x, mPosition.y, mWidth, mHeight - mRowSpacing);
-            for (int i=0; i<items.size(); i++) items[i]->draw();
-        // color pickers overlap other components when expanded so they must be drawn last //
-            for (int i=0; i<items.size(); i++) items[i]->drawColorPicker();
-        }
-    ofPopStyle();
-}
-
-void ofxDatGui::onDraw(ofEventArgs &e)
+void ofxDatGui::drawEvent(ofEventArgs &e)
 {
     draw();
 }
 
-void ofxDatGui::onUpdate(ofEventArgs &e)
+void ofxDatGui::draw()
 {
-    update();
+    if (mVisible == false) return;
+    ofPushMatrix();
+    ofMultMatrix(transformMatrix);
+    ofPushStyle();
+    ofFill();
+    ofSetColor(mGuiBackground, mAlpha * 255);
+    if (mExpanded == false){
+        ofDrawRectangle(mPosition.x, mPosition.y, mWidth, mGuiFooter->getHeight());
+        mGuiFooter->draw();
+    }   else{
+        ofDrawRectangle(mPosition.x, mPosition.y, mWidth, mHeight - mRowSpacing);
+        for (int i=0; i<items.size(); i++) items[i]->draw();
+        // color pickers overlap other components when expanded so they must be drawn last //
+        for (int i=0; i<items.size(); i++) items[i]->drawColorPicker();
+    }
+    ofPopStyle();
+    ofPopMatrix();
 }
 
 void ofxDatGui::onWindowResized(ofResizeEventArgs &e)
 {
-    if (mAnchor != ofxDatGuiAnchor::NO_ANCHOR) anchorGui();
+    if (mAnchor != ofxDatGuiAnchor::NO_ANCHOR) positionGui();
 }
 
+void ofxDatGui::keyPressed(ofKeyEventArgs &e)
+{
+    for (auto &item : items)
+        item->keyPressed(e);
+}
 
+void ofxDatGui::keyReleased(ofKeyEventArgs &e)
+{
+    for (auto &item : items)
+        item->keyReleased(e);
+}
+
+void ofxDatGui::mouseMoved(ofMouseEventArgs &e)
+{
+    ofVec4f tempVec = e;
+    tempVec -= transformMatrix.getTranslation();
+    tempVec = transformMatrix.getInverse().postMult(tempVec);
+    ofMouseEventArgs modified_e = ofMouseEventArgs(e.type, tempVec.x, tempVec.y, e.button);
+
+    
+    if(!mMoving){
+        if(hitTest(e) && !getFocused() && !mActiveGuiPerWindow[window]->hitTest(e) && getVisible()){
+            if(mAutoDraw){
+                mActiveGuiPerWindow[window]->focusLost();
+            }
+            focus();
+        }
+    }
+
+    if(this == mActiveGuiPerWindow[window]){
+        for (auto &item : items)
+            item->mouseMoved(modified_e);
+    }
+}
+
+void ofxDatGui::mouseDragged(ofMouseEventArgs &e)
+{
+    ofVec4f tempVec = e;
+    tempVec -= transformMatrix.getTranslation();
+    tempVec = transformMatrix.getInverse().postMult(tempVec);
+    ofMouseEventArgs modified_e = ofMouseEventArgs(e.type, tempVec.x, tempVec.y, e.button);
+    
+    if(e.button == 0){
+        if(this == mActiveGuiPerWindow[window]){
+            for (auto &item : items)
+                item->mouseDragged(modified_e);
+            
+            if (mGuiHeader != nullptr && mGuiHeader->getDraggable() && mGuiHeader->getFocused()){
+                // track that we're moving to force preserve focus //
+                mMoving = true;
+                moveGui(modified_e - mGuiHeader->getDragOffset());
+            }
+        }
+    }
+    else if(e.button == 2){
+        mouseMoved(e);
+    }
+}
+
+void ofxDatGui::mousePressed(ofMouseEventArgs &e)
+{
+    ofVec4f tempVec = e;
+    tempVec -= transformMatrix.getTranslation();
+    tempVec = transformMatrix.getInverse().postMult(tempVec);
+    ofMouseEventArgs modified_e = ofMouseEventArgs(e.type, tempVec.x, tempVec.y, e.button);
+
+    
+//    if(hitTest(e)){
+//        mMouseDown = true;
+//        focus();
+//    }
+
+//    if (mActiveGui->mMoving == false){
+//        for (int i=mGuis.size()-1; i>-1; i--){
+//            // ignore guis that are invisible //
+//            if (mGuis[i]->getVisible() && mGuis[i]->hitTest(e)){
+//                if (mGuis[i] != mActiveGui) mGuis[i]->focus();
+//                break;
+//            }
+//        }
+//    }
+    
+    //if(this == mActiveGui){
+        for (auto &item : items)
+            item->mousePressed(modified_e);
+    //}
+    
+}
+
+void ofxDatGui::mouseReleased(ofMouseEventArgs &e)
+{
+    ofVec4f tempVec = e;
+    tempVec -= transformMatrix.getTranslation();
+    tempVec = transformMatrix.getInverse().postMult(tempVec);
+    ofMouseEventArgs modified_e = ofMouseEventArgs(e.type, tempVec.x, tempVec.y, e.button);
+
+    
+    mMouseDown = false;
+
+    for (auto &item : items)
+        item->mouseReleased(modified_e);
+    
+    mouseMoved(e);
+    
+}
+
+void ofxDatGui::mouseEntered(ofMouseEventArgs &e)
+{
+    
+}
+
+void ofxDatGui::mouseExited(ofMouseEventArgs &e)
+{
+    
+}
+
+void ofxDatGui::mouseScrolled(ofMouseEventArgs &e)
+{
+    
+}

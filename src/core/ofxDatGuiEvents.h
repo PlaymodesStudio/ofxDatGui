@@ -25,12 +25,15 @@
 class ofxDatGuiButton;
 class ofxDatGuiToggle;
 class ofxDatGuiSlider;
+class ofxDatGuiMultiSlider;
 class ofxDatGuiDropdown;
 class ofxDatGuiTextInput;
 class ofxDatGui2dPad;
 class ofxDatGuiColorPicker;
 class ofxDatGuiMatrix;
 class ofxDatGuiScrollView;
+class ofxDatGuiComponent;
+class ofxDatGuiScrollViewItem;
 
 enum ofxDatGuiEventType
 {
@@ -41,9 +44,11 @@ enum ofxDatGuiEventType
     COLOR_CHANGED,
     SLIDER_CHANGED,
     OPTION_SELECTED,
-    DROPDOWN_TOGGLED,
+    GROUP_TOGGLED,
     VISIBILITY_CHANGED,
-    MATRIX_BUTTON_TOGGLED
+    MATRIX_BUTTON_PRESS,
+    MATRIX_BUTTON_RELEASE,
+    RIGHT_CLICKED
 };
 
 class ofxDatGuiInternalEvent{
@@ -93,6 +98,20 @@ class ofxDatGuiSliderEvent{
     ofxDatGuiSlider* target;
 };
 
+class ofxDatGuiMultiSliderEvent{
+    
+public:
+    ofxDatGuiMultiSliderEvent(ofxDatGuiMultiSlider* t, vector<float> v, float s)
+    {
+        value = v;
+        scale = s;
+        target = t;
+    }
+    vector<float> value;
+    float scale;
+    ofxDatGuiMultiSlider* target;
+};
+
 class ofxDatGuiTextInputEvent{
 
     public:
@@ -134,15 +153,13 @@ class ofxDatGuiDropdownEvent{
 class ofxDatGuiScrollViewEvent{
 
     public:
-        ofxDatGuiScrollViewEvent(ofxDatGuiScrollView* p, ofxDatGuiButton* b, int i)
+        ofxDatGuiScrollViewEvent(ofxDatGuiScrollView* p, ofxDatGuiScrollViewItem* b)
         {
-            index = i;
-            target = b;
             parent = p;
+            target = b;
         }
-    int index;
-    ofxDatGuiButton* target;
     ofxDatGuiScrollView* parent;
+    ofxDatGuiScrollViewItem* target;
 };
 
 class ofxDatGui2dPadEvent{
@@ -171,6 +188,17 @@ class ofxDatGuiMatrixEvent{
     int child;
     bool enabled;
     ofxDatGuiMatrix* target;
+};
+
+class ofxDatGuiRightClickEvent{
+public:
+    ofxDatGuiRightClickEvent(ofxDatGuiComponent* t, bool c)
+    {
+        down = c;
+        target = t;
+    }
+    bool down;
+    ofxDatGuiComponent* target;
 };
 
 

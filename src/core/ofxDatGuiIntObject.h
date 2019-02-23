@@ -29,6 +29,7 @@ namespace ofxDatGuiMsg
 {
     const string EVENT_HANDLER_NULL = "[WARNING] :: Event Handler Not Set";
     const string COMPONENT_NOT_FOUND = "[ERROR] :: Component Not Found";
+    const string MATRIX_EMPTY = "[WARNING] :: Matrix is Empty";
 }
 
 class ofxDatGuiLog {
@@ -106,6 +107,20 @@ class ofxDatGuiInteractiveObject{
     
         void onSliderEvent(onSliderEventCallback callback) {
             sliderEventCallback = callback;
+        }
+    
+    // multislider events //
+        typedef std::function<void(ofxDatGuiMultiSliderEvent)> onMultiSliderEventCallback;
+        onMultiSliderEventCallback multiSliderEventCallback;
+    
+        template<typename T, typename args, class ListenerClass>
+        void onMultiSliderEvent(T* owner, void (ListenerClass::*listenerMethod)(args))
+        {
+            multiSliderEventCallback = std::bind(listenerMethod, owner, std::placeholders::_1);
+        }
+    
+        void onMultiSliderEvent(onMultiSliderEventCallback callback) {
+            multiSliderEventCallback = callback;
         }
 
     // text input events //
@@ -204,6 +219,20 @@ class ofxDatGuiInteractiveObject{
 
         void onInternalEvent(onInternalEventCallback callback) {
             internalEventCallback = callback;
+        }
+    
+    // rightClick events //
+        typedef std::function<void(ofxDatGuiRightClickEvent)> onRightClickEventCallback;
+        onRightClickEventCallback rightClickEventCallback;
+    
+        template<typename T, typename args, class ListenerClass>
+        void onRightClickEvent(T* owner, void (ListenerClass::*listenerMethod)(args))
+        {
+            rightClickEventCallback = std::bind(listenerMethod, owner, std::placeholders::_1);
+        }
+    
+        void onRightClickEvent(onRightClickEventCallback callback) {
+            rightClickEventCallback = callback;
         }
 };
 

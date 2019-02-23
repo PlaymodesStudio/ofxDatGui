@@ -15,12 +15,14 @@ void ofApp::setup()
     addItem->setPosition(ofGetWidth()/2 - addItem->getWidth()/2, 240);
     addItem->setLabelAlignment(ofxDatGuiAlignment::CENTER);
     addItem->onButtonEvent(this, &ofApp::onAddNewItemButtonClick);
+    addItem->registerEvents();
     
 // create a scroll view that displays eight items at a time //
     view = new ofxDatGuiScrollView("ScrollView #1", 8);
     view->setWidth(width);
     view->setPosition(addItem->getX(), addItem->getY() + addItem->getHeight() + 1);
     view->onScrollViewEvent(this, &ofApp::onScrollViewEvent);
+    view->registerEvents();
     
 // add a button to allow us to clear the scroll view out //
     clearAll = new ofxDatGuiButton("click to clear all items");
@@ -29,6 +31,7 @@ void ofApp::setup()
     clearAll->setPosition(ofGetWidth()/2 - clearAll->getWidth()/2, view->getY() + view->getHeight() + 1);
     clearAll->setLabelAlignment(ofxDatGuiAlignment::CENTER);
     clearAll->onButtonEvent(this, &ofApp::onClearAllButtonClick);
+    clearAll->registerEvents();
     
 // add a few items for testing //
     for(int i=0; i<12; i++) view->add("item " + ofToString(view->getNumItems() + 1));
@@ -37,21 +40,21 @@ void ofApp::setup()
 
 void ofApp::update()
 {
-    view->update();
-    addItem->update();
-    clearAll->update();
+//    view->update();
+//    addItem->update();
+//    clearAll->update();
 }
 
 void ofApp::draw()
 {
-    view->draw();
-    addItem->draw();
-    clearAll->draw();
+//    view->draw();
+//    addItem->draw();
+//    clearAll->draw();
 }
 
 void ofApp::onScrollViewEvent(ofxDatGuiScrollViewEvent e)
 {
-    cout << e.target->getLabel() << " [index " << e.index << "] selected in [" << e.parent->getName() << "]" << endl;
+    cout << e.target->getLabel() << " [index " << e.target->getIndex() << "] selected in [" << e.parent->getName() << "]" << endl;
 }
 
 void ofApp::onAddNewItemButtonClick(ofxDatGuiButtonEvent e)

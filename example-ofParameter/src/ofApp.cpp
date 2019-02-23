@@ -21,7 +21,7 @@ void ofApp::setup()
     gui->addSlider(p1);
     gui->addSlider(p2);
     gui->addSlider(p3);
-    gui->setPosition(ofGetWidth()/2 - gui->getWidth() - 20, 100);
+    gui->setPosition(ofGetWidth()/2 - gui->getWidth() - 20, (ofGetHeight()/2 - gui->getHeight()/2) - 10);
     gui->onSliderEvent(this, &ofApp::onSliderEvent);
  
 /*
@@ -29,15 +29,19 @@ void ofApp::setup()
 */
     int x = gui->getPosition().x + gui->getWidth() + 40;
     l1 = new ofxDatGuiLabel("sliders from of_parameters");
+    l1->registerEvents();
     l1->setPosition(x, gui->getPosition().y);
 
     s1 = new ofxDatGuiSlider(p1);
+    s1->registerEvents();
     s1->setPosition(x, l1->getY() + l1->getHeight() + 2);
 
     s2 = new ofxDatGuiSlider(p2);
+    s2->registerEvents();
     s2->setPosition(x, s1->getY() + s1->getHeight() + 2);
 
     s3 = new ofxDatGuiSlider(p3);
+    s3->registerEvents();
     s3->setPosition(x, s2->getY() + s2->getHeight() + 2);
 
     s1->onSliderEvent(this, &ofApp::onSliderEvent);
@@ -47,17 +51,17 @@ void ofApp::setup()
 
 void ofApp::update()
 {
-    s1->update();
-    s2->update();
-    s3->update();
+//    s1->update();
+//    s2->update();
+//    s3->update();
 }
 
 void ofApp::draw()
 {
-    l1->draw();
-    s1->draw();
-    s2->draw();
-    s3->draw();
+//    l1->draw();
+//    s1->draw();
+//    s2->draw();
+//    s3->draw();
 }
 
 void ofApp::onSliderEvent(ofxDatGuiSliderEvent e)

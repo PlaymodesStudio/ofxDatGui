@@ -1,3 +1,4 @@
+
 /*
     Copyright (C) 2015 Stephen Braitsch [http://braitsch.io]
 
@@ -34,8 +35,11 @@ ofxDatGuiComponent::ofxDatGuiComponent(string label)
     mFocused = false;
     mMouseOver = false;
     mMouseDown = false;
+    labelChanged = false;
     mStyle.opacity = 255;
     this->x = 0; this->y = 0;
+    isListeningEvents = false;
+    transformMatrix = ofMatrix4x4();
     mAnchor = ofxDatGuiAnchor::NO_ANCHOR;
     mLabel.text = label;
     mLabel.alignment = ofxDatGuiAlignment::LEFT;
@@ -45,15 +49,81 @@ ofxDatGuiComponent::ofxDatGuiComponent(string label)
 
 ofxDatGuiComponent::~ofxDatGuiComponent()
 {
-//  cout << "ofxDatGuiComponent "<< mName << " destroyed" << endl;
-    ofRemoveListener(ofEvents().keyPressed, this, &ofxDatGuiComponent::onKeyPressed);
-    ofRemoveListener(ofEvents().windowResized, this, &ofxDatGuiComponent::onWindowResized);
+    onFocusLost();
+    unregisterEvents(true, true);
 }
 
 /*
     instance getters & setters
 */
 
+void ofxDatGuiComponent::registerEvents(bool mouseAndKeyEvents, bool drawUpdateEvent)
+{
+    if(!isListeningEvents){
+        if(mouseAndKeyEvents){
+            isListeningEvents = true;
+            if(window == nullptr){
+                ofRegisterKeyEvents(this);
+                ofRegisterMouseEvents(this, OF_EVENT_ORDER_BEFORE_APP);
+            }else{
+                ofAddListener(window->events().keyPressed, this, &ofxDatGuiComponent::keyPressed);
+                ofAddListener(window->events().keyReleased, this, &ofxDatGuiComponent::keyReleased);
+                
+                ofAddListener(window->events().mouseDragged,this,&ofxDatGuiComponent::mouseDragged,OF_EVENT_ORDER_BEFORE_APP);
+                ofAddListener(window->events().mouseMoved,this,&ofxDatGuiComponent::mouseMoved,OF_EVENT_ORDER_BEFORE_APP);
+                ofAddListener(window->events().mousePressed,this,&ofxDatGuiComponent::mousePressed,OF_EVENT_ORDER_BEFORE_APP);
+                ofAddListener(window->events().mouseReleased,this,&ofxDatGuiComponent::mouseReleased,OF_EVENT_ORDER_BEFORE_APP);
+                ofAddListener(window->events().mouseScrolled,this,&ofxDatGuiComponent::mouseScrolled,OF_EVENT_ORDER_BEFORE_APP);
+                ofAddListener(window->events().mouseEntered,this,&ofxDatGuiComponent::mouseEntered,OF_EVENT_ORDER_BEFORE_APP);
+                ofAddListener(window->events().mouseExited,this,&ofxDatGuiComponent::mouseExited,OF_EVENT_ORDER_BEFORE_APP);
+            }
+        }
+        if(drawUpdateEvent){
+            if(window == nullptr){
+                ofAddListener(ofEvents().draw, this, &ofxDatGuiComponent::draw, OF_EVENT_ORDER_AFTER_APP + mIndex);
+                ofAddListener(ofEvents().update, this, &ofxDatGuiComponent::update, OF_EVENT_ORDER_AFTER_APP + mIndex);
+            }else{
+                ofAddListener(window->events().draw, this, &ofxDatGuiComponent::draw, OF_EVENT_ORDER_AFTER_APP + mIndex);
+                ofAddListener(window->events().update, this, &ofxDatGuiComponent::update, OF_EVENT_ORDER_AFTER_APP + mIndex);
+            }
+        }
+        isListeningEvents = true;
+    }
+}
+
+void ofxDatGuiComponent::unregisterEvents(bool mouseAndKeyEvents, bool drawUpdateEvent)
+{
+    if(isListeningEvents){
+        if(mouseAndKeyEvents){
+            isListeningEvents = false;
+            if(window == nullptr){
+                ofUnregisterKeyEvents(this);
+                ofUnregisterMouseEvents(this, OF_EVENT_ORDER_BEFORE_APP);
+            }else{
+                ofRemoveListener(window->events().keyPressed, this, &ofxDatGuiComponent::keyPressed);
+                ofRemoveListener(window->events().keyReleased, this, &ofxDatGuiComponent::keyReleased);
+                
+                ofRemoveListener(window->events().mouseDragged,this,&ofxDatGuiComponent::mouseDragged,OF_EVENT_ORDER_BEFORE_APP);
+                ofRemoveListener(window->events().mouseMoved,this,&ofxDatGuiComponent::mouseMoved,OF_EVENT_ORDER_BEFORE_APP);
+                ofRemoveListener(window->events().mousePressed,this,&ofxDatGuiComponent::mousePressed,OF_EVENT_ORDER_BEFORE_APP);
+                ofRemoveListener(window->events().mouseReleased,this,&ofxDatGuiComponent::mouseReleased,OF_EVENT_ORDER_BEFORE_APP);
+                ofRemoveListener(window->events().mouseScrolled,this,&ofxDatGuiComponent::mouseScrolled,OF_EVENT_ORDER_BEFORE_APP);
+                ofRemoveListener(window->events().mouseEntered,this,&ofxDatGuiComponent::mouseEntered,OF_EVENT_ORDER_BEFORE_APP);
+                ofRemoveListener(window->events().mouseExited,this,&ofxDatGuiComponent::mouseExited,OF_EVENT_ORDER_BEFORE_APP);
+            }
+        }
+        if(drawUpdateEvent){
+            if(window == nullptr){
+                ofRemoveListener(ofEvents().draw, this, &ofxDatGuiComponent::draw, OF_EVENT_ORDER_AFTER_APP + mIndex);
+                ofRemoveListener(ofEvents().update, this, &ofxDatGuiComponent::update, OF_EVENT_ORDER_AFTER_APP + mIndex);
+            }else{
+                ofRemoveListener(window->events().draw, this, &ofxDatGuiComponent::draw, OF_EVENT_ORDER_AFTER_APP + mIndex);
+                ofRemoveListener(window->events().update, this, &ofxDatGuiComponent::update, OF_EVENT_ORDER_BEFORE_APP + mIndex);
+            }
+        }
+        isListeningEvents = false;
+    }
+}
 
 void ofxDatGuiComponent::setIndex(int index)
 {
@@ -116,6 +186,11 @@ void ofxDatGuiComponent::setComponentStyle(const ofxDatGuiTheme* theme)
     setLabel(mLabel.text);
     setWidth(theme->layout.width, theme->layout.labelWidth);
     for (int i=0; i<children.size(); i++) children[i]->setTheme(theme);
+    if (mType != ofxDatGuiType::DROPDOWN_OPTION){
+        mLabel.mesh = mFont->getStringMesh(mLabel.rendered, x+mLabel.x, y+mStyle.height/2 + mLabel.rect.height/2);
+    }   else{
+        mLabel.mesh = mFont->getStringMesh("* "+mLabel.rendered, x+mLabel.x, y+mStyle.height/2 + mLabel.rect.height/2);
+    }
 }
 
 void ofxDatGuiComponent::setWidth(int width, float labelWidth)
@@ -142,6 +217,11 @@ void ofxDatGuiComponent::positionLabel()
         mLabel.x = (mLabel.width / 2) - (mLabel.rect.width / 2);
     }   else if (mLabel.alignment == ofxDatGuiAlignment::RIGHT){
         mLabel.x = mLabel.rightAlignedXpos - mLabel.rect.width;
+    }
+    if (mType != ofxDatGuiType::DROPDOWN_OPTION){
+        mLabel.mesh = mFont->getStringMesh(mLabel.rendered, x+mLabel.x, y+mStyle.height/2 + mLabel.rect.height/2);
+    }   else{
+        mLabel.mesh = mFont->getStringMesh("* "+mLabel.rendered, x+mLabel.x, y+mStyle.height/2 + mLabel.rect.height/2);
     }
 }
 
@@ -170,6 +250,7 @@ void ofxDatGuiComponent::setPosition(int x, int y)
     this->x = x;
     this->y = y;
     for(int i=0; i<children.size(); i++) children[i]->setPosition(x, this->y + (mStyle.height+mStyle.vMargin)*(i+1));
+    positionLabel();
 }
 
 void ofxDatGuiComponent::setVisible(bool visible)
@@ -208,6 +289,7 @@ void ofxDatGuiComponent::setFocused(bool focused)
         onFocus();
     }   else{
         onFocusLost();
+        for(auto i:children) i->onFocusLost();
     }
 }
 
@@ -250,7 +332,7 @@ bool ofxDatGuiComponent::getIsExpanded()
 }
 
 /*
-    visual customization
+    component label
 */
 
 void ofxDatGuiComponent::setLabel(string label)
@@ -258,7 +340,7 @@ void ofxDatGuiComponent::setLabel(string label)
     mLabel.text = label;
     mLabel.rendered = mLabel.forceUpperCase ? ofToUpper(mLabel.text) : mLabel.rendered = mLabel.text;
     mLabel.rect = mFont->rect(mLabel.rendered);
-    positionLabel();
+    labelChanged = true;
 }
 
 string ofxDatGuiComponent::getLabel()
@@ -270,6 +352,37 @@ void ofxDatGuiComponent::setLabelColor(ofColor c)
 {
     mLabel.color = c;
 }
+
+ofColor ofxDatGuiComponent::getLabelColor()
+{
+    return mLabel.color;
+}
+
+void ofxDatGuiComponent::setLabelUpperCase(bool toUpper)
+{
+    mLabel.forceUpperCase = toUpper;
+    setLabel(mLabel.text);
+}
+
+bool ofxDatGuiComponent::getLabelUpperCase()
+{
+    return mLabel.forceUpperCase;
+}
+
+//void ofxDatGuiComponent::positionLabel()
+//{
+//    if (mLabel.alignment == ofxDatGuiAlignment::LEFT){
+//        mLabel.x = mLabel.margin;
+//    }   else if (mLabel.alignment == ofxDatGuiAlignment::CENTER){
+//        mLabel.x = (mLabel.width / 2) - (mLabel.rect.width / 2);
+//    }   else if (mLabel.alignment == ofxDatGuiAlignment::RIGHT){
+//        mLabel.x = mLabel.rightAlignedXpos - mLabel.rect.width;
+//    }
+//}
+
+/*
+    visual customization
+*/
 
 void ofxDatGuiComponent::setBackgroundColor(ofColor color)
 {
@@ -330,46 +443,22 @@ void ofxDatGuiComponent::setBorderVisible(bool visible)
     draw methods
 */
 
-void ofxDatGuiComponent::update(bool acceptEvents)
+void ofxDatGuiComponent::update(ofEventArgs &e)
 {
-    if (acceptEvents && mEnabled && mVisible){
-        bool mp = ofGetMousePressed();
-        ofPoint mouse = ofPoint(ofGetMouseX() - mMask.x, ofGetMouseY() - mMask.y);
-        if (hitTest(mouse)){
-            if (!mMouseOver){
-                onMouseEnter(mouse);
-            }
-            if (!mMouseDown && mp){
-                onMousePress(mouse);
-                if (!mFocused) onFocus();
-            }
-        }   else{
-    // the mouse is not over the component //
-            if (mMouseOver){
-                onMouseLeave(mouse);
-            }
-            if (!mMouseDown && mp && mFocused){
-                onFocusLost();
-            }
-        }
-        if (mMouseDown) {
-            if (mp){
-                onMouseDrag(mouse);
-            }   else{
-                onMouseRelease(mouse);
-            }
-        }
+    update();
+}
+
+void ofxDatGuiComponent::update()
+{
+    if(labelChanged){
+        positionLabel();
+        labelChanged = false;
     }
-// don't update children unless they're visible //
-    if (this->getIsExpanded()) {
-        for(int i=0; i<children.size(); i++) {
-            children[i]->update(acceptEvents);
-            if (children[i]->getFocused()){
-                if (acceptEvents == false ) children[i]->setFocused(false);
-                acceptEvents = false;
-            }
-        }
-    }
+}
+
+void ofxDatGuiComponent::draw(ofEventArgs &e)
+{
+    draw();
 }
 
 void ofxDatGuiComponent::draw()
@@ -392,11 +481,9 @@ void ofxDatGuiComponent::drawBackground()
 void ofxDatGuiComponent::drawLabel()
 {
     ofSetColor(mLabel.color);
-    if (mType != ofxDatGuiType::DROPDOWN_OPTION){
-        mFont->draw(mLabel.rendered, x+mLabel.x, y+mStyle.height/2 + mLabel.rect.height/2);
-    }   else{
-        mFont->draw("* "+mLabel.rendered, x+mLabel.x, y+mStyle.height/2 + mLabel.rect.height/2);
-    }
+    mFont->getFontTexture().bind();
+    mLabel.mesh.draw();
+    mFont->getFontTexture().unbind();
 }
 
 void ofxDatGuiComponent::drawStripe()
@@ -419,6 +506,11 @@ void ofxDatGuiComponent::drawColorPicker() { }
     events
 */
 
+bool ofxDatGuiComponent::hitComponentTest(ofPoint m){
+    int w = mStyle.border.width;
+    return ofRectangle(x-w, y-w, mStyle.width+(w*2), mStyle.height+(w*2)).inside(m.x, m.y);
+}
+
 bool ofxDatGuiComponent::hitTest(ofPoint m)
 {
     if (mMask.height > 0 && (m.y < 0 || m.y > mMask.height)) return false;
@@ -438,6 +530,7 @@ void ofxDatGuiComponent::onMouseLeave(ofPoint m)
 void ofxDatGuiComponent::onMousePress(ofPoint m)
 {
     mMouseDown = true;
+    if(!mFocused) onFocus();
 }
 
 void ofxDatGuiComponent::onMouseRelease(ofPoint m)
@@ -445,30 +538,26 @@ void ofxDatGuiComponent::onMouseRelease(ofPoint m)
     mMouseDown = false;
 }
 
+void ofxDatGuiComponent::onMouseOutsidePress()
+{
+    if(mFocused) onFocusLost();
+}
+
 void ofxDatGuiComponent::onFocus()
 {
     mFocused = true;
-    ofAddListener(ofEvents().keyPressed, this, &ofxDatGuiComponent::onKeyPressed);
 }
 
 void ofxDatGuiComponent::onFocusLost()
 {
     mFocused = false;
     mMouseDown = false;
-    ofRemoveListener(ofEvents().keyPressed, this, &ofxDatGuiComponent::onKeyPressed);
+    mMouseOver = false;
 }
 
 void ofxDatGuiComponent::onKeyPressed(int key) { }
 void ofxDatGuiComponent::onMouseDrag(ofPoint m) { }
 
-void ofxDatGuiComponent::onKeyPressed(ofKeyEventArgs &e)
-{
-    onKeyPressed(e.key);
-    if ((e.key == OF_KEY_RETURN || e.key == OF_KEY_TAB)){
-        onFocusLost();
-        ofRemoveListener(ofEvents().keyPressed, this, &ofxDatGuiComponent::onKeyPressed);
-    }
-}
 
 void ofxDatGuiComponent::onWindowResized()
 {
@@ -482,6 +571,145 @@ void ofxDatGuiComponent::onWindowResized()
 void ofxDatGuiComponent::onWindowResized(ofResizeEventArgs &e)
 {
     onWindowResized();
+}
+
+void ofxDatGuiComponent::keyPressed(ofKeyEventArgs &e)
+{
+    if(mFocused){
+        if(e.key == OF_KEY_RETURN || e.key == OF_KEY_TAB){
+            onFocusLost();
+        }else{
+            onKeyPressed(e.key);
+        }
+    }
+}
+
+void ofxDatGuiComponent::keyReleased(ofKeyEventArgs &e)
+{
+    
+}
+
+void ofxDatGuiComponent::mouseMoved(ofMouseEventArgs &e)
+{
+    ofMouseEventArgs modified_e;
+    if(isListeningEvents){
+        ofVec4f tempVec = e;
+        tempVec -= transformMatrix.getTranslation();
+        tempVec = transformMatrix.getInverse().postMult(tempVec);
+        modified_e = ofMouseEventArgs(e.type, tempVec.x, tempVec.y, e.button);
+    }else{
+        modified_e = e;
+    }
+    
+    if(this->hitTest(modified_e)){
+       if(!mMouseOver)
+           onMouseEnter(modified_e);
+    }
+    else if(mMouseOver)
+        onMouseLeave(modified_e);
+    
+    if (this->getIsExpanded())
+        for(int i=0; i<children.size(); i++)
+            children[i]->mouseMoved(e);
+}
+
+void ofxDatGuiComponent::mouseDragged(ofMouseEventArgs &e)
+{
+    ofMouseEventArgs modified_e;
+    if(isListeningEvents){
+        ofVec4f tempVec = e;
+        tempVec -= transformMatrix.getTranslation();
+        tempVec = transformMatrix.getInverse().postMult(tempVec);
+        modified_e = ofMouseEventArgs(e.type, tempVec.x, tempVec.y, e.button);
+    }else{
+        modified_e = e;
+    }
+    
+    if(mMouseDown){
+        onMouseDrag(modified_e);
+    }
+    
+    if (this->getIsExpanded())
+        for(int i=0; i<children.size(); i++)
+            children[i]->mouseDragged(modified_e);
+}
+
+void ofxDatGuiComponent::mousePressed(ofMouseEventArgs &e)
+{
+    ofMouseEventArgs modified_e;
+    if(isListeningEvents){
+        ofVec4f tempVec = e;
+        tempVec -= transformMatrix.getTranslation();
+        tempVec = transformMatrix.getInverse().postMult(tempVec);
+        modified_e = ofMouseEventArgs(e.type, tempVec.x, tempVec.y, e.button);
+    }else{
+        modified_e = e;
+    }
+    
+    if(e.button == 2 && this->hitComponentTest(modified_e)){
+        if (rightClickEventCallback != nullptr) {
+            ofxDatGuiRightClickEvent ev(this, 1);
+            rightClickEventCallback(ev);
+        }   else{
+            ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
+        }
+    }
+    
+    if(mMouseOver){
+        if(e.button == 0)
+            onMousePress(modified_e);
+    }
+        
+    else if(e.button == 0)
+        onMouseOutsidePress();
+    
+    if (this->getIsExpanded())
+        for(int i=0; i<children.size(); i++)
+            children[i]->mousePressed(modified_e);
+}
+
+void ofxDatGuiComponent::mouseReleased(ofMouseEventArgs &e)
+{
+    ofMouseEventArgs modified_e;
+    if(isListeningEvents){
+        ofVec4f tempVec = e;
+        tempVec -= transformMatrix.getTranslation();
+        tempVec = transformMatrix.getInverse().postMult(tempVec);
+        modified_e = ofMouseEventArgs(e.type, tempVec.x, tempVec.y, e.button);
+    }else{
+        modified_e = e;
+    }
+    
+    if(e.button == 0){
+        if(mMouseDown)
+            onMouseRelease(modified_e);
+    }else if(e.button == 2 && this->hitComponentTest(modified_e)){
+        if (rightClickEventCallback != nullptr) {
+            ofxDatGuiRightClickEvent ev(this, 0);
+            rightClickEventCallback(ev);
+        }   else{
+            ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
+        }
+    }
+    
+    if (this->getIsExpanded())
+        for(int i=0; i<children.size(); i++)
+            children[i]->mouseReleased(modified_e);
+}
+
+void ofxDatGuiComponent::mouseEntered(ofMouseEventArgs &e)
+{
+    
+}
+
+void ofxDatGuiComponent::mouseExited(ofMouseEventArgs &e)
+{
+    
+}
+
+void ofxDatGuiComponent::mouseScrolled(ofMouseEventArgs &e)
+{
+    
 }
 
 

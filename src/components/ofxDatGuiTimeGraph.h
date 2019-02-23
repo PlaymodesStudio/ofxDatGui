@@ -46,7 +46,7 @@ class ofxDatGuiTimeGraph : public ofxDatGuiComponent {
         ofxDatGuiTimeGraph(string label) : ofxDatGuiComponent(label)
         {
             mDrawFunc = &ofxDatGuiTimeGraph::drawFilled;
-            setTheme(ofxDatGuiComponent::theme.get());
+            setTheme(ofxDatGuiComponent::getTheme());
         }
     
         void setTheme(const ofxDatGuiTheme* theme)
@@ -164,7 +164,7 @@ class ofxDatGuiWaveMonitor : public ofxDatGuiTimeGraph {
             setAmplitude(amplitude);
             setFrequency(frequency);
             mType = ofxDatGuiType::WAVE_MONITOR;
-            setTheme(ofxDatGuiComponent::theme.get());
+            setTheme(ofxDatGuiComponent::getTheme());
         }
     
         static ofxDatGuiWaveMonitor* getInstance()
@@ -220,7 +220,7 @@ class ofxDatGuiWaveMonitor : public ofxDatGuiTimeGraph {
             }
         }
     
-        void update(bool ignoreMouseEvents)
+        void update()
         {
             pts[0].y = pts[pts.size()-1].y;
             for (int i=mPlotterRect.width-1; i>0; i--) pts[i].y = pts[i-1].y;
@@ -290,7 +290,7 @@ class ofxDatGuiValuePlotter : public ofxDatGuiTimeGraph {
             return mMax-mMin;
         }
     
-        void update(bool ignoreMouseEvents)
+        void update()
         {
         // shift all points over before adding new value //
             for (int i=0; i<pts.size(); i++) pts[i].x -= mSpeed;

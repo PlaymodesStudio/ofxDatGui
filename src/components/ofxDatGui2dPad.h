@@ -32,7 +32,7 @@ class ofxDatGui2dPad : public ofxDatGuiComponent {
             mPercentX = 0.5f;
             mPercentY = 0.5f;
             mType = ofxDatGuiType::PAD2D;
-            setTheme(ofxDatGuiComponent::theme.get());
+            setTheme(ofxDatGuiComponent::getTheme());
             setBounds(ofRectangle(0, 0, ofGetWidth(), ofGetHeight()), true);
             ofAddListener(ofEvents().windowResized, this, &ofxDatGui2dPad::onWindowResized);
         }
@@ -42,7 +42,7 @@ class ofxDatGui2dPad : public ofxDatGuiComponent {
             mPercentX = 0.5f;
             mPercentY = 0.5f;
             mType = ofxDatGuiType::PAD2D;
-            setTheme(ofxDatGuiComponent::theme.get());
+            setTheme(ofxDatGuiComponent::getTheme());
             setBounds(bounds, false);
             ofAddListener(ofEvents().windowResized, this, &ofxDatGui2dPad::onWindowResized);
         }
@@ -121,6 +121,16 @@ class ofxDatGui2dPad : public ofxDatGuiComponent {
             ofPopStyle();
         }
     
+        void dispatchEvent()
+        {
+            if (pad2dEventCallback != nullptr) {
+                ofxDatGui2dPadEvent e(this, mWorld.x, mWorld.y);
+                pad2dEventCallback(e);
+            }   else{
+                ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
+            }
+        }
+    
         static ofxDatGui2dPad* getInstance() { return new ofxDatGui2dPad("X"); }
     
     protected:
@@ -131,20 +141,25 @@ class ofxDatGui2dPad : public ofxDatGuiComponent {
             mWorld.y = mBounds.y + (mBounds.height * mPercentY);
         }
     
-        void onMouseDrag(ofPoint m)
+        void movePad(ofPoint m)
         {
             if (mPad.inside(m)){
                 mPercentX = (m.x-mPad.x) / mPad.width;
                 mPercentY = (m.y-mPad.y) / mPad.height;
                 setWorldCoordinates();
-            // dispatch event out to main application //
-                if (pad2dEventCallback != nullptr) {
-                    ofxDatGui2dPadEvent e(this, mWorld.x, mWorld.y);
-                    pad2dEventCallback(e);
-                }   else{
-                    ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
-                }
+                dispatchEvent();
             }
+        }
+
+        void onMousePress(ofPoint m)
+        {
+            ofxDatGuiComponent::onMousePress(m);
+            movePad(m);
+        }
+    
+        void onMouseDrag(ofPoint m)
+        {
+            movePad(m);
         }
     
         void onWindowResized(ofResizeEventArgs &e)

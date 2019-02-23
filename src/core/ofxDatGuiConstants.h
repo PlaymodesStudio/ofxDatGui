@@ -64,6 +64,7 @@ enum class ofxDatGuiType
     FOOTER,
     MATRIX,
     SLIDER,
+    MULTI_SLIDER,
     FOLDER,
     DROPDOWN,
     DROPDOWN_OPTION,

@@ -30,6 +30,9 @@ class ofxDatGuiComponent : public ofxDatGuiInteractiveObject
         ofxDatGuiComponent(string label);
         virtual ~ofxDatGuiComponent();
     
+        void    registerEvents(bool mouseAndKeyEvents = true, bool drawEvent = true);
+        void    unregisterEvents(bool mouseAndKeyEvents = true, bool drawEvent = true);
+
         int     getX();
         int     getY();
         void    setIndex(int index);
@@ -39,8 +42,11 @@ class ofxDatGuiComponent : public ofxDatGuiInteractiveObject
         bool    is(string name);
     
         void    setLabel(string label);
-        void    setLabelColor(ofColor color);
         string  getLabel();
+        void    setLabelColor(ofColor color);
+        ofColor getLabelColor();
+        void    setLabelUpperCase(bool toUpper);
+        bool    getLabelUpperCase();
     
         void    setBackgroundColor(ofColor color);
         void    setBackgroundColorOnMouseOver(ofColor color);
@@ -68,15 +74,24 @@ class ofxDatGuiComponent : public ofxDatGuiInteractiveObject
         ofxDatGuiType getType();
     
         vector<ofxDatGuiComponent*> children;
+
+    shared_ptr<ofAppBaseWindow> window;
     
+    void setWindow(shared_ptr<ofAppBaseWindow> w){window = w;};
+    
+    void draw(ofEventArgs &e);
         virtual void draw();
-        virtual void update(bool acceptEvents = true);
+    void update(ofEventArgs &e);
+        virtual void update();
+        virtual bool hitComponentTest(ofPoint m);
         virtual bool hitTest(ofPoint m);
 
         virtual void setPosition(int x, int y);
         virtual void setTheme(const ofxDatGuiTheme* theme) = 0;
         virtual void setWidth(int width, float labelWidth);
         virtual void setLabelAlignment(ofxDatGuiAlignment align);
+        void setTransformMatrix(ofMatrix4x4 matrix){transformMatrix = matrix;};
+
     
         virtual int  getWidth();
         virtual int  getHeight();
@@ -87,12 +102,23 @@ class ofxDatGuiComponent : public ofxDatGuiInteractiveObject
         virtual void onFocusLost();
         virtual void onWindowResized();
         virtual void onKeyPressed(int key);
+    
+    virtual void keyPressed(ofKeyEventArgs &e);
+    virtual void keyReleased(ofKeyEventArgs &e);
+    virtual void mouseMoved(ofMouseEventArgs &e);
+    virtual void mouseDragged(ofMouseEventArgs &e);
+    virtual void mousePressed(ofMouseEventArgs &e);
+    virtual void mouseReleased(ofMouseEventArgs &e);
+    virtual void mouseEntered(ofMouseEventArgs &e);
+    virtual void mouseExited(ofMouseEventArgs &e);
+    virtual void mouseScrolled(ofMouseEventArgs &e);
+    
         virtual void onMouseEnter(ofPoint m);
         virtual void onMousePress(ofPoint m);
+        virtual void onMouseOutsidePress();
         virtual void onMouseDrag(ofPoint m);
         virtual void onMouseLeave(ofPoint m);
         virtual void onMouseRelease(ofPoint m);
-        void onKeyPressed(ofKeyEventArgs &e);
         void onWindowResized(ofResizeEventArgs &e);
 
         static const ofxDatGuiTheme* getTheme();
@@ -108,11 +134,13 @@ class ofxDatGuiComponent : public ofxDatGuiInteractiveObject
         bool mEnabled;
         bool mMouseOver;
         bool mMouseDown;
+        bool isListeningEvents;
+        bool labelChanged;
         ofRectangle mMask;
+        ofMatrix4x4 transformMatrix;
         ofxDatGuiType mType;
         ofxDatGuiAnchor mAnchor;
         shared_ptr<ofxSmartFont> mFont;
-        static unique_ptr<ofxDatGuiTheme> theme;
     
         struct{
             float width;
@@ -151,6 +179,7 @@ class ofxDatGuiComponent : public ofxDatGuiInteractiveObject
             ofRectangle rect;
             bool forceUpperCase;
             ofxDatGuiAlignment alignment;
+            ofVboMesh mesh;
         } mLabel;
     
         struct {
@@ -160,12 +189,19 @@ class ofxDatGuiComponent : public ofxDatGuiInteractiveObject
             ofColor color;
         } mIcon;
     
+        void bindFont();
+        void unbindFont();
+    
         void drawLabel();
         void drawBorder();
         void drawStripe();
         void drawBackground();
         void positionLabel();
         void setComponentStyle(const ofxDatGuiTheme* t);
+    
+    private:
+    
+        static unique_ptr<ofxDatGuiTheme> theme;
     
 };
 

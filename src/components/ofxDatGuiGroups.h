@@ -36,9 +36,10 @@ class ofxDatGuiGroup : public ofxDatGuiButton {
 
     public:
     
-        ofxDatGuiGroup(string label) : ofxDatGuiButton(label)
+        ofxDatGuiGroup(string label) : ofxDatGuiButton(label), mHeight(0)
         {
             mIsExpanded = false;
+            layout();
         }
     
         ~ofxDatGuiGroup()
@@ -57,18 +58,21 @@ class ofxDatGuiGroup : public ofxDatGuiButton {
         {
             mIsExpanded = true;
             layout();
+            onGroupToggled();
         }
     
         void toggle()
         {
             mIsExpanded = !mIsExpanded;
             layout();
+            onGroupToggled();
         }
     
         void collapse()
         {
             mIsExpanded = false;
             layout();
+            onGroupToggled();
         }
     
         int getHeight()
@@ -85,7 +89,8 @@ class ofxDatGuiGroup : public ofxDatGuiButton {
         {
             return children.size();
         }
-        int clear()
+    
+        void clear()
         {
             children.clear();
         }
@@ -143,13 +148,17 @@ class ofxDatGuiGroup : public ofxDatGuiButton {
                 ofxDatGuiComponent::onFocusLost();
                 ofxDatGuiComponent::onMouseRelease(m);
                 mIsExpanded ? collapse() : expand();
-            // dispatch an event out to the gui panel to adjust its children //
-                if (internalEventCallback != nullptr){
-                    ofxDatGuiInternalEvent e(ofxDatGuiEventType::DROPDOWN_TOGGLED, mIndex);
-                    internalEventCallback(e);
-                }
             }
         }
+    
+    	void onGroupToggled()
+	   	{
+        // dispatch an event out to the gui panel to adjust its children //
+            if (internalEventCallback != nullptr){
+                ofxDatGuiInternalEvent e(ofxDatGuiEventType::GROUP_TOGGLED, mIndex);
+                internalEventCallback(e);
+            }
+    	}
     
         void dispatchInternalEvent(ofxDatGuiInternalEvent e)
         {
@@ -173,7 +182,7 @@ class ofxDatGuiFolder : public ofxDatGuiGroup {
         // all items within a folder share the same stripe color //
             mStyle.stripe.color = color;
             mType = ofxDatGuiType::FOLDER;
-            setTheme(ofxDatGuiComponent::theme.get());
+            setTheme(ofxDatGuiComponent::getTheme());
         }
     
         void setTheme(const ofxDatGuiTheme* theme)
@@ -228,6 +237,15 @@ class ofxDatGuiFolder : public ofxDatGuiGroup {
                 ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
             }
         }
+    
+    void dispatchMultiSliderEvent(ofxDatGuiMultiSliderEvent e)
+    {
+        if (multiSliderEventCallback != nullptr) {
+            multiSliderEventCallback(e);
+        }   else{
+            ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
+        }
+    }
     
         void dispatchTextInputEvent(ofxDatGuiTextInputEvent e)
         {
@@ -432,7 +450,7 @@ class ofxDatGuiDropdownOption : public ofxDatGuiButton {
         ofxDatGuiDropdownOption(string label) : ofxDatGuiButton(label)
         {
             mType = ofxDatGuiType::DROPDOWN_OPTION;
-            setTheme(ofxDatGuiComponent::theme.get());
+            setTheme(ofxDatGuiComponent::getTheme());
         }
     
         void setTheme(const ofxDatGuiTheme* theme)
@@ -465,8 +483,28 @@ class ofxDatGuiDropdown : public ofxDatGuiGroup {
                 opt->onButtonEvent(this, &ofxDatGuiDropdown::onOptionSelected);
                 children.push_back(opt);
             }
-            setTheme(ofxDatGuiComponent::theme.get());
+            setTheme(ofxDatGuiComponent::getTheme());
+            setLabelColor(getTheme()->color.label*2);
+
+            
         }
+    
+        void addOption(string option)
+        {
+            ofxDatGuiDropdownOption* opt = new ofxDatGuiDropdownOption(option);
+            opt->setIndex(children.size());
+            opt->onButtonEvent(this, &ofxDatGuiDropdown::onOptionSelected);
+            children.push_back(opt);
+        }
+    
+        void addOption(string option, int position)
+        {
+            ofxDatGuiDropdownOption* opt = new ofxDatGuiDropdownOption(option);
+            opt->setIndex(children.size());
+            opt->onButtonEvent(this, &ofxDatGuiDropdown::onOptionSelected);
+            children.insert(children.begin() + position, opt);
+        }
+
     
         void setTheme(const ofxDatGuiTheme* theme)
         {
@@ -522,7 +560,22 @@ class ofxDatGuiDropdown : public ofxDatGuiGroup {
             return res;
         }
     
+    int getNumOptions()
+    {
+        return children.size();
+    }
+    
 
+        void dispatchEvent()
+        {
+            if (dropdownEventCallback != nullptr) {
+                ofxDatGuiDropdownEvent e(this, mIndex, mOption);
+                dropdownEventCallback(e);
+            }   else{
+                ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
+            }
+        }
+    
         static ofxDatGuiDropdown* getInstance() { return new ofxDatGuiDropdown("X"); }
     
     private:
@@ -531,13 +584,9 @@ class ofxDatGuiDropdown : public ofxDatGuiGroup {
         {
             for(int i=0; i<children.size(); i++) if (e.target == children[i]) mOption = i;
             setLabel(children[mOption]->getLabel());
-            collapse();
-            if (dropdownEventCallback != nullptr) {
-                ofxDatGuiDropdownEvent e1(this, mIndex, mOption);
-                dropdownEventCallback(e1);
-            }   else{
-                ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
-            }
+            setLabelColor(getTheme()->color.label*2);
+           	collapse();
+            dispatchEvent();
         }
     
         int mOption;

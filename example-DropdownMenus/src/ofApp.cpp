@@ -21,6 +21,7 @@ void ofApp::setup()
 
 // instantiate the dropdown //
     menu = new ofxDatGuiDropdown("SELECT A COLOR", options);
+    menu->registerEvents();
     
 // and position it in the middle of the screen //
     menu->setPosition(ofGetWidth()/2 - menu->getWidth()/2, ofGetHeight()/2 - menu->getHeight()/2 - 100);
@@ -53,11 +54,11 @@ string ofApp::getHex(int hex)
 
 void ofApp::update()
 {
-    menu->update();
+    //menu->update();
 }
 
 void ofApp::draw()
 {
-    menu->draw();
+    //menu->draw();
 }
 

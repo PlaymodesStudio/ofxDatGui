@@ -12,7 +12,9 @@ void ofApp::setup()
     ofSetWindowPosition(ofGetScreenWidth()/2 - ofGetWidth()/2, 0);
     
     input = new ofxDatGuiTextInput("TEXT INPUT", "Type Something Here");
+    input->registerEvents();
     input->onTextInputEvent(this, &ofApp::onTextInputEvent);
+    input->setFocused(true);
     input->setWidth(800, .2);
     input->setPosition(ofGetWidth()/2 - input->getWidth()/2, 240);
     font.load("ofxbraitsch/fonts/Verdana.ttf", 24);
@@ -28,12 +30,12 @@ void ofApp::onTextInputEvent(ofxDatGuiTextInputEvent e)
 
 void ofApp::update()
 {
-    input->update();
+//    input->update();
 }
 
 void ofApp::draw()
 {
-    input->draw();
+//    input->draw();
     string str = "Text Input: "+input->getText();
     ofRectangle bounds = font.getStringBoundingBox(str, ofGetWidth()/2, ofGetHeight()/2);
     ofSetColor(ofColor::black);
