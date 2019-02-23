@@ -132,6 +132,7 @@ public:
     {
         for (auto i:mItems) delete i;
         mItems.clear();
+        mY = 0;
     }
     
     void remove(int index)
@@ -392,7 +393,7 @@ private:
     ofColor mBackground;
     const ofxDatGuiTheme* mTheme;
     
-    int mY = 0;
+    int mY;
     int mSpacing;
     int mNumVisible;
     bool mAutoHeight;
