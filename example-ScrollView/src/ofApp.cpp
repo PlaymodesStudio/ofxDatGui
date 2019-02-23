@@ -40,16 +40,16 @@ void ofApp::setup()
 
 void ofApp::update()
 {
-    view->update();
-    addItem->update();
-    clearAll->update();
+//    view->update();
+//    addItem->update();
+//    clearAll->update();
 }
 
 void ofApp::draw()
 {
-    view->draw();
-    addItem->draw();
-    clearAll->draw();
+//    view->draw();
+//    addItem->draw();
+//    clearAll->draw();
 }
 
 void ofApp::onScrollViewEvent(ofxDatGuiScrollViewEvent e)

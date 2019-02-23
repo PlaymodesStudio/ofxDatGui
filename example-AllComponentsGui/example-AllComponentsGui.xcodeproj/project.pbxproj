@@ -9,7 +9,7 @@
 		<string>46</string>
 		<key>objects</key>
 		<dict>
-			<key>21E1E3071CB7B11914428B62</key>
+			<key>9E034FA57FE251AC33904E82</key>
 			<dict>
 				<key>explicitFileType</key>
 				<string>sourcecode.c.h</string>
@@ -20,16 +20,16 @@
 				<key>name</key>
 				<string>ofxDatGuiThemes.h</string>
 				<key>path</key>
-				<string>../../../addons/ofxDatGui/src/themes/ofxDatGuiThemes.h</string>
+				<string>../../../addons/ofxDatGui_PM/src/themes/ofxDatGuiThemes.h</string>
 				<key>sourceTree</key>
 				<string>SOURCE_ROOT</string>
 			</dict>
-			<key>911FE1C75E520EE70A7B4830</key>
+			<key>D9757BE1A5DFAE64198FF989</key>
 			<dict>
 				<key>children</key>
 				<array>
-					<string>B498F0559F473CF855EF6062</string>
-					<string>21E1E3071CB7B11914428B62</string>
+					<string>0EA01AA404A74EE4BF1F46AD</string>
+					<string>9E034FA57FE251AC33904E82</string>
 				</array>
 				<key>isa</key>
 				<string>PBXGroup</string>
@@ -38,7 +38,7 @@
 				<key>sourceTree</key>
 				<string>&lt;group&gt;</string>
 			</dict>
-			<key>B498F0559F473CF855EF6062</key>
+			<key>0EA01AA404A74EE4BF1F46AD</key>
 			<dict>
 				<key>explicitFileType</key>
 				<string>sourcecode.c.h</string>
@@ -49,11 +49,11 @@
 				<key>name</key>
 				<string>ofxDatGuiTheme.h</string>
 				<key>path</key>
-				<string>../../../addons/ofxDatGui/src/themes/ofxDatGuiTheme.h</string>
+				<string>../../../addons/ofxDatGui_PM/src/themes/ofxDatGuiTheme.h</string>
 				<key>sourceTree</key>
 				<string>SOURCE_ROOT</string>
 			</dict>
-			<key>CDF7278CB636137FE7BF91A5</key>
+			<key>92007C97134ED347908EA736</key>
 			<dict>
 				<key>explicitFileType</key>
 				<string>sourcecode.c.h</string>
@@ -64,11 +64,11 @@
 				<key>name</key>
 				<string>ofxDatGuiMatrix.h</string>
 				<key>path</key>
-				<string>../../../addons/ofxDatGui/src/components/ofxDatGuiMatrix.h</string>
+				<string>../../../addons/ofxDatGui_PM/src/components/ofxDatGuiMatrix.h</string>
 				<key>sourceTree</key>
 				<string>SOURCE_ROOT</string>
 			</dict>
-			<key>C085A33340AB0C1DB647AC2F</key>
+			<key>29030CD02944F06F1DAC3E49</key>
 			<dict>
 				<key>explicitFileType</key>
 				<string>sourcecode.c.h</string>
@@ -79,11 +79,11 @@
 				<key>name</key>
 				<string>ofxDatGuiTextInput.h</string>
 				<key>path</key>
-				<string>../../../addons/ofxDatGui/src/components/ofxDatGuiTextInput.h</string>
+				<string>../../../addons/ofxDatGui_PM/src/components/ofxDatGuiTextInput.h</string>
 				<key>sourceTree</key>
 				<string>SOURCE_ROOT</string>
 			</dict>
-			<key>902724601B82C6AD81BBCD71</key>
+			<key>C2BBB5BA515C82003E0EEB5E</key>
 			<dict>
 				<key>explicitFileType</key>
 				<string>sourcecode.c.h</string>
@@ -94,11 +94,11 @@
 				<key>name</key>
 				<string>ofxDatGui2dPad.h</string>
 				<key>path</key>
-				<string>../../../addons/ofxDatGui/src/components/ofxDatGui2dPad.h</string>
+				<string>../../../addons/ofxDatGui_PM/src/components/ofxDatGui2dPad.h</string>
 				<key>sourceTree</key>
 				<string>SOURCE_ROOT</string>
 			</dict>
-			<key>787315438BF1DD00C81DF413</key>
+			<key>A13853A1B21F20177F44EE37</key>
 			<dict>
 				<key>explicitFileType</key>
 				<string>sourcecode.c.h</string>
@@ -109,11 +109,11 @@
 				<key>name</key>
 				<string>ofxDatGuiLabel.h</string>
 				<key>path</key>
-				<string>../../../addons/ofxDatGui/src/components/ofxDatGuiLabel.h</string>
+				<string>../../../addons/ofxDatGui_PM/src/components/ofxDatGuiLabel.h</string>
 				<key>sourceTree</key>
 				<string>SOURCE_ROOT</string>
 			</dict>
-			<key>545BBA6F6669BED2DA497BC6</key>
+			<key>11021811865108C49AED9E1E</key>
 			<dict>
 				<key>explicitFileType</key>
 				<string>sourcecode.c.h</string>
@@ -124,11 +124,11 @@
 				<key>name</key>
 				<string>ofxDatGuiScrollView.h</string>
 				<key>path</key>
-				<string>../../../addons/ofxDatGui/src/components/ofxDatGuiScrollView.h</string>
+				<string>../../../addons/ofxDatGui_PM/src/components/ofxDatGuiScrollView.h</string>
 				<key>sourceTree</key>
 				<string>SOURCE_ROOT</string>
 			</dict>
-			<key>744031A3E8F8DAF9FE6F3EA8</key>
+			<key>698855D874920D7A53525854</key>
 			<dict>
 				<key>explicitFileType</key>
 				<string>sourcecode.c.h</string>
@@ -139,11 +139,11 @@
 				<key>name</key>
 				<string>ofxDatGuiGroups.h</string>
 				<key>path</key>
-				<string>../../../addons/ofxDatGui/src/components/ofxDatGuiGroups.h</string>
+				<string>../../../addons/ofxDatGui_PM/src/components/ofxDatGuiGroups.h</string>
 				<key>sourceTree</key>
 				<string>SOURCE_ROOT</string>
 			</dict>
-			<key>E100ED9DCB412957A879CD5A</key>
+			<key>B7B623A02730497FBCEA4FF2</key>
 			<dict>
 				<key>explicitFileType</key>
 				<string>sourcecode.c.h</string>
@@ -154,11 +154,11 @@
 				<key>name</key>
 				<string>ofxDatGuiControls.h</string>
 				<key>path</key>
-				<string>../../../addons/ofxDatGui/src/components/ofxDatGuiControls.h</string>
+				<string>../../../addons/ofxDatGui_PM/src/components/ofxDatGuiControls.h</string>
 				<key>sourceTree</key>
 				<string>SOURCE_ROOT</string>
 			</dict>
-			<key>FDA86F4C2F1F1964D35391C6</key>
+			<key>771877A40D55CB5D6C1969C4</key>
 			<dict>
 				<key>explicitFileType</key>
 				<string>sourcecode.c.h</string>
@@ -169,11 +169,11 @@
 				<key>name</key>
 				<string>ofxDatGuiButton.h</string>
 				<key>path</key>
-				<string>../../../addons/ofxDatGui/src/components/ofxDatGuiButton.h</string>
+				<string>../../../addons/ofxDatGui_PM/src/components/ofxDatGuiButton.h</string>
 				<key>sourceTree</key>
 				<string>SOURCE_ROOT</string>
 			</dict>
-			<key>04C339FF9ADCF05DF2DA62A3</key>
+			<key>3F15C4313830F7C3C28E1FAE</key>
 			<dict>
 				<key>explicitFileType</key>
 				<string>sourcecode.c.h</string>
@@ -184,11 +184,11 @@
 				<key>name</key>
 				<string>ofxDatGuiTextInputField.h</string>
 				<key>path</key>
-				<string>../../../addons/ofxDatGui/src/components/ofxDatGuiTextInputField.h</string>
+				<string>../../../addons/ofxDatGui_PM/src/components/ofxDatGuiTextInputField.h</string>
 				<key>sourceTree</key>
 				<string>SOURCE_ROOT</string>
 			</dict>
-			<key>0A42C807BEF3A18E8E105A3B</key>
+			<key>A7B61DF7F41316374CEEE8CA</key>
 			<dict>
 				<key>explicitFileType</key>
 				<string>sourcecode.c.h</string>
@@ -199,11 +199,11 @@
 				<key>name</key>
 				<string>ofxDatGuiTimeGraph.h</string>
 				<key>path</key>
-				<string>../../../addons/ofxDatGui/src/components/ofxDatGuiTimeGraph.h</string>
+				<string>../../../addons/ofxDatGui_PM/src/components/ofxDatGuiTimeGraph.h</string>
 				<key>sourceTree</key>
 				<string>SOURCE_ROOT</string>
 			</dict>
-			<key>64C563B8158C37E9D07AE29D</key>
+			<key>B11DB438E2A6EBD360F8BA50</key>
 			<dict>
 				<key>explicitFileType</key>
 				<string>sourcecode.c.h</string>
@@ -214,11 +214,11 @@
 				<key>name</key>
 				<string>ofxDatGuiFRM.h</string>
 				<key>path</key>
-				<string>../../../addons/ofxDatGui/src/components/ofxDatGuiFRM.h</string>
+				<string>../../../addons/ofxDatGui_PM/src/components/ofxDatGuiFRM.h</string>
 				<key>sourceTree</key>
 				<string>SOURCE_ROOT</string>
 			</dict>
-			<key>D0D6A66BEBA820EA1D396889</key>
+			<key>149298D896FDA631EE81BEB9</key>
 			<dict>
 				<key>explicitFileType</key>
 				<string>sourcecode.c.h</string>
@@ -229,27 +229,27 @@
 				<key>name</key>
 				<string>ofxDatGuiSlider.h</string>
 				<key>path</key>
-				<string>../../../addons/ofxDatGui/src/components/ofxDatGuiSlider.h</string>
+				<string>../../../addons/ofxDatGui_PM/src/components/ofxDatGuiSlider.h</string>
 				<key>sourceTree</key>
 				<string>SOURCE_ROOT</string>
 			</dict>
-			<key>947FCD1248D8B0A16B53C1AA</key>
+			<key>1D570521A53950659A74DE26</key>
 			<dict>
 				<key>children</key>
 				<array>
-					<string>C84ED7FCC017328C6F58283D</string>
-					<string>D0D6A66BEBA820EA1D396889</string>
-					<string>64C563B8158C37E9D07AE29D</string>
-					<string>0A42C807BEF3A18E8E105A3B</string>
-					<string>04C339FF9ADCF05DF2DA62A3</string>
-					<string>FDA86F4C2F1F1964D35391C6</string>
-					<string>E100ED9DCB412957A879CD5A</string>
-					<string>744031A3E8F8DAF9FE6F3EA8</string>
-					<string>545BBA6F6669BED2DA497BC6</string>
-					<string>787315438BF1DD00C81DF413</string>
-					<string>902724601B82C6AD81BBCD71</string>
-					<string>C085A33340AB0C1DB647AC2F</string>
-					<string>CDF7278CB636137FE7BF91A5</string>
+					<string>0795F21A2022A202F628BE94</string>
+					<string>149298D896FDA631EE81BEB9</string>
+					<string>B11DB438E2A6EBD360F8BA50</string>
+					<string>A7B61DF7F41316374CEEE8CA</string>
+					<string>3F15C4313830F7C3C28E1FAE</string>
+					<string>771877A40D55CB5D6C1969C4</string>
+					<string>B7B623A02730497FBCEA4FF2</string>
+					<string>698855D874920D7A53525854</string>
+					<string>11021811865108C49AED9E1E</string>
+					<string>A13853A1B21F20177F44EE37</string>
+					<string>C2BBB5BA515C82003E0EEB5E</string>
+					<string>29030CD02944F06F1DAC3E49</string>
+					<string>92007C97134ED347908EA736</string>
 				</array>
 				<key>isa</key>
 				<string>PBXGroup</string>
@@ -258,7 +258,7 @@
 				<key>sourceTree</key>
 				<string>&lt;group&gt;</string>
 			</dict>
-			<key>C84ED7FCC017328C6F58283D</key>
+			<key>0795F21A2022A202F628BE94</key>
 			<dict>
 				<key>explicitFileType</key>
 				<string>sourcecode.c.h</string>
@@ -269,11 +269,11 @@
 				<key>name</key>
 				<string>ofxDatGuiColorPicker.h</string>
 				<key>path</key>
-				<string>../../../addons/ofxDatGui/src/components/ofxDatGuiColorPicker.h</string>
+				<string>../../../addons/ofxDatGui_PM/src/components/ofxDatGuiColorPicker.h</string>
 				<key>sourceTree</key>
 				<string>SOURCE_ROOT</string>
 			</dict>
-			<key>896211FFD7650884437CE42C</key>
+			<key>EFC799641CF7089DDBF2094B</key>
 			<dict>
 				<key>explicitFileType</key>
 				<string>sourcecode.c.h</string>
@@ -284,16 +284,16 @@
 				<key>name</key>
 				<string>ofxSmartFont.h</string>
 				<key>path</key>
-				<string>../../../addons/ofxDatGui/src/libs/ofxSmartFont/ofxSmartFont.h</string>
+				<string>../../../addons/ofxDatGui_PM/src/libs/ofxSmartFont/ofxSmartFont.h</string>
 				<key>sourceTree</key>
 				<string>SOURCE_ROOT</string>
 			</dict>
-			<key>0EF29D3ABD6E4147AE024D7A</key>
+			<key>D334E5DEE84D3F52FE9065DE</key>
 			<dict>
 				<key>children</key>
 				<array>
-					<string>C954E0E8B7DB9D6983309883</string>
-					<string>896211FFD7650884437CE42C</string>
+					<string>A403D3D25D08FC7AF3B871D4</string>
+					<string>EFC799641CF7089DDBF2094B</string>
 				</array>
 				<key>isa</key>
 				<string>PBXGroup</string>
@@ -302,11 +302,11 @@
 				<key>sourceTree</key>
 				<string>&lt;group&gt;</string>
 			</dict>
-			<key>69146F0BA46E48E576618E5E</key>
+			<key>49829C6AAEB884DF8A116E1D</key>
 			<dict>
 				<key>children</key>
 				<array>
-					<string>0EF29D3ABD6E4147AE024D7A</string>
+					<string>D334E5DEE84D3F52FE9065DE</string>
 				</array>
 				<key>isa</key>
 				<string>PBXGroup</string>
@@ -315,14 +315,14 @@
 				<key>sourceTree</key>
 				<string>&lt;group&gt;</string>
 			</dict>
-			<key>9CF4130A7E6DA19A3DC42B9A</key>
+			<key>646DF4D56CE728133610A7F6</key>
 			<dict>
 				<key>fileRef</key>
-				<string>C954E0E8B7DB9D6983309883</string>
+				<string>A403D3D25D08FC7AF3B871D4</string>
 				<key>isa</key>
 				<string>PBXBuildFile</string>
 			</dict>
-			<key>C954E0E8B7DB9D6983309883</key>
+			<key>A403D3D25D08FC7AF3B871D4</key>
 			<dict>
 				<key>explicitFileType</key>
 				<string>sourcecode.cpp.cpp</string>
@@ -333,18 +333,18 @@
 				<key>name</key>
 				<string>ofxSmartFont.cpp</string>
 				<key>path</key>
-				<string>../../../addons/ofxDatGui/src/libs/ofxSmartFont/ofxSmartFont.cpp</string>
+				<string>../../../addons/ofxDatGui_PM/src/libs/ofxSmartFont/ofxSmartFont.cpp</string>
 				<key>sourceTree</key>
 				<string>SOURCE_ROOT</string>
 			</dict>
-			<key>C9466C434D1CF8AB968D298D</key>
+			<key>BE7DAF3CB982C2BD0FE44648</key>
 			<dict>
 				<key>fileRef</key>
-				<string>26490D7CC31EF7D6ED5F925A</string>
+				<string>DD8F81F7AAB5BA396231DD4C</string>
 				<key>isa</key>
 				<string>PBXBuildFile</string>
 			</dict>
-			<key>26490D7CC31EF7D6ED5F925A</key>
+			<key>DD8F81F7AAB5BA396231DD4C</key>
 			<dict>
 				<key>explicitFileType</key>
 				<string>sourcecode.cpp.cpp</string>
@@ -355,11 +355,11 @@
 				<key>name</key>
 				<string>ofxDatGui.cpp</string>
 				<key>path</key>
-				<string>../../../addons/ofxDatGui/src/ofxDatGui.cpp</string>
+				<string>../../../addons/ofxDatGui_PM/src/ofxDatGui.cpp</string>
 				<key>sourceTree</key>
 				<string>SOURCE_ROOT</string>
 			</dict>
-			<key>9705D66270ED89ECA6E6FECE</key>
+			<key>4D832D586223B608C5420D29</key>
 			<dict>
 				<key>explicitFileType</key>
 				<string>sourcecode.c.h</string>
@@ -370,11 +370,11 @@
 				<key>name</key>
 				<string>ofxDatGui.h</string>
 				<key>path</key>
-				<string>../../../addons/ofxDatGui/src/ofxDatGui.h</string>
+				<string>../../../addons/ofxDatGui_PM/src/ofxDatGui.h</string>
 				<key>sourceTree</key>
 				<string>SOURCE_ROOT</string>
 			</dict>
-			<key>BCC84C6EB3417706F4F762F0</key>
+			<key>A534F08B38B5C43917E2A9E4</key>
 			<dict>
 				<key>explicitFileType</key>
 				<string>sourcecode.c.h</string>
@@ -385,11 +385,11 @@
 				<key>name</key>
 				<string>ofxDatGuiComponent.h</string>
 				<key>path</key>
-				<string>../../../addons/ofxDatGui/src/core/ofxDatGuiComponent.h</string>
+				<string>../../../addons/ofxDatGui_PM/src/core/ofxDatGuiComponent.h</string>
 				<key>sourceTree</key>
 				<string>SOURCE_ROOT</string>
 			</dict>
-			<key>F59384ED57A7C6A7A8B0351D</key>
+			<key>407D7F7B6D3EDF97638DF661</key>
 			<dict>
 				<key>explicitFileType</key>
 				<string>sourcecode.c.h</string>
@@ -400,11 +400,11 @@
 				<key>name</key>
 				<string>ofxDatGuiEvents.h</string>
 				<key>path</key>
-				<string>../../../addons/ofxDatGui/src/core/ofxDatGuiEvents.h</string>
+				<string>../../../addons/ofxDatGui_PM/src/core/ofxDatGuiEvents.h</string>
 				<key>sourceTree</key>
 				<string>SOURCE_ROOT</string>
 			</dict>
-			<key>9B5051062C6A871714E6F5F4</key>
+			<key>169D713735D46DFA03D4EBEB</key>
 			<dict>
 				<key>explicitFileType</key>
 				<string>sourcecode.c.h</string>
@@ -415,18 +415,18 @@
 				<key>name</key>
 				<string>ofxDatGuiConstants.h</string>
 				<key>path</key>
-				<string>../../../addons/ofxDatGui/src/core/ofxDatGuiConstants.h</string>
+				<string>../../../addons/ofxDatGui_PM/src/core/ofxDatGuiConstants.h</string>
 				<key>sourceTree</key>
 				<string>SOURCE_ROOT</string>
 			</dict>
-			<key>D3C1C48E59CAA2D68C0DD477</key>
+			<key>4A277DA746402C76CE307770</key>
 			<dict>
 				<key>fileRef</key>
-				<string>1A3E3B8F332A1A3C7EDF4998</string>
+				<string>5D13EE4C64902574D9153447</string>
 				<key>isa</key>
 				<string>PBXBuildFile</string>
 			</dict>
-			<key>1A3E3B8F332A1A3C7EDF4998</key>
+			<key>5D13EE4C64902574D9153447</key>
 			<dict>
 				<key>explicitFileType</key>
 				<string>sourcecode.cpp.cpp</string>
@@ -437,19 +437,19 @@
 				<key>name</key>
 				<string>ofxDatGuiComponent.cpp</string>
 				<key>path</key>
-				<string>../../../addons/ofxDatGui/src/core/ofxDatGuiComponent.cpp</string>
+				<string>../../../addons/ofxDatGui_PM/src/core/ofxDatGuiComponent.cpp</string>
 				<key>sourceTree</key>
 				<string>SOURCE_ROOT</string>
 			</dict>
-			<key>8870759BC9CAEA1E4E9EA3A8</key>
+			<key>EB0606B779510751DDA16A81</key>
 			<dict>
 				<key>children</key>
 				<array>
-					<string>422C4E1AAC7EC4D30B17702D</string>
-					<string>1A3E3B8F332A1A3C7EDF4998</string>
-					<string>9B5051062C6A871714E6F5F4</string>
-					<string>F59384ED57A7C6A7A8B0351D</string>
-					<string>BCC84C6EB3417706F4F762F0</string>
+					<string>8E922B504254FF844AF5505A</string>
+					<string>5D13EE4C64902574D9153447</string>
+					<string>169D713735D46DFA03D4EBEB</string>
+					<string>407D7F7B6D3EDF97638DF661</string>
+					<string>A534F08B38B5C43917E2A9E4</string>
 				</array>
 				<key>isa</key>
 				<string>PBXGroup</string>
@@ -458,16 +458,16 @@
 				<key>sourceTree</key>
 				<string>&lt;group&gt;</string>
 			</dict>
-			<key>E9B32C117486580389FAFF01</key>
+			<key>FE3CA1F8648010DBA2401722</key>
 			<dict>
 				<key>children</key>
 				<array>
-					<string>8870759BC9CAEA1E4E9EA3A8</string>
-					<string>9705D66270ED89ECA6E6FECE</string>
-					<string>26490D7CC31EF7D6ED5F925A</string>
-					<string>69146F0BA46E48E576618E5E</string>
-					<string>947FCD1248D8B0A16B53C1AA</string>
-					<string>911FE1C75E520EE70A7B4830</string>
+					<string>EB0606B779510751DDA16A81</string>
+					<string>4D832D586223B608C5420D29</string>
+					<string>DD8F81F7AAB5BA396231DD4C</string>
+					<string>49829C6AAEB884DF8A116E1D</string>
+					<string>1D570521A53950659A74DE26</string>
+					<string>D9757BE1A5DFAE64198FF989</string>
 				</array>
 				<key>isa</key>
 				<string>PBXGroup</string>
@@ -476,20 +476,20 @@
 				<key>sourceTree</key>
 				<string>&lt;group&gt;</string>
 			</dict>
-			<key>D8DD1043C333F6F63C8685E6</key>
+			<key>E99400E5E21DFD21A45E2E82</key>
 			<dict>
 				<key>children</key>
 				<array>
-					<string>E9B32C117486580389FAFF01</string>
+					<string>FE3CA1F8648010DBA2401722</string>
 				</array>
 				<key>isa</key>
 				<string>PBXGroup</string>
 				<key>name</key>
-				<string>ofxDatGui</string>
+				<string>ofxDatGui_PM</string>
 				<key>sourceTree</key>
 				<string>&lt;group&gt;</string>
 			</dict>
-			<key>422C4E1AAC7EC4D30B17702D</key>
+			<key>8E922B504254FF844AF5505A</key>
 			<dict>
 				<key>explicitFileType</key>
 				<string>sourcecode.c.h</string>
@@ -500,7 +500,7 @@
 				<key>name</key>
 				<string>ofxDatGuiIntObject.h</string>
 				<key>path</key>
-				<string>../../../addons/ofxDatGui/src/core/ofxDatGuiIntObject.h</string>
+				<string>../../../addons/ofxDatGui_PM/src/core/ofxDatGuiIntObject.h</string>
 				<key>sourceTree</key>
 				<string>SOURCE_ROOT</string>
 			</dict>
@@ -631,16 +631,6 @@ fi
 				<string>E4EB6923138AFD0F00A09F29</string>
 				<key>buildSettings</key>
 				<dict>
-					<key>HEADER_SEARCH_PATHS</key>
-					<array>
-						<string>$(OF_CORE_HEADERS)</string>
-						<string>../../../addons/ofxDatGui/src</string>
-						<string>../../../addons/ofxDatGui/src/components</string>
-						<string>../../../addons/ofxDatGui/src/core</string>
-						<string>../../../addons/ofxDatGui/src/libs</string>
-						<string>../../../addons/ofxDatGui/src/libs/ofxSmartFont</string>
-						<string>../../../addons/ofxDatGui/src/themes</string>
-					</array>
 					<key>CONFIGURATION_BUILD_DIR</key>
 					<string>$(SRCROOT)/bin/</string>
 					<key>COPY_PHASE_STRIP</key>
@@ -675,6 +665,18 @@ fi
 					<string>NO</string>
 					<key>GCC_WARN_UNUSED_VARIABLE</key>
 					<string>NO</string>
+					<key>HEADER_SEARCH_PATHS</key>
+					<array>
+						<string>$(OF_CORE_HEADERS)</string>
+						<string>src</string>
+						<string>src</string>
+						<string>../../../addons/ofxDatGui_PM/src</string>
+						<string>../../../addons/ofxDatGui_PM/src/components</string>
+						<string>../../../addons/ofxDatGui_PM/src/core</string>
+						<string>../../../addons/ofxDatGui_PM/src/libs</string>
+						<string>../../../addons/ofxDatGui_PM/src/libs/ofxSmartFont</string>
+						<string>../../../addons/ofxDatGui_PM/src/themes</string>
+					</array>
 					<key>MACOSX_DEPLOYMENT_TARGET</key>
 					<string>10.9</string>
 					<key>OTHER_CPLUSPLUSFLAGS</key>
@@ -696,16 +698,6 @@ fi
 				<string>E4EB6923138AFD0F00A09F29</string>
 				<key>buildSettings</key>
 				<dict>
-					<key>HEADER_SEARCH_PATHS</key>
-					<array>
-						<string>$(OF_CORE_HEADERS)</string>
-						<string>../../../addons/ofxDatGui/src</string>
-						<string>../../../addons/ofxDatGui/src/components</string>
-						<string>../../../addons/ofxDatGui/src/core</string>
-						<string>../../../addons/ofxDatGui/src/libs</string>
-						<string>../../../addons/ofxDatGui/src/libs/ofxSmartFont</string>
-						<string>../../../addons/ofxDatGui/src/themes</string>
-					</array>
 					<key>COMBINE_HIDPI_IMAGES</key>
 					<string>YES</string>
 					<key>COPY_PHASE_STRIP</key>
@@ -720,6 +712,18 @@ fi
 					<string>NONE</string>
 					<key>GCC_PREPROCESSOR_DEFINITIONS[arch=*]</key>
 					<string>APPSTORE=1</string>
+					<key>HEADER_SEARCH_PATHS</key>
+					<array>
+						<string>$(OF_CORE_HEADERS)</string>
+						<string>src</string>
+						<string>src</string>
+						<string>../../../addons/ofxDatGui_PM/src</string>
+						<string>../../../addons/ofxDatGui_PM/src/components</string>
+						<string>../../../addons/ofxDatGui_PM/src/core</string>
+						<string>../../../addons/ofxDatGui_PM/src/libs</string>
+						<string>../../../addons/ofxDatGui_PM/src/libs/ofxSmartFont</string>
+						<string>../../../addons/ofxDatGui_PM/src/themes</string>
+					</array>
 					<key>ICON</key>
 					<string>$(ICON_NAME_RELEASE)</string>
 					<key>ICON_FILE</key>
@@ -729,7 +733,15 @@ fi
 					<key>INSTALL_PATH</key>
 					<string>/Applications</string>
 					<key>LIBRARY_SEARCH_PATHS</key>
-					<string>$(inherited)</string>
+					<array>
+						<string>$(inherited)</string>
+					</array>
+					<key>OTHER_LDFLAGS</key>
+					<array>
+						<string>$(OF_CORE_LIBS)</string>
+						<string>$(OF_CORE_FRAMEWORKS)</string>
+						<string>$(LIB_OF)</string>
+					</array>
 					<key>PRODUCT_NAME</key>
 					<string>$(TARGET_NAME)</string>
 					<key>WRAPPER_EXTENSION</key>
@@ -746,7 +758,7 @@ fi
 			<dict>
 				<key>children</key>
 				<array>
-					<string>D8DD1043C333F6F63C8685E6</string>
+					<string>E99400E5E21DFD21A45E2E82</string>
 				</array>
 				<key>isa</key>
 				<string>PBXGroup</string>
@@ -755,64 +767,2653 @@ fi
 				<key>sourceTree</key>
 				<string>&lt;group&gt;</string>
 			</dict>
-			<key>E4328143138ABC890047C5CB</key>
+			<key>E42962A92163ECCD00A6A9E2</key>
 			<dict>
+				<key>buildActionMask</key>
+				<string>2147483647</string>
+				<key>files</key>
+				<array />
+				<key>inputPaths</key>
+				<array />
 				<key>isa</key>
-				<string>PBXFileReference</string>
-				<key>lastKnownFileType</key>
-				<string>wrapper.pb-project</string>
-				<key>name</key>
-				<string>openFrameworksLib.xcodeproj</string>
-				<key>path</key>
-				<string>../../../libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj</string>
-				<key>sourceTree</key>
-				<string>SOURCE_ROOT</string>
+				<string>PBXShellScriptBuildPhase</string>
+				<key>outputPaths</key>
+				<array />
+				<key>runOnlyForDeploymentPostprocessing</key>
+				<string>0</string>
+				<key>shellPath</key>
+				<string>/bin/sh</string>
+				<key>shellScript</key>
+				<string>xcodebuild -project "$OF_PATH/libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj" -target openFrameworks -configuration "${CONFIGURATION}"</string>
 			</dict>
-			<key>E4328144138ABC890047C5CB</key>
+			<key>E42962AA2163EDD300A6A9E2</key>
 			<dict>
 				<key>children</key>
 				<array>
-					<string>E4328148138ABC890047C5CB</string>
+					<string>E42962AB2163EDD300A6A9E2</string>
+					<string>E42962E72163EDD300A6A9E2</string>
+					<string>E42963402163EDD300A6A9E2</string>
+					<string>E42963452163EDD300A6A9E2</string>
+					<string>E42963252163EDD300A6A9E2</string>
+					<string>E429634A2163EDD300A6A9E2</string>
+					<string>E42963132163EDD300A6A9E2</string>
+					<string>E42962F92163EDD300A6A9E2</string>
+					<string>E42963642163EDD300A6A9E2</string>
+					<string>E42962DA2163EDD300A6A9E2</string>
+					<string>E42962FA2163EDD300A6A9E2</string>
+					<string>E42962B82163EDD300A6A9E2</string>
 				</array>
 				<key>isa</key>
 				<string>PBXGroup</string>
 				<key>name</key>
-				<string>Products</string>
+				<string>openFrameworks</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks</string>
 				<key>sourceTree</key>
 				<string>&lt;group&gt;</string>
 			</dict>
-			<key>E4328147138ABC890047C5CB</key>
+			<key>E42962AB2163EDD300A6A9E2</key>
 			<dict>
-				<key>containerPortal</key>
-				<string>E4328143138ABC890047C5CB</string>
+				<key>children</key>
+				<array>
+					<string>E42962B02163EDD300A6A9E2</string>
+					<string>E42962B62163EDD300A6A9E2</string>
+					<string>E42962B52163EDD300A6A9E2</string>
+					<string>E42962B12163EDD300A6A9E2</string>
+					<string>E42962AC2163EDD300A6A9E2</string>
+					<string>E42962B32163EDD300A6A9E2</string>
+					<string>E42962B22163EDD300A6A9E2</string>
+					<string>E42962B72163EDD300A6A9E2</string>
+					<string>E42962AD2163EDD300A6A9E2</string>
+					<string>E42962B42163EDD300A6A9E2</string>
+					<string>E42962AF2163EDD300A6A9E2</string>
+					<string>E42962AE2163EDD300A6A9E2</string>
+				</array>
 				<key>isa</key>
-				<string>PBXContainerItemProxy</string>
-				<key>proxyType</key>
-				<string>2</string>
-				<key>remoteGlobalIDString</key>
-				<string>E4B27C1510CBEB8E00536013</string>
-				<key>remoteInfo</key>
-				<string>openFrameworks</string>
-			</dict>
-			<key>E4328148138ABC890047C5CB</key>
-			<dict>
-				<key>fileType</key>
-				<string>archive.ar</string>
-				<key>isa</key>
-				<string>PBXReferenceProxy</string>
+				<string>PBXGroup</string>
+				<key>name</key>
+				<string>3d</string>
 				<key>path</key>
-				<string>openFrameworksDebug.a</string>
-				<key>remoteRef</key>
-				<string>E4328147138ABC890047C5CB</string>
+				<string>../../../libs/openFrameworks/3d</string>
 				<key>sourceTree</key>
-				<string>BUILT_PRODUCTS_DIR</string>
+				<string>SOURCE_ROOT</string>
 			</dict>
-			<key>E4328149138ABC9F0047C5CB</key>
+			<key>E42962AC2163EDD300A6A9E2</key>
 			<dict>
-				<key>fileRef</key>
-				<string>E4328148138ABC890047C5CB</string>
 				<key>isa</key>
-				<string>PBXBuildFile</string>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>name</key>
+				<string>ofCamera.cpp</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/3d/ofCamera.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962AD2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofMesh.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/3d/ofMesh.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962AE2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofNode.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/3d/ofNode.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962AF2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>name</key>
+				<string>ofNode.cpp</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/3d/ofNode.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962B02163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>name</key>
+				<string>of3dPrimitives.cpp</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/3d/of3dPrimitives.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962B12163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>of3dUtils.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/3d/of3dUtils.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962B22163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>name</key>
+				<string>ofEasyCam.cpp</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/3d/ofEasyCam.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962B32163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofCamera.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/3d/ofCamera.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962B42163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>text</string>
+				<key>name</key>
+				<string>ofMesh.inl</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/3d/ofMesh.inl</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962B52163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>name</key>
+				<string>of3dUtils.cpp</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/3d/of3dUtils.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962B62163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>of3dPrimitives.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/3d/of3dPrimitives.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962B72163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofEasyCam.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/3d/ofEasyCam.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962B82163EDD300A6A9E2</key>
+			<dict>
+				<key>children</key>
+				<array>
+					<string>E42962BA2163EDD300A6A9E2</string>
+					<string>E42962C22163EDD300A6A9E2</string>
+					<string>E42962BC2163EDD300A6A9E2</string>
+					<string>E42962CE2163EDD300A6A9E2</string>
+					<string>E42962C12163EDD300A6A9E2</string>
+					<string>E42962D72163EDD300A6A9E2</string>
+					<string>E42962C52163EDD300A6A9E2</string>
+					<string>E42962BE2163EDD300A6A9E2</string>
+					<string>E42962C32163EDD300A6A9E2</string>
+					<string>E42962D62163EDD300A6A9E2</string>
+					<string>E42962CB2163EDD300A6A9E2</string>
+					<string>E42962D52163EDD300A6A9E2</string>
+					<string>E42962BD2163EDD300A6A9E2</string>
+					<string>E42962CD2163EDD300A6A9E2</string>
+					<string>E42962BF2163EDD300A6A9E2</string>
+					<string>E42962C72163EDD300A6A9E2</string>
+					<string>E42962C92163EDD300A6A9E2</string>
+					<string>E42962CF2163EDD300A6A9E2</string>
+					<string>E42962D92163EDD300A6A9E2</string>
+					<string>E42962D02163EDD300A6A9E2</string>
+					<string>E42962CA2163EDD300A6A9E2</string>
+					<string>E42962C42163EDD300A6A9E2</string>
+					<string>E42962BB2163EDD300A6A9E2</string>
+				</array>
+				<key>isa</key>
+				<string>PBXGroup</string>
+				<key>name</key>
+				<string>video</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/video</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962BA2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofAVFoundationGrabber.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/video/ofAVFoundationGrabber.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962BB2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofVideoPlayer.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/video/ofVideoPlayer.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962BC2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofAVFoundationPlayer.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/video/ofAVFoundationPlayer.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962BD2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>name</key>
+				<string>ofQtUtils.cpp</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/video/ofQtUtils.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962BE2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.objcpp</string>
+				<key>name</key>
+				<string>ofQTKitGrabber.mm</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/video/ofQTKitGrabber.mm</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962BF2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>name</key>
+				<string>ofQuickTimeGrabber.cpp</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/video/ofQuickTimeGrabber.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962C12163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofAVFoundationVideoPlayer.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/video/ofAVFoundationVideoPlayer.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962C22163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.objcpp</string>
+				<key>name</key>
+				<string>ofAVFoundationGrabber.mm</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/video/ofAVFoundationGrabber.mm</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962C32163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofQTKitMovieRenderer.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/video/ofQTKitMovieRenderer.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962C42163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>name</key>
+				<string>ofVideoPlayer.cpp</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/video/ofVideoPlayer.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962C52163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofQTKitGrabber.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/video/ofQTKitGrabber.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962C72163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofQuickTimeGrabber.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/video/ofQuickTimeGrabber.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962C92163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>name</key>
+				<string>ofQuickTimePlayer.cpp</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/video/ofQuickTimePlayer.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962CA2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofVideoGrabber.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/video/ofVideoGrabber.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962CB2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofQTKitPlayer.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/video/ofQTKitPlayer.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962CD2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofQtUtils.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/video/ofQtUtils.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962CE2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.objcpp</string>
+				<key>name</key>
+				<string>ofAVFoundationPlayer.mm</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/video/ofAVFoundationPlayer.mm</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962CF2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofQuickTimePlayer.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/video/ofQuickTimePlayer.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962D02163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>name</key>
+				<string>ofVideoGrabber.cpp</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/video/ofVideoGrabber.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962D52163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.objcpp</string>
+				<key>name</key>
+				<string>ofQTKitPlayer.mm</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/video/ofQTKitPlayer.mm</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962D62163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.objc</string>
+				<key>name</key>
+				<string>ofQTKitMovieRenderer.m</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/video/ofQTKitMovieRenderer.m</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962D72163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.objc</string>
+				<key>name</key>
+				<string>ofAVFoundationVideoPlayer.m</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/video/ofAVFoundationVideoPlayer.m</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962D92163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofVideoBaseTypes.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/video/ofVideoBaseTypes.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962DA2163EDD300A6A9E2</key>
+			<dict>
+				<key>children</key>
+				<array>
+					<string>E42962E12163EDD300A6A9E2</string>
+					<string>E42962E62163EDD300A6A9E2</string>
+					<string>E42962E42163EDD300A6A9E2</string>
+					<string>E42962DC2163EDD300A6A9E2</string>
+					<string>E42962E52163EDD300A6A9E2</string>
+					<string>E42962E32163EDD300A6A9E2</string>
+					<string>E42962E22163EDD300A6A9E2</string>
+					<string>E42962DB2163EDD300A6A9E2</string>
+					<string>E42962DE2163EDD300A6A9E2</string>
+					<string>E42962DD2163EDD300A6A9E2</string>
+					<string>E42962E02163EDD300A6A9E2</string>
+					<string>E42962DF2163EDD300A6A9E2</string>
+				</array>
+				<key>isa</key>
+				<string>PBXGroup</string>
+				<key>name</key>
+				<string>types</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/types</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962DB2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofParameterGroup.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/types/ofParameterGroup.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962DC2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofColor.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/types/ofColor.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962DD2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>name</key>
+				<string>ofRectangle.cpp</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/types/ofRectangle.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962DE2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofPoint.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/types/ofPoint.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962DF2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofTypes.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/types/ofTypes.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962E02163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofRectangle.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/types/ofRectangle.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962E12163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>name</key>
+				<string>ofBaseTypes.cpp</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/types/ofBaseTypes.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962E22163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>name</key>
+				<string>ofParameterGroup.cpp</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/types/ofParameterGroup.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962E32163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofParameter.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/types/ofParameter.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962E42163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>name</key>
+				<string>ofColor.cpp</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/types/ofColor.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962E52163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>name</key>
+				<string>ofParameter.cpp</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/types/ofParameter.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962E62163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofBaseTypes.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/types/ofBaseTypes.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962E72163EDD300A6A9E2</key>
+			<dict>
+				<key>children</key>
+				<array>
+					<string>E42962ED2163EDD300A6A9E2</string>
+					<string>E42962EC2163EDD300A6A9E2</string>
+					<string>E42962F12163EDD300A6A9E2</string>
+					<string>E42962F52163EDD300A6A9E2</string>
+					<string>E42962F82163EDD300A6A9E2</string>
+					<string>E42962EA2163EDD300A6A9E2</string>
+					<string>E42962F62163EDD300A6A9E2</string>
+					<string>E42962F42163EDD300A6A9E2</string>
+					<string>E42962EF2163EDD300A6A9E2</string>
+					<string>E42962F72163EDD300A6A9E2</string>
+					<string>E42962F32163EDD300A6A9E2</string>
+					<string>E42962E92163EDD300A6A9E2</string>
+					<string>E42962F02163EDD300A6A9E2</string>
+					<string>E42962EE2163EDD300A6A9E2</string>
+					<string>E42962F22163EDD300A6A9E2</string>
+					<string>E42962E82163EDD300A6A9E2</string>
+					<string>E42962EB2163EDD300A6A9E2</string>
+				</array>
+				<key>isa</key>
+				<string>PBXGroup</string>
+				<key>name</key>
+				<string>app</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/app</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962E82163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofMainLoop.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/app/ofMainLoop.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962E92163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>name</key>
+				<string>ofBaseApp.cpp</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/app/ofBaseApp.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962EA2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>name</key>
+				<string>ofAppGlutWindow.cpp</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/app/ofAppGlutWindow.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962EB2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofWindowSettings.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/app/ofWindowSettings.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962EC2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>name</key>
+				<string>ofAppEGLWindow.cpp</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/app/ofAppEGLWindow.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962ED2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofAppBaseWindow.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/app/ofAppBaseWindow.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962EE2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofIcon.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/app/ofIcon.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962EF2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofAppNoWindow.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/app/ofAppNoWindow.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962F02163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofBaseApp.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/app/ofBaseApp.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962F12163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofAppEGLWindow.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/app/ofAppEGLWindow.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962F22163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>name</key>
+				<string>ofMainLoop.cpp</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/app/ofMainLoop.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962F32163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofAppRunner.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/app/ofAppRunner.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962F42163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>name</key>
+				<string>ofAppNoWindow.cpp</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/app/ofAppNoWindow.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962F52163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>name</key>
+				<string>ofAppGLFWWindow.cpp</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/app/ofAppGLFWWindow.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962F62163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofAppGlutWindow.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/app/ofAppGlutWindow.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962F72163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>name</key>
+				<string>ofAppRunner.cpp</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/app/ofAppRunner.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962F82163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofAppGLFWWindow.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/app/ofAppGLFWWindow.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962F92163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofMain.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/ofMain.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962FA2163EDD300A6A9E2</key>
+			<dict>
+				<key>children</key>
+				<array>
+					<string>E42962FF2163EDD300A6A9E2</string>
+					<string>E429630D2163EDD300A6A9E2</string>
+					<string>E42963092163EDD300A6A9E2</string>
+					<string>E42962FD2163EDD300A6A9E2</string>
+					<string>E42963012163EDD300A6A9E2</string>
+					<string>E429630C2163EDD300A6A9E2</string>
+					<string>E42963072163EDD300A6A9E2</string>
+					<string>E42963022163EDD300A6A9E2</string>
+					<string>E429630E2163EDD300A6A9E2</string>
+					<string>E42963112163EDD300A6A9E2</string>
+					<string>E42963062163EDD300A6A9E2</string>
+					<string>E42963042163EDD300A6A9E2</string>
+					<string>E42963032163EDD300A6A9E2</string>
+					<string>E42962FC2163EDD300A6A9E2</string>
+					<string>E429630A2163EDD300A6A9E2</string>
+					<string>E42962FB2163EDD300A6A9E2</string>
+					<string>E42963082163EDD300A6A9E2</string>
+					<string>E42963122163EDD300A6A9E2</string>
+					<string>E42962FE2163EDD300A6A9E2</string>
+					<string>E429630B2163EDD300A6A9E2</string>
+					<string>E429630F2163EDD300A6A9E2</string>
+					<string>E42963052163EDD300A6A9E2</string>
+					<string>E42963102163EDD300A6A9E2</string>
+					<string>E42963002163EDD300A6A9E2</string>
+				</array>
+				<key>isa</key>
+				<string>PBXGroup</string>
+				<key>name</key>
+				<string>utils</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/utils</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962FB2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofThreadChannel.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/utils/ofThreadChannel.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962FC2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>name</key>
+				<string>ofThread.cpp</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/utils/ofThread.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962FD2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>name</key>
+				<string>ofFpsCounter.cpp</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/utils/ofFpsCounter.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962FE2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>name</key>
+				<string>ofURLFileLoader.cpp</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/utils/ofURLFileLoader.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42962FF2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofConstants.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/utils/ofConstants.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42963002163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofXml.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/utils/ofXml.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42963012163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofFpsCounter.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/utils/ofFpsCounter.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42963022163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofLog.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/utils/ofLog.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42963032163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofSystemUtils.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/utils/ofSystemUtils.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42963042163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>name</key>
+				<string>ofSystemUtils.cpp</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/utils/ofSystemUtils.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42963052163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofUtils.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/utils/ofUtils.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42963062163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofNoise.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/utils/ofNoise.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42963072163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>name</key>
+				<string>ofLog.cpp</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/utils/ofLog.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42963082163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>name</key>
+				<string>ofTimer.cpp</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/utils/ofTimer.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42963092163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofFileUtils.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/utils/ofFileUtils.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E429630A2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofThread.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/utils/ofThread.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E429630B2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofURLFileLoader.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/utils/ofURLFileLoader.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E429630C2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofJson.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/utils/ofJson.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E429630D2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>name</key>
+				<string>ofFileUtils.cpp</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/utils/ofFileUtils.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E429630E2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>name</key>
+				<string>ofMatrixStack.cpp</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/utils/ofMatrixStack.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E429630F2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>name</key>
+				<string>ofUtils.cpp</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/utils/ofUtils.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42963102163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>name</key>
+				<string>ofXml.cpp</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/utils/ofXml.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42963112163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofMatrixStack.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/utils/ofMatrixStack.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42963122163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofTimer.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/utils/ofTimer.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42963132163EDD300A6A9E2</key>
+			<dict>
+				<key>children</key>
+				<array>
+					<string>E42963172163EDD300A6A9E2</string>
+					<string>E429631C2163EDD300A6A9E2</string>
+					<string>E42963182163EDD300A6A9E2</string>
+					<string>E429631B2163EDD300A6A9E2</string>
+					<string>E42963222163EDD300A6A9E2</string>
+					<string>E42963212163EDD300A6A9E2</string>
+					<string>E42963192163EDD300A6A9E2</string>
+					<string>E429631F2163EDD300A6A9E2</string>
+					<string>E429631D2163EDD300A6A9E2</string>
+					<string>E42963142163EDD300A6A9E2</string>
+					<string>E42963202163EDD300A6A9E2</string>
+					<string>E429631A2163EDD300A6A9E2</string>
+					<string>E42963152163EDD300A6A9E2</string>
+					<string>E42963162163EDD300A6A9E2</string>
+					<string>E429631E2163EDD300A6A9E2</string>
+				</array>
+				<key>isa</key>
+				<string>PBXGroup</string>
+				<key>name</key>
+				<string>math</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/math</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42963142163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>name</key>
+				<string>ofVec2f.cpp</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/math/ofVec2f.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42963152163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>name</key>
+				<string>ofVec4f.cpp</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/math/ofVec4f.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42963162163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofVec4f.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/math/ofVec4f.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42963172163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>name</key>
+				<string>ofMath.cpp</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/math/ofMath.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42963182163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofMathConstants.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/math/ofMathConstants.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42963192163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofMatrix4x4.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/math/ofMatrix4x4.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E429631A2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofVec3f.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/math/ofVec3f.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E429631B2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>name</key>
+				<string>ofMatrix3x3.cpp</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/math/ofMatrix3x3.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E429631C2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofMath.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/math/ofMath.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E429631D2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofQuaternion.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/math/ofQuaternion.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E429631E2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofVectorMath.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/math/ofVectorMath.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E429631F2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>name</key>
+				<string>ofQuaternion.cpp</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/math/ofQuaternion.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42963202163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofVec2f.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/math/ofVec2f.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42963212163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>name</key>
+				<string>ofMatrix4x4.cpp</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/math/ofMatrix4x4.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42963222163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofMatrix3x3.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/math/ofMatrix3x3.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42963252163EDD300A6A9E2</key>
+			<dict>
+				<key>children</key>
+				<array>
+					<string>E429632E2163EDD300A6A9E2</string>
+					<string>E42963332163EDD300A6A9E2</string>
+					<string>E429632A2163EDD300A6A9E2</string>
+					<string>E42963382163EDD300A6A9E2</string>
+					<string>E42963392163EDD300A6A9E2</string>
+					<string>E42963342163EDD300A6A9E2</string>
+					<string>E429633B2163EDD300A6A9E2</string>
+					<string>E429633E2163EDD300A6A9E2</string>
+					<string>E429633F2163EDD300A6A9E2</string>
+					<string>E42963302163EDD300A6A9E2</string>
+					<string>E429633D2163EDD300A6A9E2</string>
+					<string>E42963322163EDD300A6A9E2</string>
+					<string>E429632B2163EDD300A6A9E2</string>
+					<string>E42963292163EDD300A6A9E2</string>
+					<string>E429632C2163EDD300A6A9E2</string>
+					<string>E429632D2163EDD300A6A9E2</string>
+					<string>E42963282163EDD300A6A9E2</string>
+					<string>E429633C2163EDD300A6A9E2</string>
+					<string>E42963272163EDD300A6A9E2</string>
+					<string>E429633A2163EDD300A6A9E2</string>
+					<string>E42963312163EDD300A6A9E2</string>
+					<string>E429632F2163EDD300A6A9E2</string>
+					<string>E42963262163EDD300A6A9E2</string>
+				</array>
+				<key>isa</key>
+				<string>PBXGroup</string>
+				<key>name</key>
+				<string>gl</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/gl</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42963262163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofVboMesh.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/gl/ofVboMesh.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42963272163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofTexture.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/gl/ofTexture.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42963282163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofShader.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/gl/ofShader.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42963292163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>name</key>
+				<string>ofMaterial.cpp</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/gl/ofMaterial.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E429632A2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>name</key>
+				<string>ofFbo.cpp</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/gl/ofFbo.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E429632B2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofLight.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/gl/ofLight.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E429632C2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofMaterial.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/gl/ofMaterial.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E429632D2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>name</key>
+				<string>ofShader.cpp</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/gl/ofShader.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E429632E2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>name</key>
+				<string>ofBufferObject.cpp</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/gl/ofBufferObject.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E429632F2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>name</key>
+				<string>ofVboMesh.cpp</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/gl/ofVboMesh.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42963302163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>name</key>
+				<string>ofGLUtils.cpp</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/gl/ofGLUtils.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42963312163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofVbo.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/gl/ofVbo.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42963322163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>name</key>
+				<string>ofLight.cpp</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/gl/ofLight.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42963332163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofBufferObject.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/gl/ofBufferObject.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42963342163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>name</key>
+				<string>ofGLProgrammableRenderer.cpp</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/gl/ofGLProgrammableRenderer.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42963382163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofFbo.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/gl/ofFbo.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42963392163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofGLBaseTypes.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/gl/ofGLBaseTypes.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E429633A2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>name</key>
+				<string>ofVbo.cpp</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/gl/ofVbo.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E429633B2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofGLProgrammableRenderer.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/gl/ofGLProgrammableRenderer.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E429633C2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>name</key>
+				<string>ofTexture.cpp</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/gl/ofTexture.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E429633D2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofGLUtils.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/gl/ofGLUtils.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E429633E2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>name</key>
+				<string>ofGLRenderer.cpp</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/gl/ofGLRenderer.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E429633F2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofGLRenderer.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/gl/ofGLRenderer.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42963402163EDD300A6A9E2</key>
+			<dict>
+				<key>children</key>
+				<array>
+					<string>E42963442163EDD300A6A9E2</string>
+					<string>E42963412163EDD300A6A9E2</string>
+					<string>E42963422163EDD300A6A9E2</string>
+					<string>E42963432163EDD300A6A9E2</string>
+				</array>
+				<key>isa</key>
+				<string>PBXGroup</string>
+				<key>name</key>
+				<string>communication</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/communication</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42963412163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofArduino.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/communication/ofArduino.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42963422163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>name</key>
+				<string>ofSerial.cpp</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/communication/ofSerial.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42963432163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofSerial.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/communication/ofSerial.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42963442163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>name</key>
+				<string>ofArduino.cpp</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/communication/ofArduino.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42963452163EDD300A6A9E2</key>
+			<dict>
+				<key>children</key>
+				<array>
+					<string>E42963472163EDD300A6A9E2</string>
+					<string>E42963492163EDD300A6A9E2</string>
+					<string>E42963482163EDD300A6A9E2</string>
+					<string>E42963462163EDD300A6A9E2</string>
+				</array>
+				<key>isa</key>
+				<string>PBXGroup</string>
+				<key>name</key>
+				<string>events</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/events</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42963462163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofEventUtils.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/events/ofEventUtils.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42963472163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofEvent.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/events/ofEvent.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42963482163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofEvents.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/events/ofEvents.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42963492163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>name</key>
+				<string>ofEvents.cpp</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/events/ofEvents.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E429634A2163EDD300A6A9E2</key>
+			<dict>
+				<key>children</key>
+				<array>
+					<string>E42963582163EDD300A6A9E2</string>
+					<string>E42963622163EDD300A6A9E2</string>
+					<string>E429634D2163EDD300A6A9E2</string>
+					<string>E429635C2163EDD300A6A9E2</string>
+					<string>E42963532163EDD300A6A9E2</string>
+					<string>E429635B2163EDD300A6A9E2</string>
+					<string>E42963502163EDD300A6A9E2</string>
+					<string>E429635F2163EDD300A6A9E2</string>
+					<string>E42963522163EDD300A6A9E2</string>
+					<string>E429634B2163EDD300A6A9E2</string>
+					<string>E42963602163EDD300A6A9E2</string>
+					<string>E42963612163EDD300A6A9E2</string>
+					<string>E42963592163EDD300A6A9E2</string>
+					<string>E42963552163EDD300A6A9E2</string>
+					<string>E429634C2163EDD300A6A9E2</string>
+					<string>E42963562163EDD300A6A9E2</string>
+					<string>E429635A2163EDD300A6A9E2</string>
+					<string>E42963512163EDD300A6A9E2</string>
+					<string>E42963572163EDD300A6A9E2</string>
+					<string>E42963542163EDD300A6A9E2</string>
+					<string>E429635E2163EDD300A6A9E2</string>
+					<string>E429634F2163EDD300A6A9E2</string>
+					<string>E42963632163EDD300A6A9E2</string>
+					<string>E429635D2163EDD300A6A9E2</string>
+					<string>E429634E2163EDD300A6A9E2</string>
+				</array>
+				<key>isa</key>
+				<string>PBXGroup</string>
+				<key>name</key>
+				<string>graphics</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/graphics</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E429634B2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofGraphicsBaseTypes.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/graphics/ofGraphicsBaseTypes.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E429634C2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofPath.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/graphics/ofPath.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E429634D2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>name</key>
+				<string>ofBitmapFont.cpp</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/graphics/ofBitmapFont.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E429634E2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofTrueTypeFont.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/graphics/ofTrueTypeFont.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E429634F2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>name</key>
+				<string>ofTessellator.cpp</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/graphics/ofTessellator.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42963502163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>name</key>
+				<string>ofGraphics.cpp</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/graphics/ofGraphics.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42963512163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofPolyline.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/graphics/ofPolyline.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42963522163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>name</key>
+				<string>ofGraphicsBaseTypes.cpp</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/graphics/ofGraphicsBaseTypes.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42963532163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>name</key>
+				<string>ofCairoRenderer.cpp</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/graphics/ofCairoRenderer.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42963542163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>name</key>
+				<string>ofRendererCollection.cpp</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/graphics/ofRendererCollection.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42963552163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>name</key>
+				<string>ofPath.cpp</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/graphics/ofPath.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42963562163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>name</key>
+				<string>ofPixels.cpp</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/graphics/ofPixels.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42963572163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>text</string>
+				<key>name</key>
+				<string>ofPolyline.inl</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/graphics/ofPolyline.inl</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42963582163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>name</key>
+				<string>of3dGraphics.cpp</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/graphics/of3dGraphics.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42963592163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofImage.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/graphics/ofImage.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E429635A2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofPixels.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/graphics/ofPixels.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E429635B2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofCairoRenderer.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/graphics/ofCairoRenderer.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E429635C2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofBitmapFont.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/graphics/ofBitmapFont.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E429635D2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>name</key>
+				<string>ofTrueTypeFont.cpp</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/graphics/ofTrueTypeFont.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E429635E2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofRendererCollection.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/graphics/ofRendererCollection.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E429635F2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofGraphics.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/graphics/ofGraphics.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42963602163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofGraphicsConstants.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/graphics/ofGraphicsConstants.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42963612163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>name</key>
+				<string>ofImage.cpp</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/graphics/ofImage.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42963622163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>of3dGraphics.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/graphics/of3dGraphics.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42963632163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofTessellator.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/graphics/ofTessellator.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42963642163EDD300A6A9E2</key>
+			<dict>
+				<key>children</key>
+				<array>
+					<string>E429636A2163EDD300A6A9E2</string>
+					<string>E42963712163EDD300A6A9E2</string>
+					<string>E429636C2163EDD300A6A9E2</string>
+					<string>E42963682163EDD300A6A9E2</string>
+					<string>E42963692163EDD300A6A9E2</string>
+					<string>E429636E2163EDD300A6A9E2</string>
+					<string>E429636B2163EDD300A6A9E2</string>
+					<string>E42963732163EDD300A6A9E2</string>
+					<string>E42963722163EDD300A6A9E2</string>
+					<string>E42963702163EDD300A6A9E2</string>
+					<string>E429636D2163EDD300A6A9E2</string>
+					<string>E42963672163EDD300A6A9E2</string>
+					<string>E42963652163EDD300A6A9E2</string>
+					<string>E42963662163EDD300A6A9E2</string>
+					<string>E429636F2163EDD300A6A9E2</string>
+				</array>
+				<key>isa</key>
+				<string>PBXGroup</string>
+				<key>name</key>
+				<string>sound</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/sound</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42963652163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>name</key>
+				<string>ofSoundStream.cpp</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/sound/ofSoundStream.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42963662163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofSoundStream.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/sound/ofSoundStream.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42963672163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofSoundPlayer.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/sound/ofSoundPlayer.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42963682163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofOpenALSoundPlayer.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/sound/ofOpenALSoundPlayer.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42963692163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>name</key>
+				<string>ofRtAudioSoundStream.cpp</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/sound/ofRtAudioSoundStream.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E429636A2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>name</key>
+				<string>ofFmodSoundPlayer.cpp</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/sound/ofFmodSoundPlayer.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E429636B2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>name</key>
+				<string>ofSoundBaseTypes.cpp</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/sound/ofSoundBaseTypes.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E429636C2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>name</key>
+				<string>ofOpenALSoundPlayer.cpp</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/sound/ofOpenALSoundPlayer.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E429636D2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>name</key>
+				<string>ofSoundPlayer.cpp</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/sound/ofSoundPlayer.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E429636E2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofRtAudioSoundStream.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/sound/ofRtAudioSoundStream.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E429636F2163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofSoundUtils.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/sound/ofSoundUtils.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42963702163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofSoundBuffer.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/sound/ofSoundBuffer.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42963712163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofFmodSoundPlayer.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/sound/ofFmodSoundPlayer.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42963722163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>name</key>
+				<string>ofSoundBuffer.cpp</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/sound/ofSoundBuffer.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>E42963732163EDD300A6A9E2</key>
+			<dict>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>lastKnownFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>name</key>
+				<string>ofSoundBaseTypes.h</string>
+				<key>path</key>
+				<string>../../../libs/openFrameworks/sound/ofSoundBaseTypes.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
 			</dict>
 			<key>E4B69B4A0A3A1720003C02F2</key>
 			<dict>
@@ -821,7 +3422,7 @@ fi
 					<string>E4B6FCAD0C3E899E008CF71C</string>
 					<string>E4EB6923138AFD0F00A09F29</string>
 					<string>E4B69E1C0A3A1BDC003C02F2</string>
-					<string>E4EEC9E9138DF44700A80321</string>
+					<string>E42962AA2163EDD300A6A9E2</string>
 					<string>BB4B014C10F69532006C3DED</string>
 					<string>6948EE371B920CB800B5AC1A</string>
 					<string>E4B69B5B0A3A1756003C02F2</string>
@@ -861,15 +3462,6 @@ fi
 				<string>E4B69B4A0A3A1720003C02F2</string>
 				<key>projectDirPath</key>
 				<string />
-				<key>projectReferences</key>
-				<array>
-					<dict>
-						<key>ProductGroup</key>
-						<string>E4328144138ABC890047C5CB</string>
-						<key>ProjectRef</key>
-						<string>E4328143138ABC890047C5CB</string>
-					</dict>
-				</array>
 				<key>projectRoot</key>
 				<string />
 				<key>targets</key>
@@ -898,16 +3490,6 @@ fi
 				<string>E4EB6923138AFD0F00A09F29</string>
 				<key>buildSettings</key>
 				<dict>
-					<key>HEADER_SEARCH_PATHS</key>
-					<array>
-						<string>$(OF_CORE_HEADERS)</string>
-						<string>../../../addons/ofxDatGui/src</string>
-						<string>../../../addons/ofxDatGui/src/components</string>
-						<string>../../../addons/ofxDatGui/src/core</string>
-						<string>../../../addons/ofxDatGui/src/libs</string>
-						<string>../../../addons/ofxDatGui/src/libs/ofxSmartFont</string>
-						<string>../../../addons/ofxDatGui/src/themes</string>
-					</array>
 					<key>CONFIGURATION_BUILD_DIR</key>
 					<string>$(SRCROOT)/bin/</string>
 					<key>COPY_PHASE_STRIP</key>
@@ -938,6 +3520,18 @@ fi
 					<string>NO</string>
 					<key>GCC_WARN_UNUSED_VARIABLE</key>
 					<string>NO</string>
+					<key>HEADER_SEARCH_PATHS</key>
+					<array>
+						<string>$(OF_CORE_HEADERS)</string>
+						<string>src</string>
+						<string>src</string>
+						<string>../../../addons/ofxDatGui_PM/src</string>
+						<string>../../../addons/ofxDatGui_PM/src/components</string>
+						<string>../../../addons/ofxDatGui_PM/src/core</string>
+						<string>../../../addons/ofxDatGui_PM/src/libs</string>
+						<string>../../../addons/ofxDatGui_PM/src/libs/ofxSmartFont</string>
+						<string>../../../addons/ofxDatGui_PM/src/themes</string>
+					</array>
 					<key>MACOSX_DEPLOYMENT_TARGET</key>
 					<string>10.9</string>
 					<key>ONLY_ACTIVE_ARCH</key>
@@ -961,16 +3555,6 @@ fi
 				<string>E4EB6923138AFD0F00A09F29</string>
 				<key>buildSettings</key>
 				<dict>
-					<key>HEADER_SEARCH_PATHS</key>
-					<array>
-						<string>$(OF_CORE_HEADERS)</string>
-						<string>../../../addons/ofxDatGui/src</string>
-						<string>../../../addons/ofxDatGui/src/components</string>
-						<string>../../../addons/ofxDatGui/src/core</string>
-						<string>../../../addons/ofxDatGui/src/libs</string>
-						<string>../../../addons/ofxDatGui/src/libs/ofxSmartFont</string>
-						<string>../../../addons/ofxDatGui/src/themes</string>
-					</array>
 					<key>CONFIGURATION_BUILD_DIR</key>
 					<string>$(SRCROOT)/bin/</string>
 					<key>COPY_PHASE_STRIP</key>
@@ -1003,6 +3587,18 @@ fi
 					<string>NO</string>
 					<key>GCC_WARN_UNUSED_VARIABLE</key>
 					<string>NO</string>
+					<key>HEADER_SEARCH_PATHS</key>
+					<array>
+						<string>$(OF_CORE_HEADERS)</string>
+						<string>src</string>
+						<string>src</string>
+						<string>../../../addons/ofxDatGui_PM/src</string>
+						<string>../../../addons/ofxDatGui_PM/src/components</string>
+						<string>../../../addons/ofxDatGui_PM/src/core</string>
+						<string>../../../addons/ofxDatGui_PM/src/libs</string>
+						<string>../../../addons/ofxDatGui_PM/src/libs/ofxSmartFont</string>
+						<string>../../../addons/ofxDatGui_PM/src/themes</string>
+					</array>
 					<key>MACOSX_DEPLOYMENT_TARGET</key>
 					<string>10.9</string>
 					<key>OTHER_CPLUSPLUSFLAGS</key>
@@ -1026,9 +3622,9 @@ fi
 				<array>
 					<string>E4B69E200A3A1BDC003C02F2</string>
 					<string>E4B69E210A3A1BDC003C02F2</string>
-					<string>D3C1C48E59CAA2D68C0DD477</string>
-					<string>C9466C434D1CF8AB968D298D</string>
-					<string>9CF4130A7E6DA19A3DC42B9A</string>
+					<string>4A277DA746402C76CE307770</string>
+					<string>BE7DAF3CB982C2BD0FE44648</string>
+					<string>646DF4D56CE728133610A7F6</string>
 				</array>
 				<key>isa</key>
 				<string>PBXSourcesBuildPhase</string>
@@ -1054,6 +3650,7 @@ fi
 				<string>E4B69B5F0A3A1757003C02F2</string>
 				<key>buildPhases</key>
 				<array>
+					<string>E42962A92163ECCD00A6A9E2</string>
 					<string>E4B69B580A3A1756003C02F2</string>
 					<string>E4B69B590A3A1756003C02F2</string>
 					<string>E4B6FFFD0C3F9AB9008CF71C</string>
@@ -1063,9 +3660,7 @@ fi
 				<key>buildRules</key>
 				<array />
 				<key>dependencies</key>
-				<array>
-					<string>E4EEB9AC138B136A00A80321</string>
-				</array>
+				<array />
 				<key>isa</key>
 				<string>PBXNativeTarget</string>
 				<key>name</key>
@@ -1111,16 +3706,6 @@ fi
 				<string>E4EB6923138AFD0F00A09F29</string>
 				<key>buildSettings</key>
 				<dict>
-					<key>HEADER_SEARCH_PATHS</key>
-					<array>
-						<string>$(OF_CORE_HEADERS)</string>
-						<string>../../../addons/ofxDatGui/src</string>
-						<string>../../../addons/ofxDatGui/src/components</string>
-						<string>../../../addons/ofxDatGui/src/core</string>
-						<string>../../../addons/ofxDatGui/src/libs</string>
-						<string>../../../addons/ofxDatGui/src/libs/ofxSmartFont</string>
-						<string>../../../addons/ofxDatGui/src/themes</string>
-					</array>
 					<key>COMBINE_HIDPI_IMAGES</key>
 					<string>YES</string>
 					<key>COPY_PHASE_STRIP</key>
@@ -1135,6 +3720,18 @@ fi
 					<string>YES</string>
 					<key>GCC_MODEL_TUNING</key>
 					<string>NONE</string>
+					<key>HEADER_SEARCH_PATHS</key>
+					<array>
+						<string>$(OF_CORE_HEADERS)</string>
+						<string>src</string>
+						<string>src</string>
+						<string>../../../addons/ofxDatGui_PM/src</string>
+						<string>../../../addons/ofxDatGui_PM/src/components</string>
+						<string>../../../addons/ofxDatGui_PM/src/core</string>
+						<string>../../../addons/ofxDatGui_PM/src/libs</string>
+						<string>../../../addons/ofxDatGui_PM/src/libs/ofxSmartFont</string>
+						<string>../../../addons/ofxDatGui_PM/src/themes</string>
+					</array>
 					<key>ICON</key>
 					<string>$(ICON_NAME_DEBUG)</string>
 					<key>ICON_FILE</key>
@@ -1144,7 +3741,15 @@ fi
 					<key>INSTALL_PATH</key>
 					<string>/Applications</string>
 					<key>LIBRARY_SEARCH_PATHS</key>
-					<string>$(inherited)</string>
+					<array>
+						<string>$(inherited)</string>
+					</array>
+					<key>OTHER_LDFLAGS</key>
+					<array>
+						<string>$(OF_CORE_LIBS)</string>
+						<string>$(OF_CORE_FRAMEWORKS)</string>
+						<string>$(LIB_OF_DEBUG)</string>
+					</array>
 					<key>PRODUCT_NAME</key>
 					<string>$(TARGET_NAME)Debug</string>
 					<key>WRAPPER_EXTENSION</key>
@@ -1161,16 +3766,6 @@ fi
 				<string>E4EB6923138AFD0F00A09F29</string>
 				<key>buildSettings</key>
 				<dict>
-					<key>HEADER_SEARCH_PATHS</key>
-					<array>
-						<string>$(OF_CORE_HEADERS)</string>
-						<string>../../../addons/ofxDatGui/src</string>
-						<string>../../../addons/ofxDatGui/src/components</string>
-						<string>../../../addons/ofxDatGui/src/core</string>
-						<string>../../../addons/ofxDatGui/src/libs</string>
-						<string>../../../addons/ofxDatGui/src/libs/ofxSmartFont</string>
-						<string>../../../addons/ofxDatGui/src/themes</string>
-					</array>
 					<key>COMBINE_HIDPI_IMAGES</key>
 					<string>YES</string>
 					<key>COPY_PHASE_STRIP</key>
@@ -1183,6 +3778,18 @@ fi
 					<string>YES</string>
 					<key>GCC_MODEL_TUNING</key>
 					<string>NONE</string>
+					<key>HEADER_SEARCH_PATHS</key>
+					<array>
+						<string>$(OF_CORE_HEADERS)</string>
+						<string>src</string>
+						<string>src</string>
+						<string>../../../addons/ofxDatGui_PM/src</string>
+						<string>../../../addons/ofxDatGui_PM/src/components</string>
+						<string>../../../addons/ofxDatGui_PM/src/core</string>
+						<string>../../../addons/ofxDatGui_PM/src/libs</string>
+						<string>../../../addons/ofxDatGui_PM/src/libs/ofxSmartFont</string>
+						<string>../../../addons/ofxDatGui_PM/src/themes</string>
+					</array>
 					<key>ICON</key>
 					<string>$(ICON_NAME_RELEASE)</string>
 					<key>ICON_FILE</key>
@@ -1192,7 +3799,15 @@ fi
 					<key>INSTALL_PATH</key>
 					<string>/Applications</string>
 					<key>LIBRARY_SEARCH_PATHS</key>
-					<string>$(inherited)</string>
+					<array>
+						<string>$(inherited)</string>
+					</array>
+					<key>OTHER_LDFLAGS</key>
+					<array>
+						<string>$(OF_CORE_LIBS)</string>
+						<string>$(OF_CORE_FRAMEWORKS)</string>
+						<string>$(LIB_OF)</string>
+					</array>
 					<key>PRODUCT_NAME</key>
 					<string>$(TARGET_NAME)</string>
 					<key>WRAPPER_EXTENSION</key>
@@ -1334,21 +3949,6 @@ echo "$GCC_PREPROCESSOR_DEFINITIONS";
 				<key>runOnlyForDeploymentPostprocessing</key>
 				<string>0</string>
 			</dict>
-			<key>E4EB691F138AFCF100A09F29</key>
-			<dict>
-				<key>fileEncoding</key>
-				<string>4</string>
-				<key>isa</key>
-				<string>PBXFileReference</string>
-				<key>lastKnownFileType</key>
-				<string>text.xcconfig</string>
-				<key>name</key>
-				<string>CoreOF.xcconfig</string>
-				<key>path</key>
-				<string>../../../libs/openFrameworksCompiled/project/osx/CoreOF.xcconfig</string>
-				<key>sourceTree</key>
-				<string>SOURCE_ROOT</string>
-			</dict>
 			<key>E4EB6923138AFD0F00A09F29</key>
 			<dict>
 				<key>fileEncoding</key>
@@ -1359,42 +3959,6 @@ echo "$GCC_PREPROCESSOR_DEFINITIONS";
 				<string>text.xcconfig</string>
 				<key>path</key>
 				<string>Project.xcconfig</string>
-				<key>sourceTree</key>
-				<string>&lt;group&gt;</string>
-			</dict>
-			<key>E4EEB9AB138B136A00A80321</key>
-			<dict>
-				<key>containerPortal</key>
-				<string>E4328143138ABC890047C5CB</string>
-				<key>isa</key>
-				<string>PBXContainerItemProxy</string>
-				<key>proxyType</key>
-				<string>1</string>
-				<key>remoteGlobalIDString</key>
-				<string>E4B27C1410CBEB8E00536013</string>
-				<key>remoteInfo</key>
-				<string>openFrameworks</string>
-			</dict>
-			<key>E4EEB9AC138B136A00A80321</key>
-			<dict>
-				<key>isa</key>
-				<string>PBXTargetDependency</string>
-				<key>name</key>
-				<string>openFrameworks</string>
-				<key>targetProxy</key>
-				<string>E4EEB9AB138B136A00A80321</string>
-			</dict>
-			<key>E4EEC9E9138DF44700A80321</key>
-			<dict>
-				<key>children</key>
-				<array>
-					<string>E4EB691F138AFCF100A09F29</string>
-					<string>E4328143138ABC890047C5CB</string>
-				</array>
-				<key>isa</key>
-				<string>PBXGroup</string>
-				<key>name</key>
-				<string>openFrameworks</string>
 				<key>sourceTree</key>
 				<string>&lt;group&gt;</string>
 			</dict>

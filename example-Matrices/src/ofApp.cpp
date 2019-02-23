@@ -15,6 +15,7 @@ void ofApp::setup()
     
 // instantiate a matrix with a button for each box in our grid //
     matrix = new ofxDatGuiMatrix("MATRIX", numCols*numRows, true);
+    matrix->registerEvents();
     
 // matrices can also function as radio buttons (only 1 on at a time)
     matrix->setRadioMode(true);

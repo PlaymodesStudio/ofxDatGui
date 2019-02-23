@@ -13,6 +13,9 @@ void ofApp::setup()
 // instantiate a 2d pad that by default will map to the window dimensions //
     pad = new ofxDatGui2dPad("2D PAD");
     
+// we need to manually register the component to events.
+    pad->registerEvents();
+    
 // position the component in the middle of the screen //
     pad->setPosition(ofGetWidth()/2 - pad->getWidth()/2, ofGetHeight()/2 - pad->getHeight()/2);
     
@@ -29,7 +32,7 @@ void ofApp::setup()
 
 void ofApp::update()
 {
-    pad->update();
+//    pad->update();
 }
 
 void ofApp::draw()
@@ -40,7 +43,7 @@ void ofApp::draw()
     ofDrawCircle(pad->getPoint(), 150);
 
 // draw the component //
-    pad->draw();
+//    pad->draw();
 
 // draw our custom bounds rectangle //
     ofNoFill();

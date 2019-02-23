@@ -13,6 +13,7 @@ void ofApp::setup()
 // create a color picker (passing in a color is optional) //
     picker = new ofxDatGuiColorPicker("COLOR PICKER", ofColor::fromHex(0xCECECE));
     picker->setAnchor(ofxDatGuiAnchor::TOP_LEFT);
+    picker->registerEvents();
     
 // and register a callback to listen for change events //
     picker->onColorPickerEvent(this, &ofApp::onColorPickerEvent);
@@ -26,10 +27,10 @@ void ofApp::onColorPickerEvent(ofxDatGuiColorPickerEvent e)
 
 void ofApp::update()
 {
-    picker->update();
+//    picker->update();
 }
 
 void ofApp::draw()
 {
-    picker->draw();
+//    picker->draw();
 }

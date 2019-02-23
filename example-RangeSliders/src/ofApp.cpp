@@ -15,6 +15,7 @@ void ofApp::setup()
 */
     
     sliderInt = new ofxDatGuiSlider(ofParamInt.set("of_Paramater<int>", 120, 0, 300));
+    sliderInt->registerEvents();
     sliderInt->setWidth(ofGetWidth(), .2); // make label area 20% of width //
     sliderInt->setPosition(0, ofGetHeight()*.50 - sliderInt->getHeight()/2 - 100);
     sliderInt->onSliderEvent(this, &ofApp::onSliderEvent);
@@ -25,7 +26,8 @@ void ofApp::setup()
 */
 
     sliderFloat = new ofxDatGuiSlider(ofParamFloat.set("of_Paramater<float>", 210.0f, 0.0f, 300.0f));
-    sliderFloat->setPrecision(4, false);
+    sliderFloat->registerEvents();
+    sliderFloat->setPrecision(4);
     sliderFloat->setWidth(ofGetWidth(), .2); // make label area 20% of width //
     sliderFloat->setPosition(0, ofGetHeight()*.50 - sliderFloat->getHeight()/2);
     sliderFloat->onSliderEvent(this, &ofApp::onSliderEvent);
@@ -36,6 +38,7 @@ void ofApp::setup()
 */
     
     slider = new ofxDatGuiSlider("BACKGROUND BRIGHTNESS", 0, 100, 20);
+    slider->registerEvents();
     slider->setWidth(ofGetWidth(), .2); // make label area 20% of width //
     slider->setPosition(0, ofGetHeight()*.50 - slider->getHeight()/2 + 100);
     slider->onSliderEvent(this, &ofApp::onSliderEvent);
@@ -56,25 +59,25 @@ void ofApp::onSliderEvent(ofxDatGuiSliderEvent e)
 {
     if(e.target == slider){
         ofSetBackgroundColor(ofColor::white*e.scale);
-        cout << e.target->getLabel() << " value = "; e.target->printValue();
+        cout << e.target->getLabel() << " value = "; e.value;
     }   else if (e.target == sliderInt){
-        cout << e.target->getLabel() << " value = "; e.target->printValue();
+        cout << e.target->getLabel() << " value = "; e.value;
     }   else if (e.target == sliderFloat){
-        cout << e.target->getLabel() << " value = "; e.target->printValue();
+        cout << e.target->getLabel() << " value = "; e.value;
     }
 }
 
 void ofApp::update()
 {
-    slider->update();
-    sliderInt->update();
-    sliderFloat->update();
+//    slider->update();
+//    sliderInt->update();
+//    sliderFloat->update();
 }
 
 void ofApp::draw()
 {
-    slider->draw();
-    sliderInt->draw();
-    sliderFloat->draw();
+//    slider->draw();
+//    sliderInt->draw();
+//    sliderFloat->draw();
 }
 

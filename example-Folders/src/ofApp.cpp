@@ -13,6 +13,7 @@ void ofApp::setup()
     ofSetWindowShape(1450, 800);
 
     f1 = new ofxDatGuiFolder("folder 1", ofColor::fromHex(0xFFD00B));
+    f1->registerEvents();
     f1->addToggle("toggle");
     f1->addBreak();
     f1->addFRM();
@@ -26,6 +27,7 @@ void ofApp::setup()
     f1->expand();
     
     f2 = new ofxDatGuiFolder("folder 2", ofColor::fromHex(0x1ED36F));
+    f2->registerEvents();
     f2->setPosition(x + f1->getWidth()+40, y);
     f2->addButton("button");
     f2->addTextInput("text input", "enter a message");
@@ -85,13 +87,13 @@ void ofApp::onMatrixEvent(ofxDatGuiMatrixEvent e)
 
 void ofApp::update()
 {
-    f1->update();
-    f2->update();
+//    f1->update();
+//    f2->update();
 }
 
 void ofApp::draw()
 {
-    f1->draw();
-    f2->draw();
+//    f1->draw();
+//    f2->draw();
 }
 

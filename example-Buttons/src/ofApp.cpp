@@ -13,7 +13,9 @@ void ofApp::setup()
     
 // instantiate a basic button and a toggle button //
     button = new ofxDatGuiButton("CLICK ME");
+    button->registerEvents();
     toggle = new ofxDatGuiToggle("TOGGLE FULLSCREEN", false);
+    toggle->registerEvents();
     
 // position the components in the middle of the screen //
     positionButtons();
@@ -25,14 +27,14 @@ void ofApp::setup()
 
 void ofApp::update()
 {
-    button->update();
-    toggle->update();
+//    button->update();
+//    toggle->update();
 }
 
 void ofApp::draw()
 {
-    button->draw();
-    toggle->draw();
+//    button->draw();
+//    toggle->draw();
 }
 
 void ofApp::onButtonEvent(ofxDatGuiButtonEvent e)
