@@ -1,10 +1,20 @@
 ## ofxDatGui_PM
 
-### This version is a fork that can break some functionalty with original repo, we mainly use it for our node-based framework [ofxOceanode](https://github.com/PlaymodesStudio/ofxOceanode). But we did not add any breaking change on purpouse. This are the main changes:
+### This version is a fork focused on changing the way key/mouse interaction is handled, we modify it to use it for our node-based framework [ofxOceanode](https://github.com/PlaymodesStudio/ofxOceanode) (where is a dependency). This are the main changes:
 * Interaction based on events (on key press, on key release)
 * Added right click event
 * Added scrollViews inside a DatGui (not only as a separate component)
 * Added hability to have multiple windows, and each window have it's own gui collection, and events listen on that specific window
+* Added multislider: this is a kind of specific thing for ofxOceanode. It is a slider for vectors (float or int). The interaction is the same as a slider, the only diference is that it outputs a vector of the type with only one item. The special thing is that when you send to it a real vector it converts to a multivertical slider (without iteraction).
+* Minor new methods like getters, updaters, setters.
+
+
+### If you want to use this fork with your projects you have to change a small amount of code to work.
+If you use a component ouside a gui, let's say`auto button = new ofxDatGuiButton("My Button");` and you want it to show up in the screen, before you were doing in update: `button->update();`, and in draw method `button->draw();`. We changed that so you only have to, is setup, do: `button->registerEvents();`.
+
+
+-----------------------------
+
 
 **ofxDatGui** is a **simple to use**, fully customizable, high-resolution graphical user interface for [openFrameworks](http://openframeworks.cc/) inspired by the popular JavaScript [datgui](http://workshop.chromeexperiments.com/examples/gui/) interface.  
 
