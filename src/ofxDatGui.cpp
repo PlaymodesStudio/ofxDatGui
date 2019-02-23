@@ -412,7 +412,7 @@ ofxDatGuiHeader* ofxDatGui::addHeader(string label, bool draggable)
 ofxDatGuiFooter* ofxDatGui::addFooter()
 {
     if (mGuiFooter == nullptr){
-        mGuiFooter = new ofxDatGuiFooter(mGuiHeader->getName());
+        mGuiFooter = new ofxDatGuiFooter(getHeader()->getName());
         items.push_back(mGuiFooter);
         mGuiFooter->onInternalEvent(this, &ofxDatGui::onInternalEventCallback);
         mGuiFooter->setWindow(window);
