@@ -213,7 +213,11 @@ class ofxDatGuiTextInputField : public ofxDatGuiInteractiveObject{
                 setCursorIndex(max( (int) mCursorIndex - 1, 0));
             } else if (key == OF_KEY_RIGHT) {
                 setCursorIndex(min( mCursorIndex + 1, (unsigned int) mText.size()));
-            } else if (key == 'v' && ofGetKeyPressed(OF_KEY_COMMAND))  {
+#ifdef TARGET_OSX
+           } else if (key == 'v' && ofGetKeyPressed(OF_KEY_COMMAND))  {
+#else
+           } else if (key == 'v' && ofGetKeyPressed(OF_KEY_CONTROL))  {
+#endif
                 setText(ofGetWindowPtr()->getClipboardString());
             } else {
             // insert character at cursor position //
