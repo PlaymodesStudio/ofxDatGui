@@ -530,6 +530,7 @@ class ofxDatGuiDropdown : public ofxDatGuiGroup {
                 ofLogError() << "ofxDatGuiDropdown->select("<<cIndex<<") is out of range";
             }   else{
                 setLabel(children[cIndex]->getLabel());
+                mOption = cIndex;
             }
         }
 
