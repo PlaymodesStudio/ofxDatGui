@@ -39,7 +39,7 @@ ofxDatGuiComponent::ofxDatGuiComponent(string label)
     mStyle.opacity = 255;
     this->x = 0; this->y = 0;
     isListeningEvents = false;
-    transformMatrix = ofMatrix4x4();
+    transformMatrix = glm::mat4();
     mAnchor = ofxDatGuiAnchor::NO_ANCHOR;
     mLabel.text = label;
     mLabel.alignment = ofxDatGuiAlignment::LEFT;
@@ -506,34 +506,34 @@ void ofxDatGuiComponent::drawColorPicker() { }
     events
 */
 
-bool ofxDatGuiComponent::hitComponentTest(ofPoint m){
+bool ofxDatGuiComponent::hitComponentTest(glm::vec2 m){
     int w = mStyle.border.width;
     return ofRectangle(x-w, y-w, mStyle.width+(w*2), mStyle.height+(w*2)).inside(m.x, m.y);
 }
 
-bool ofxDatGuiComponent::hitTest(ofPoint m)
+bool ofxDatGuiComponent::hitTest(glm::vec2 m)
 {
     if (mMask.height > 0 && (m.y < 0 || m.y > mMask.height)) return false;
     return (m.x>=x && m.x<= x+mStyle.width && m.y>=y && m.y<= y+mStyle.height);
 }
 
-void ofxDatGuiComponent::onMouseEnter(ofPoint m)
+void ofxDatGuiComponent::onMouseEnter(glm::vec2 m)
 {
     mMouseOver = true;
 }
 
-void ofxDatGuiComponent::onMouseLeave(ofPoint m)
+void ofxDatGuiComponent::onMouseLeave(glm::vec2 m)
 {
     mMouseOver = false;
 }
 
-void ofxDatGuiComponent::onMousePress(ofPoint m)
+void ofxDatGuiComponent::onMousePress(glm::vec2 m)
 {
     mMouseDown = true;
     if(!mFocused) onFocus();
 }
 
-void ofxDatGuiComponent::onMouseRelease(ofPoint m)
+void ofxDatGuiComponent::onMouseRelease(glm::vec2 m)
 {
     mMouseDown = false;
 }
@@ -556,7 +556,7 @@ void ofxDatGuiComponent::onFocusLost()
 }
 
 void ofxDatGuiComponent::onKeyPressed(int key) { }
-void ofxDatGuiComponent::onMouseDrag(ofPoint m) { }
+void ofxDatGuiComponent::onMouseDrag(glm::vec2 m) { }
 
 
 void ofxDatGuiComponent::onWindowResized()
@@ -593,9 +593,7 @@ void ofxDatGuiComponent::mouseMoved(ofMouseEventArgs &e)
 {
     ofMouseEventArgs modified_e;
     if(isListeningEvents){
-        ofVec4f tempVec = e;
-        tempVec -= transformMatrix.getTranslation();
-        tempVec = transformMatrix.getInverse().postMult(tempVec);
+        glm::vec4 tempVec = transformMatrix * glm::vec4(e, 0, 1);
         modified_e = ofMouseEventArgs(e.type, tempVec.x, tempVec.y, e.button);
     }else{
         modified_e = e;
@@ -617,9 +615,7 @@ void ofxDatGuiComponent::mouseDragged(ofMouseEventArgs &e)
 {
     ofMouseEventArgs modified_e;
     if(isListeningEvents){
-        ofVec4f tempVec = e;
-        tempVec -= transformMatrix.getTranslation();
-        tempVec = transformMatrix.getInverse().postMult(tempVec);
+        glm::vec4 tempVec = transformMatrix * glm::vec4(e, 0, 1);
         modified_e = ofMouseEventArgs(e.type, tempVec.x, tempVec.y, e.button);
     }else{
         modified_e = e;
@@ -638,9 +634,7 @@ void ofxDatGuiComponent::mousePressed(ofMouseEventArgs &e)
 {
     ofMouseEventArgs modified_e;
     if(isListeningEvents){
-        ofVec4f tempVec = e;
-        tempVec -= transformMatrix.getTranslation();
-        tempVec = transformMatrix.getInverse().postMult(tempVec);
+        glm::vec4 tempVec = transformMatrix * glm::vec4(e, 0, 1);
         modified_e = ofMouseEventArgs(e.type, tempVec.x, tempVec.y, e.button);
     }else{
         modified_e = e;
@@ -672,9 +666,7 @@ void ofxDatGuiComponent::mouseReleased(ofMouseEventArgs &e)
 {
     ofMouseEventArgs modified_e;
     if(isListeningEvents){
-        ofVec4f tempVec = e;
-        tempVec -= transformMatrix.getTranslation();
-        tempVec = transformMatrix.getInverse().postMult(tempVec);
+        glm::vec4 tempVec = transformMatrix * glm::vec4(e, 0, 1);
         modified_e = ofMouseEventArgs(e.type, tempVec.x, tempVec.y, e.button);
     }else{
         modified_e = e;

@@ -83,7 +83,7 @@ class ofxDatGuiButton : public ofxDatGuiComponent {
     
     protected:
     
-        void onMouseRelease(ofPoint m)
+        void onMouseRelease(glm::vec2 m)
         {
             //ofxDatGuiComponent::onFocusLost();
             ofxDatGuiComponent::onMouseRelease(m);
@@ -164,7 +164,7 @@ class ofxDatGuiToggle : public ofxDatGuiButton {
     
     protected:
     
-        void onMouseRelease(ofPoint m)
+        void onMouseRelease(glm::vec2 m)
         {
             mChecked = !mChecked;
             //ofxDatGuiComponent::onFocusLost();

@@ -52,26 +52,26 @@ class ofxDatGuiHeader : public ofxDatGuiButton {
             return mDraggable;
         }
     
-        ofPoint getDragOffset()
+        glm::vec2 getDragOffset()
         {
             return mDragOffset;
         }
     
     protected:
 
-        void onMouseEnter(ofPoint m)
+        void onMouseEnter(glm::vec2 m)
         {
         // disable hover state if we're not draggable //
             if (mDraggable) ofxDatGuiComponent::onMouseEnter(m);
         }
     
-        void onMousePress(ofPoint m)
+        void onMousePress(glm::vec2 m)
         {
-            mDragOffset = ofPoint(m.x-this->x,m.y-this->y);
+            mDragOffset = glm::vec2(m.x-this->x,m.y-this->y);
             ofxDatGuiComponent::onMousePress(m);
         }
     
-        void onMouseRelease(ofPoint m)
+        void onMouseRelease(glm::vec2 m)
         {
             mDragOffset = m;
             ofxDatGuiComponent::onFocusLost();
@@ -88,7 +88,7 @@ class ofxDatGuiHeader : public ofxDatGuiButton {
     
     private:
         bool mDraggable;
-        ofPoint mDragOffset;
+        glm::vec2 mDragOffset;
 
 };
 
@@ -136,7 +136,7 @@ class ofxDatGuiFooter : public ofxDatGuiButton {
     
     protected:
     
-        void onMouseRelease(ofPoint m)
+        void onMouseRelease(glm::vec2 m)
         {
             ofxDatGuiComponent::onMouseRelease(m);
         // dispatch event out to main application //

@@ -92,7 +92,7 @@ class ofxDatGuiTextInputField : public ofxDatGuiInteractiveObject{
                 mFont->draw(mType == ofxDatGuiInputType::COLORPICKER ? "#" + mRendered : mRendered, tx, ty);
                 if (mFocused) {
             // draw the cursor //
-                    ofDrawLine(ofPoint(tx + mCursorX, mInputRect.getTop()), ofPoint(tx + mCursorX, mInputRect.getBottom()));
+                    ofDrawLine(glm::vec2(tx + mCursorX, mInputRect.getTop()), glm::vec2(tx + mCursorX, mInputRect.getBottom()));
                 }
             ofPopStyle();
         }
@@ -112,7 +112,7 @@ class ofxDatGuiTextInputField : public ofxDatGuiInteractiveObject{
             return mFocused;
         }
     
-        bool hitTest(ofPoint m)
+        bool hitTest(glm::vec2 m)
         {
             return (m.x>=mInputRect.x && m.x<=mInputRect.x+mInputRect.width && m.y>=mInputRect.y && m.y<=mInputRect.y+mInputRect.height);
         }

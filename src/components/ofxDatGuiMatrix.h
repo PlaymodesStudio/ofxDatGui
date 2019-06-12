@@ -56,7 +56,7 @@ class ofxDatGuiMatrixButton : public ofxDatGuiInteractiveObject {
             ofPopStyle();
         }
     
-        void hitTest(ofPoint m, bool mouseDown)
+        void hitTest(glm::vec2 m, bool mouseDown)
         {
             if (mRect.inside(m) && !mSelected){
                 if (mouseDown){
@@ -98,7 +98,7 @@ class ofxDatGuiMatrixButton : public ofxDatGuiInteractiveObject {
             }
         }
     
-        void onMousePress(ofPoint m)
+        void onMousePress(glm::vec2 m)
         {
             if (mRect.inside(m)) {
 //                mSelected = !mSelected;
@@ -107,7 +107,7 @@ class ofxDatGuiMatrixButton : public ofxDatGuiInteractiveObject {
             }
         }
     
-        void onMouseRelease(ofPoint m)
+        void onMouseRelease(glm::vec2 m)
         {
             if (mRect.inside(m)) {
                 mSelected = !mSelected;
@@ -134,7 +134,7 @@ class ofxDatGuiMatrixButton : public ofxDatGuiInteractiveObject {
         int x;
         int y;
         int mIndex;
-        ofPoint origin;
+        glm::vec2 origin;
         ofRectangle mRect;
         ofColor mBkgdColor;
         ofColor mLabelColor;
@@ -218,7 +218,7 @@ class ofxDatGuiMatrix : public ofxDatGuiComponent {
             mHoldMode = enabled;
         }
     
-        bool hitTest(ofPoint m)
+        bool hitTest(glm::vec2 m)
         {
             if (mMatrixRect.inside(m)){
                 for(int i=0; i<btns.size(); i++) btns[i].hitTest(m, mMouseDown);
@@ -307,14 +307,14 @@ class ofxDatGuiMatrix : public ofxDatGuiComponent {
         void setNumButtons(int i){mNumButtons=i;attachButtons(this->getTheme());};
     protected:
     
-        void onMousePress(ofPoint m)
+        void onMousePress(glm::vec2 m)
         {
             ofxDatGuiComponent::onFocusLost();
             ofxDatGuiComponent::onMousePress(m);
             for(int i=0; i<btns.size(); i++) btns[i].onMousePress(m);
         }
     
-        void onMouseRelease(ofPoint m)
+        void onMouseRelease(glm::vec2 m)
         {
             ofxDatGuiComponent::onFocusLost();
             ofxDatGuiComponent::onMouseRelease(m);

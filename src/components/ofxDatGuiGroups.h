@@ -141,7 +141,7 @@ class ofxDatGuiGroup : public ofxDatGuiButton {
             }
         }
     
-        void onMouseRelease(ofPoint m)
+        void onMouseRelease(glm::vec2 m)
         {
             if (mFocused){
             // open & close the group when its header is clicked //

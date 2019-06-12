@@ -83,14 +83,14 @@ class ofxDatGuiComponent : public ofxDatGuiInteractiveObject
         virtual void draw();
     void update(ofEventArgs &e);
         virtual void update();
-        virtual bool hitComponentTest(ofPoint m);
-        virtual bool hitTest(ofPoint m);
+        virtual bool hitComponentTest(glm::vec2 m);
+        virtual bool hitTest(glm::vec2 m);
 
         virtual void setPosition(int x, int y);
         virtual void setTheme(const ofxDatGuiTheme* theme) = 0;
         virtual void setWidth(int width, float labelWidth);
         virtual void setLabelAlignment(ofxDatGuiAlignment align);
-        void setTransformMatrix(ofMatrix4x4 matrix){transformMatrix = matrix;};
+    void setTransformMatrix(glm::mat4 matrix){transformMatrix = matrix;};
 
     
         virtual int  getWidth();
@@ -113,12 +113,12 @@ class ofxDatGuiComponent : public ofxDatGuiInteractiveObject
     virtual void mouseExited(ofMouseEventArgs &e);
     virtual void mouseScrolled(ofMouseEventArgs &e);
     
-        virtual void onMouseEnter(ofPoint m);
-        virtual void onMousePress(ofPoint m);
+        virtual void onMouseEnter(glm::vec2 m);
+        virtual void onMousePress(glm::vec2 m);
         virtual void onMouseOutsidePress();
-        virtual void onMouseDrag(ofPoint m);
-        virtual void onMouseLeave(ofPoint m);
-        virtual void onMouseRelease(ofPoint m);
+        virtual void onMouseDrag(glm::vec2 m);
+        virtual void onMouseLeave(glm::vec2 m);
+        virtual void onMouseRelease(glm::vec2 m);
         void onWindowResized(ofResizeEventArgs &e);
 
         static const ofxDatGuiTheme* getTheme();
@@ -137,7 +137,7 @@ class ofxDatGuiComponent : public ofxDatGuiInteractiveObject
         bool isListeningEvents;
         bool labelChanged;
         ofRectangle mMask;
-        ofMatrix4x4 transformMatrix;
+    glm::mat4 transformMatrix;
         ofxDatGuiType mType;
         ofxDatGuiAnchor mAnchor;
         shared_ptr<ofxSmartFont> mFont;

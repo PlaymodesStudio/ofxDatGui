@@ -97,7 +97,7 @@ class ofxDatGuiTextInput : public ofxDatGuiComponent {
             }
         }
     
-        bool hitTest(ofPoint m)
+        bool hitTest(glm::vec2 m)
         {
             return mInput.hitTest(m);
         }

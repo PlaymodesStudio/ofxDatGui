@@ -65,7 +65,7 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
         void setTheme(ofxDatGuiTheme* t, bool applyImmediately = false);
         void setAutoDraw(bool autodraw, int priority = 0);
         void setLabelAlignment(ofxDatGuiAlignment align);
-        void setTransformMatrix(ofMatrix4x4 matrix);
+    void setTransformMatrix(glm::mat4 matrix);
         static void setAssetPath(string path);
         static string getAssetPath();
     
@@ -76,7 +76,7 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
         bool getVisible();
         bool getAutoDraw();
         bool getMouseDown();
-        ofPoint getPosition();
+        glm::vec2 getPosition();
         int getNumComponents();
     
         ofxDatGuiHeader* addHeader(string label = "", bool draggable = true);
@@ -131,7 +131,7 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
         void removeComponent(string key);
         void removeComponent(int index);
     
-        bool hitTest(ofPoint pt);
+        bool hitTest(glm::vec2 pt);
     
     private:
     
@@ -153,9 +153,9 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
         bool mAlignmentChanged;
         ofColor mGuiBackground;
     
-        ofPoint mPosition;
+        glm::vec2 mPosition;
         ofRectangle mGuiBounds;
-        ofMatrix4x4 transformMatrix;
+        glm::mat4 transformMatrix;
         ofxDatGuiAnchor mAnchor;
         ofxDatGuiHeader* mGuiHeader;
         ofxDatGuiFooter* mGuiFooter;
@@ -174,8 +174,8 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
         void init();
         void layoutGui();
     	void positionGui();
-        void moveGui(ofPoint pt);
-//        bool hitTest(ofPoint pt);
+        void moveGui(glm::vec2 pt);
+//        bool hitTest(glm::vec2 pt);
         void attachItem(ofxDatGuiComponent* item);
     
     

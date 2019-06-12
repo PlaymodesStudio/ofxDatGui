@@ -40,12 +40,12 @@ class ofxDatGuiColorPicker : public ofxDatGuiTextInput {
             setInitialTextFieldInputColor();
             
         // setup the vbo that draws the main gradient //
-            gPoints.push_back(ofVec2f(0, 0));
-            gPoints.push_back(ofVec2f(0, 0));
-            gPoints.push_back(ofVec2f(0, 0));
-            gPoints.push_back(ofVec2f(0, 0));
-            gPoints.push_back(ofVec2f(0, 0));
-            gPoints.push_back(ofVec2f(0, 0));
+            gPoints.push_back(glm::vec2(0, 0));
+            gPoints.push_back(glm::vec2(0, 0));
+            gPoints.push_back(glm::vec2(0, 0));
+            gPoints.push_back(glm::vec2(0, 0));
+            gPoints.push_back(glm::vec2(0, 0));
+            gPoints.push_back(glm::vec2(0, 0));
             
         // center point of the gradient is 1/2 way between mColor & black //
             ofColor center = ofColor(mColor.r/2, mColor.g/2, mColor.b/2);
@@ -110,12 +110,12 @@ class ofxDatGuiColorPicker : public ofxDatGuiTextInput {
                     gradientRect.x = pickerRect.x + mStyle.padding;
                     gradientRect.y = pickerRect.y + mStyle.padding;
                     gradientRect.width = pickerRect.width - rainbow.rect.width - (mStyle.padding * 3);
-                    gPoints[0] = ofVec2f(gradientRect.x+ gradientRect.width/2, gradientRect.y + gradientRect.height/2);
-                    gPoints[1] = ofVec2f(gradientRect.x, gradientRect.y);
-                    gPoints[2] = ofVec2f(gradientRect.x+ gradientRect.width, gradientRect.y);
-                    gPoints[3] = ofVec2f(gradientRect.x+ gradientRect.width, gradientRect.y + gradientRect.height);
-                    gPoints[4] = ofVec2f(gradientRect.x, gradientRect.y+gradientRect.height);
-                    gPoints[5] = ofVec2f(gradientRect.x, gradientRect.y);
+                    gPoints[0] = glm::vec2(gradientRect.x+ gradientRect.width/2, gradientRect.y + gradientRect.height/2);
+                    gPoints[1] = glm::vec2(gradientRect.x, gradientRect.y);
+                    gPoints[2] = glm::vec2(gradientRect.x+ gradientRect.width, gradientRect.y);
+                    gPoints[3] = glm::vec2(gradientRect.x+ gradientRect.width, gradientRect.y + gradientRect.height);
+                    gPoints[4] = glm::vec2(gradientRect.x, gradientRect.y+gradientRect.height);
+                    gPoints[5] = glm::vec2(gradientRect.x, gradientRect.y);
                     vbo.setVertexData(&gPoints[0], 6, GL_DYNAMIC_DRAW );
                     ofSetColor(pickerBorder);
                     ofDrawRectangle(pickerRect);
@@ -139,7 +139,7 @@ class ofxDatGuiColorPicker : public ofxDatGuiTextInput {
             }
         }
     
-        bool hitTest(ofPoint m)
+        bool hitTest(glm::vec2 m)
         {
             if (mInput.hitTest(m)){
                 return true;
@@ -169,7 +169,7 @@ class ofxDatGuiColorPicker : public ofxDatGuiTextInput {
             return mInput.getHeight() + (mShowPicker ? pickerRect.height : 0);
         }
     
-        void onMouseEnter(ofPoint mouse)
+        void onMouseEnter(glm::vec2 mouse)
         {
 //            mShowPicker = true;
 //            if (internalEventCallback != nullptr){
@@ -180,7 +180,7 @@ class ofxDatGuiColorPicker : public ofxDatGuiTextInput {
 //            ofxDatGuiComponent::onMouseEnter(mouse);
         }
     
-        void onMouseLeave(ofPoint mouse)
+        void onMouseLeave(glm::vec2 mouse)
         {
 //            mShowPicker = false;
 //            if (internalEventCallback != nullptr){
@@ -191,7 +191,7 @@ class ofxDatGuiColorPicker : public ofxDatGuiTextInput {
 //            if (!mInput.hasFocus()) ofxDatGuiComponent::onFocusLost();
         }
     
-        void onMousePress(ofPoint mouse)
+        void onMousePress(glm::vec2 mouse)
         {
 //            ofxDatGuiComponent::onMousePress(mouse);
 //            if (hitTest(mouse)){
@@ -227,13 +227,13 @@ class ofxDatGuiColorPicker : public ofxDatGuiTextInput {
 //            if (mInput.hitTest(mouse)) mInput.onFocus();
         }
     
-        void onMouseRelease(ofPoint mouse)
+        void onMouseRelease(glm::vec2 mouse)
         {
             rainbowClicked = false;
             gradientRectClicked = false;
         }
     
-        void onMouseDrag(ofPoint mouse)
+        void onMouseDrag(glm::vec2 mouse)
         {
 //            unsigned char p[3];
 //            if (rainbowClicked)
@@ -322,7 +322,7 @@ class ofxDatGuiColorPicker : public ofxDatGuiTextInput {
         ofRectangle gradientRect;
     
         ofVbo vbo;
-        vector<ofVec2f> gPoints;
+        vector<glm::vec2> gPoints;
         vector<ofFloatColor> gColors;
     
     bool rainbowClicked;

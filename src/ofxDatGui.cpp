@@ -268,7 +268,7 @@ void ofxDatGui::setOpacity(float opacity)
 
 void ofxDatGui::setPosition(int x, int y)
 {
-    moveGui(ofPoint(x, y));
+    moveGui(glm::vec2(x, y));
 }
 
 void ofxDatGui::setPosition(ofxDatGuiAnchor anchor)
@@ -355,7 +355,7 @@ void ofxDatGui::setLabelAlignment(ofxDatGuiAlignment align)
     mAlignmentChanged = true;
 }
 
-void ofxDatGui::setTransformMatrix(ofMatrix4x4 matrix){
+void ofxDatGui::setTransformMatrix(glm::mat4 matrix){
     transformMatrix = matrix;
     mGuiFooter->setTransformMatrix(matrix);
 }
@@ -370,9 +370,9 @@ int ofxDatGui::getHeight()
     return mHeight;
 }
 
-ofPoint ofxDatGui::getPosition()
+glm::vec2 ofxDatGui::getPosition()
 {
-    return ofPoint(mPosition.x, mPosition.y);
+    return glm::vec2(mPosition.x, mPosition.y);
 }
 
 int ofxDatGui::getNumComponents()
@@ -1047,11 +1047,9 @@ void ofxDatGui::onInternalEventCallback(ofxDatGuiInternalEvent e)
     layout, position, anchor and check for focus
 */
 
-bool ofxDatGui::hitTest(ofPoint pt)
+bool ofxDatGui::hitTest(glm::vec2 pt)
 {
-    ofVec4f tempVec = pt;
-    tempVec -= transformMatrix.getTranslation();
-    tempVec = transformMatrix.getInverse().postMult(tempVec);
+    glm::vec4 tempVec = transformMatrix * glm::vec4(pt, 0, 1);
     if (mMoving){
         return true;
     }   else{
@@ -1059,7 +1057,7 @@ bool ofxDatGui::hitTest(ofPoint pt)
     }
 }
 
-void ofxDatGui::moveGui(ofPoint pt)
+void ofxDatGui::moveGui(glm::vec2 pt)
 {
     mPosition.x = pt.x;
     mPosition.y = pt.y;
@@ -1144,7 +1142,7 @@ void ofxDatGui::update()
     
 //     check for gui focus change //
 //    if (ofGetMousePressed() && mActiveGui->mMoving == false){
-//        ofPoint mouse = ofPoint(ofGetMouseX(), ofGetMouseY());
+//        glm::vec2 mouse = glm::vec2(ofGetMouseX(), ofGetMouseY());
 //        for (int i=mGuis.size()-1; i>-1; i--){
 //        // ignore guis that are invisible //
 //            if (mGuis[i]->getVisible() && mGuis[i]->hitTest(mouse)){
@@ -1175,7 +1173,7 @@ void ofxDatGui::update()
 //                        if (mGuiHeader != nullptr && mGuiHeader->getDraggable() && mGuiHeader->getFocused()){
 //                            // track that we're moving to force preserve focus //
 //                            mMoving = true;
-//                            ofPoint mouse = ofPoint(ofGetMouseX(), ofGetMouseY());
+//                            glm::vec2 mouse = glm::vec2(ofGetMouseX(), ofGetMouseY());
 //                            moveGui(mouse - mGuiHeader->getDragOffset());
 //                        }
                     }   else if (items[i]->getIsExpanded()){
@@ -1210,7 +1208,7 @@ void ofxDatGui::draw()
 {
     if (mVisible == false) return;
     ofPushMatrix();
-    ofMultMatrix(transformMatrix);
+    ofMultMatrix(glm::inverse(transformMatrix));
     ofPushStyle();
     ofFill();
     ofSetColor(mGuiBackground, mAlpha * 255);
@@ -1246,9 +1244,7 @@ void ofxDatGui::keyReleased(ofKeyEventArgs &e)
 
 void ofxDatGui::mouseMoved(ofMouseEventArgs &e)
 {
-    ofVec4f tempVec = e;
-    tempVec -= transformMatrix.getTranslation();
-    tempVec = transformMatrix.getInverse().postMult(tempVec);
+    glm::vec4 tempVec = transformMatrix * glm::vec4(e, 0, 1);
     ofMouseEventArgs modified_e = ofMouseEventArgs(e.type, tempVec.x, tempVec.y, e.button);
 
     
@@ -1269,9 +1265,7 @@ void ofxDatGui::mouseMoved(ofMouseEventArgs &e)
 
 void ofxDatGui::mouseDragged(ofMouseEventArgs &e)
 {
-    ofVec4f tempVec = e;
-    tempVec -= transformMatrix.getTranslation();
-    tempVec = transformMatrix.getInverse().postMult(tempVec);
+    glm::vec4 tempVec = transformMatrix * glm::vec4(e, 0, 1);
     ofMouseEventArgs modified_e = ofMouseEventArgs(e.type, tempVec.x, tempVec.y, e.button);
     
     if(e.button == 0){
@@ -1293,9 +1287,7 @@ void ofxDatGui::mouseDragged(ofMouseEventArgs &e)
 
 void ofxDatGui::mousePressed(ofMouseEventArgs &e)
 {
-    ofVec4f tempVec = e;
-    tempVec -= transformMatrix.getTranslation();
-    tempVec = transformMatrix.getInverse().postMult(tempVec);
+    glm::vec4 tempVec = transformMatrix * glm::vec4(e, 0, 1);
     ofMouseEventArgs modified_e = ofMouseEventArgs(e.type, tempVec.x, tempVec.y, e.button);
 
     
@@ -1323,9 +1315,7 @@ void ofxDatGui::mousePressed(ofMouseEventArgs &e)
 
 void ofxDatGui::mouseReleased(ofMouseEventArgs &e)
 {
-    ofVec4f tempVec = e;
-    tempVec -= transformMatrix.getTranslation();
-    tempVec = transformMatrix.getInverse().postMult(tempVec);
+    glm::vec4 tempVec = transformMatrix * glm::vec4(e, 0, 1);
     ofMouseEventArgs modified_e = ofMouseEventArgs(e.type, tempVec.x, tempVec.y, e.button);
 
     

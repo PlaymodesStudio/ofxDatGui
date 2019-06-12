@@ -65,7 +65,7 @@ class ofxDatGui2dPad : public ofxDatGuiComponent {
             mPad = ofRectangle(0, 0, mStyle.width - mStyle.padding - mLabel.width, mStyle.height - (mStyle.padding * 2));
         }
     
-        void setPoint(ofPoint pt)
+        void setPoint(glm::vec2 pt)
         {
             if (mBounds.inside(pt)){
                 mPercentX = (pt.x-mBounds.x) / mBounds.width;
@@ -76,7 +76,7 @@ class ofxDatGui2dPad : public ofxDatGuiComponent {
             }
         }
     
-        ofPoint getPoint()
+        glm::vec2 getPoint()
         {
             return mWorld;
         }
@@ -141,7 +141,7 @@ class ofxDatGui2dPad : public ofxDatGuiComponent {
             mWorld.y = mBounds.y + (mBounds.height * mPercentY);
         }
     
-        void movePad(ofPoint m)
+        void movePad(glm::vec2 m)
         {
             if (mPad.inside(m)){
                 mPercentX = (m.x-mPad.x) / mPad.width;
@@ -151,13 +151,13 @@ class ofxDatGui2dPad : public ofxDatGuiComponent {
             }
         }
 
-        void onMousePress(ofPoint m)
+        void onMousePress(glm::vec2 m)
         {
             ofxDatGuiComponent::onMousePress(m);
             movePad(m);
         }
     
-        void onMouseDrag(ofPoint m)
+        void onMouseDrag(glm::vec2 m)
         {
             movePad(m);
         }
@@ -173,8 +173,8 @@ class ofxDatGui2dPad : public ofxDatGuiComponent {
         }
     
     private:
-        ofPoint mLocal;
-        ofPoint mWorld;
+        glm::vec2 mLocal;
+        glm::vec2 mWorld;
         ofRectangle mPad;
         ofRectangle mBounds;
         float mPercentX;

@@ -213,7 +213,7 @@ class ofxDatGuiSlider : public ofxDatGuiComponent {
             ofPopStyle();
         }
     
-        bool hitTest(ofPoint m)
+        bool hitTest(glm::vec2 m)
         {
             if (!mEnabled || !mVisible){
                 return false;
@@ -240,7 +240,7 @@ class ofxDatGuiSlider : public ofxDatGuiComponent {
     
     protected:
     
-        void moveSlider(ofPoint m)
+        void moveSlider(glm::vec2 m)
         {
         if (mFocused && mInput->hasFocus() == false){
             float s = (m.x-x-mLabel.width)/mSliderWidth;
@@ -256,7 +256,7 @@ class ofxDatGuiSlider : public ofxDatGuiComponent {
         }
         }
     
-        void onMousePress(ofPoint m)
+        void onMousePress(glm::vec2 m)
         {
             ofxDatGuiComponent::onMousePress(m);
             if (mInput->hitTest(m)){
@@ -268,7 +268,7 @@ class ofxDatGuiSlider : public ofxDatGuiComponent {
             }
         }
     
-        void onMouseDrag(ofPoint m)
+        void onMouseDrag(glm::vec2 m)
         {
             moveSlider(m);
 //            if (mFocused && mInput->hasFocus() == false){
@@ -282,7 +282,7 @@ class ofxDatGuiSlider : public ofxDatGuiComponent {
 //            }
         }
     
-        void onMouseRelease(ofPoint m)
+        void onMouseRelease(glm::vec2 m)
         {
             ofxDatGuiComponent::onMouseRelease(m);
             if (mInput->hitTest(m) == false) onFocusLost();
@@ -644,13 +644,13 @@ public:
             if(totalWidth >= numBars){
                 for(int i = 0; i < numBars; i++){
                     float indexedValue = mNormalizedValues[i];
-                    mesh.addVertex(ofPoint((i*wid) + rightPosition, ((1-indexedValue)*elementHeight)+topPosition));
-                    mesh.addVertex(ofPoint((i*wid) + rightPosition, (elementHeight+topPosition)));
-                    mesh.addVertex(ofPoint(((i+1)*wid) + rightPosition, ((1-indexedValue)*elementHeight)+topPosition));
+                    mesh.addVertex(glm::vec3((i*wid) + rightPosition, ((1-indexedValue)*elementHeight)+topPosition, 1));
+                    mesh.addVertex(glm::vec3((i*wid) + rightPosition, (elementHeight+topPosition), 1));
+                    mesh.addVertex(glm::vec3(((i+1)*wid) + rightPosition, ((1-indexedValue)*elementHeight)+topPosition, 1));
                     
-                    mesh.addVertex(ofPoint(((i+1)*wid) + rightPosition, ((1-indexedValue)*elementHeight)+topPosition));
-                    mesh.addVertex(ofPoint((i*wid) + rightPosition, (elementHeight+topPosition)));
-                    mesh.addVertex(ofPoint(((i+1)*wid) + rightPosition, elementHeight+topPosition));
+                    mesh.addVertex(glm::vec3(((i+1)*wid) + rightPosition, ((1-indexedValue)*elementHeight)+topPosition, 1));
+                    mesh.addVertex(glm::vec3((i*wid) + rightPosition, (elementHeight+topPosition), 1));
+                    mesh.addVertex(glm::vec3(((i+1)*wid) + rightPosition, elementHeight+topPosition, 1));
                     
                     mesh.addIndex((i*6));
                     mesh.addIndex((i*6)+1);
@@ -664,13 +664,13 @@ public:
                 for(int i = 0; i < totalWidth; i++){
                     int resampledIndex = int((float)i/wid);
                     float indexedValue = mNormalizedValues[resampledIndex];
-                    mesh.addVertex(ofPoint(i + rightPosition, ((1-indexedValue)*elementHeight)+topPosition));
-                    mesh.addVertex(ofPoint(i + rightPosition, (elementHeight+topPosition)));
-                    mesh.addVertex(ofPoint(i+1 + rightPosition, ((1-indexedValue)*elementHeight)+topPosition));
+                    mesh.addVertex(glm::vec3(i + rightPosition, ((1-indexedValue)*elementHeight)+topPosition, 1));
+                    mesh.addVertex(glm::vec3(i + rightPosition, (elementHeight+topPosition), 1));
+                    mesh.addVertex(glm::vec3(i+1 + rightPosition, ((1-indexedValue)*elementHeight)+topPosition, 1));
                     
-                    mesh.addVertex(ofPoint(i+1 + rightPosition, ((1-indexedValue)*elementHeight)+topPosition));
-                    mesh.addVertex(ofPoint(i + rightPosition, (elementHeight+topPosition)));
-                    mesh.addVertex(ofPoint(i+1 + rightPosition, elementHeight+topPosition));
+                    mesh.addVertex(glm::vec3(i+1 + rightPosition, ((1-indexedValue)*elementHeight)+topPosition, 1));
+                    mesh.addVertex(glm::vec3(i + rightPosition, (elementHeight+topPosition), 1));
+                    mesh.addVertex(glm::vec3(i+1 + rightPosition, elementHeight+topPosition, 1));
                     
                     mesh.addIndex((i*6));
                     mesh.addIndex((i*6)+1);
@@ -686,7 +686,7 @@ public:
         ofPopStyle();
     }
     
-    bool hitTest(ofPoint m)
+    bool hitTest(glm::vec2 m)
     {
         if (!mEnabled || !mVisible){
             return false;
@@ -703,7 +703,7 @@ public:
     
 protected:
     
-    void moveSlider(ofPoint m)
+    void moveSlider(glm::vec2 m)
     {
         if (mFocused && mInput->hasFocus() == false){
             float s = (m.x-x-mLabel.width)/mSliderWidth;
@@ -719,7 +719,7 @@ protected:
         }
     }
     
-    void onMousePress(ofPoint m)
+    void onMousePress(glm::vec2 m)
     {
         ofxDatGuiComponent::onMousePress(m);
         if (mInput->hitTest(m)){
@@ -731,12 +731,12 @@ protected:
         }
     }
     
-    void onMouseDrag(ofPoint m)
+    void onMouseDrag(glm::vec2 m)
     {
         moveSlider(m);
     }
     
-    void onMouseRelease(ofPoint m)
+    void onMouseRelease(glm::vec2 m)
     {
         ofxDatGuiComponent::onMouseRelease(m);
         if (mInput->hitTest(m) == false) onFocusLost();

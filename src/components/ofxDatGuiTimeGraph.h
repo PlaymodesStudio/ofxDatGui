@@ -149,7 +149,7 @@ class ofxDatGuiTimeGraph : public ofxDatGuiComponent {
             ofColor lines;
             ofColor fills;
         } mColor;
-        vector<ofVec2f> pts;
+        vector<glm::vec2> pts;
         ofRectangle mPlotterRect;
         void (ofxDatGuiTimeGraph::*mDrawFunc)() = nullptr;
 };
@@ -216,7 +216,7 @@ class ofxDatGuiWaveMonitor : public ofxDatGuiTimeGraph {
             float yAmp = (mPlotterRect.height/2) * (mAmplitude/float(MAX_AMPLITUDE));
             for (int i=mPlotterRect.width; i>0; i--) {
                 float yp = mPlotterRect.height/2 + (sin((i*step)*(2*mFrequency)*PI) * yAmp);
-                pts.push_back(ofVec2f(i, yp));
+                pts.push_back(glm::vec2(i, yp));
             }
         }
     
@@ -305,7 +305,7 @@ class ofxDatGuiValuePlotter : public ofxDatGuiTimeGraph {
                 i++;
             }
             float height = mPlotterRect.height - (mPlotterRect.height * ofxDatGuiScale(mVal, mMin, mMax));
-            pts.insert(pts.begin(), ofVec2f(mPlotterRect.width, height));
+            pts.insert(pts.begin(), glm::vec2(mPlotterRect.width, height));
         }
     
     private:
