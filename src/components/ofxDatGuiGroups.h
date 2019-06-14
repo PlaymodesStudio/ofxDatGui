@@ -106,9 +106,11 @@ class ofxDatGuiGroup : public ofxDatGuiButton {
                     ofSetColor(mStyle.guiBackground, mStyle.opacity);
                     ofDrawRectangle(x, y+mHeight, mStyle.width, mStyle.vMargin);
                     for(int i=0; i<children.size(); i++) {
-                        mHeight += mStyle.vMargin;
-                        children[i]->draw();
-                        mHeight += children[i]->getHeight();
+                        if(children[i]->getVisible()){
+                            mHeight += mStyle.vMargin;
+                            children[i]->draw();
+                            mHeight += children[i]->getHeight();
+                        }
                         if (i == children.size()-1) break;
                         ofSetColor(mStyle.guiBackground, mStyle.opacity);
                         ofDrawRectangle(x, y+mHeight, mStyle.width, mStyle.vMargin);
@@ -481,6 +483,7 @@ class ofxDatGuiDropdown : public ofxDatGuiGroup {
                 ofxDatGuiDropdownOption* opt = new ofxDatGuiDropdownOption(options[i]);
                 opt->setIndex(children.size());
                 opt->onButtonEvent(this, &ofxDatGuiDropdown::onOptionSelected);
+                opt->onInternalEvent(this, &ofxDatGuiDropdown::dispatchInternalEvent);
                 children.push_back(opt);
             }
             setTheme(ofxDatGuiComponent::getTheme());
@@ -494,6 +497,7 @@ class ofxDatGuiDropdown : public ofxDatGuiGroup {
             ofxDatGuiDropdownOption* opt = new ofxDatGuiDropdownOption(option);
             opt->setIndex(children.size());
             opt->onButtonEvent(this, &ofxDatGuiDropdown::onOptionSelected);
+            opt->onInternalEvent(this, &ofxDatGuiDropdown::dispatchInternalEvent);
             children.push_back(opt);
         }
     
