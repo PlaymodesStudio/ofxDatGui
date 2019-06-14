@@ -115,13 +115,15 @@ public:
 class ofxDatGuiTextInputEvent{
 
     public:
-        ofxDatGuiTextInputEvent(ofxDatGuiTextInput* t, std::string s)
+        ofxDatGuiTextInputEvent(ofxDatGuiTextInput* t, std::string s, bool c = true)
         {
             text = s;
             target = t;
+            confirmed = c;
         }
     std::string text;
     ofxDatGuiTextInput* target;
+    bool confirmed;
 };
 
 class ofxDatGuiColorPickerEvent{
