@@ -84,6 +84,11 @@ class ofxDatGuiTextInput : public ofxDatGuiComponent {
             return mInput.setInitialText(text);
         }
     
+        void setNotifyEachChange(bool b)
+        {
+            mInput.setNotifyEachChange(b);
+        }
+    
         void setInputType(ofxDatGuiInputType type)
         {
             mInput.setTextInputFieldType(type);
@@ -102,10 +107,10 @@ class ofxDatGuiTextInput : public ofxDatGuiComponent {
             return mInput.hitTest(m);
         }
     
-        void dispatchEvent()
+        void dispatchEvent(bool confirmed)
         {
             if (textInputEventCallback != nullptr) {
-                ofxDatGuiTextInputEvent e(this, mInput.getText());
+                ofxDatGuiTextInputEvent e(this, mInput.getText(), confirmed);
                 textInputEventCallback(e);
             }   else{
                 ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
@@ -138,7 +143,7 @@ class ofxDatGuiTextInput : public ofxDatGuiComponent {
         virtual void onInputChanged(ofxDatGuiInternalEvent e)
         {
         //  dispatch event out to main application //
-            dispatchEvent();
+            dispatchEvent(e.index == 0);
         }
     
         ofxDatGuiTextInputField mInput;

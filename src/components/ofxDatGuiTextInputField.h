@@ -33,6 +33,7 @@ class ofxDatGuiTextInputField : public ofxDatGuiInteractiveObject{
             mFocused = false;
             mTextChanged = false;
             mHighlightText = false;
+            notifyEachChange = false;
             mMaxCharacters = 99;
             mType = ofxDatGuiInputType::ALPHA_NUMERIC;
             setTheme(ofxDatGuiComponent::getTheme());
@@ -174,6 +175,11 @@ class ofxDatGuiTextInputField : public ofxDatGuiInteractiveObject{
             mMaxCharacters = max;
         }
     
+        void setNotifyEachChange(bool b)
+        {
+            notifyEachChange = b;
+        }
+    
         void onFocus()
         {
             mFocused = true;
@@ -225,6 +231,10 @@ class ofxDatGuiTextInputField : public ofxDatGuiInteractiveObject{
                 setCursorIndex(mCursorIndex + 1);
             }
             mHighlightText = false;
+            if(notifyEachChange){
+                ofxDatGuiInternalEvent e(ofxDatGuiEventType::INPUT_CHANGED, 1);
+                internalEventCallback(e);
+            }
         }
     
         void setCursorIndex(int index)
@@ -293,6 +303,7 @@ class ofxDatGuiTextInputField : public ofxDatGuiInteractiveObject{
         bool mTextChanged;
         bool mHighlightText;
         bool mUpperCaseText;
+        bool notifyEachChange;
         float mCursorX;
         ofRectangle mTextRect;
         ofRectangle mInputRect;
