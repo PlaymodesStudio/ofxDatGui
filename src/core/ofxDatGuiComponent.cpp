@@ -607,8 +607,10 @@ void ofxDatGuiComponent::mouseMoved(ofMouseEventArgs &e)
         onMouseLeave(modified_e);
     
     if (this->getIsExpanded())
-        for(int i=0; i<children.size(); i++)
-            children[i]->mouseMoved(e);
+        for(int i=0; i<children.size(); i++){
+            if(children[i]->getVisible())
+                children[i]->mouseMoved(e);
+        }
 }
 
 void ofxDatGuiComponent::mouseDragged(ofMouseEventArgs &e)
@@ -626,8 +628,10 @@ void ofxDatGuiComponent::mouseDragged(ofMouseEventArgs &e)
     }
     
     if (this->getIsExpanded())
-        for(int i=0; i<children.size(); i++)
-            children[i]->mouseDragged(modified_e);
+        for(int i=0; i<children.size(); i++){
+            if(children[i]->getVisible())
+                children[i]->mouseDragged(modified_e);
+        }
 }
 
 void ofxDatGuiComponent::mousePressed(ofMouseEventArgs &e)
@@ -658,8 +662,10 @@ void ofxDatGuiComponent::mousePressed(ofMouseEventArgs &e)
         onMouseOutsidePress();
     
     if (this->getIsExpanded())
-        for(int i=0; i<children.size(); i++)
+        for(int i=0; i<children.size(); i++){
+            if(children[i]->getVisible())
             children[i]->mousePressed(modified_e);
+        }
 }
 
 void ofxDatGuiComponent::mouseReleased(ofMouseEventArgs &e)
@@ -685,8 +691,10 @@ void ofxDatGuiComponent::mouseReleased(ofMouseEventArgs &e)
     }
     
     if (this->getIsExpanded())
-        for(int i=0; i<children.size(); i++)
-            children[i]->mouseReleased(modified_e);
+        for(int i=0; i<children.size(); i++){
+            if(children[i]->getVisible())
+                children[i]->mouseReleased(modified_e);
+        }
 }
 
 void ofxDatGuiComponent::mouseEntered(ofMouseEventArgs &e)

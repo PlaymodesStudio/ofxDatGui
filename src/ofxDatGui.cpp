@@ -1232,14 +1232,18 @@ void ofxDatGui::onWindowResized(ofResizeEventArgs &e)
 
 void ofxDatGui::keyPressed(ofKeyEventArgs &e)
 {
-    for (auto &item : items)
-        item->keyPressed(e);
+    for (auto &item : items){
+        if(item->getVisible())
+            item->keyPressed(e);
+    }
 }
 
 void ofxDatGui::keyReleased(ofKeyEventArgs &e)
 {
-    for (auto &item : items)
-        item->keyReleased(e);
+    for (auto &item : items){
+        if(item->getVisible())
+            item->keyReleased(e);
+    }
 }
 
 void ofxDatGui::mouseMoved(ofMouseEventArgs &e)
@@ -1258,8 +1262,10 @@ void ofxDatGui::mouseMoved(ofMouseEventArgs &e)
     }
 
     if(this == mActiveGuiPerWindow[window]){
-        for (auto &item : items)
-            item->mouseMoved(modified_e);
+        for (auto &item : items){
+            if(item->getVisible())
+                item->mouseMoved(modified_e);
+        }
     }
 }
 
@@ -1270,8 +1276,10 @@ void ofxDatGui::mouseDragged(ofMouseEventArgs &e)
     
     if(e.button == 0){
         if(this == mActiveGuiPerWindow[window]){
-            for (auto &item : items)
-                item->mouseDragged(modified_e);
+            for (auto &item : items){
+                if(item->getVisible())
+                     item->mouseDragged(modified_e);
+            }
             
             if (mGuiHeader != nullptr && mGuiHeader->getDraggable() && mGuiHeader->getFocused()){
                 // track that we're moving to force preserve focus //
@@ -1307,8 +1315,10 @@ void ofxDatGui::mousePressed(ofMouseEventArgs &e)
 //    }
     
     //if(this == mActiveGui){
-        for (auto &item : items)
-            item->mousePressed(modified_e);
+    for (auto &item : items){
+            if(item->getVisible())
+                item->mousePressed(modified_e);
+    }
     //}
     
 }
@@ -1321,8 +1331,10 @@ void ofxDatGui::mouseReleased(ofMouseEventArgs &e)
     
     mMouseDown = false;
 
-    for (auto &item : items)
-        item->mouseReleased(modified_e);
+    for (auto &item : items){
+        if(item->getVisible())
+            item->mouseReleased(modified_e);
+    }
     
     mouseMoved(e);
     
