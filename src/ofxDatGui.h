@@ -38,6 +38,7 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
         void updateEvent(ofEventArgs &e);
         void update();
         void onWindowResized(ofResizeEventArgs &e);
+        void setWindow(shared_ptr<ofAppBaseWindow> win);
     
         void keyPressed(ofKeyEventArgs &e);
         void keyReleased(ofKeyEventArgs &e);

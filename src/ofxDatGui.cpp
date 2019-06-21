@@ -212,6 +212,59 @@ void ofxDatGui::collapse()
     }
 }
 
+void ofxDatGui::setWindow(shared_ptr<ofAppBaseWindow> win){
+    if(window == nullptr){
+        ofRemoveListener(ofEvents().draw, this, &ofxDatGui::drawEvent, OF_EVENT_ORDER_AFTER_APP + mIndex);
+        ofRemoveListener(ofEvents().update, this, &ofxDatGui::updateEvent, OF_EVENT_ORDER_BEFORE_APP - mIndex);
+        ofRemoveListener(ofEvents().windowResized, this, &ofxDatGui::onWindowResized, OF_EVENT_ORDER_BEFORE_APP);
+        ofUnregisterKeyEvents(this, OF_EVENT_ORDER_BEFORE_APP);
+        ofUnregisterMouseEvents(this, OF_EVENT_ORDER_BEFORE_APP);
+    }else{
+        ofRemoveListener(window->events().draw, this, &ofxDatGui::drawEvent, OF_EVENT_ORDER_AFTER_APP + mIndex);
+        ofRemoveListener(window->events().update, this, &ofxDatGui::updateEvent, OF_EVENT_ORDER_BEFORE_APP - mIndex);
+        ofRemoveListener(window->events().windowResized, this, &ofxDatGui::onWindowResized, OF_EVENT_ORDER_BEFORE_APP);
+        
+        ofRemoveListener(window->events().keyPressed, this, &ofxDatGui::keyPressed);
+        ofRemoveListener(window->events().keyReleased, this, &ofxDatGui::keyReleased);
+        
+        ofRemoveListener(window->events().mouseDragged,this,&ofxDatGui::mouseDragged,OF_EVENT_ORDER_BEFORE_APP);
+        ofRemoveListener(window->events().mouseMoved,this,&ofxDatGui::mouseMoved,OF_EVENT_ORDER_BEFORE_APP);
+        ofRemoveListener(window->events().mousePressed,this,&ofxDatGui::mousePressed,OF_EVENT_ORDER_BEFORE_APP);
+        ofRemoveListener(window->events().mouseReleased,this,&ofxDatGui::mouseReleased,OF_EVENT_ORDER_BEFORE_APP);
+        ofRemoveListener(window->events().mouseScrolled,this,&ofxDatGui::mouseScrolled,OF_EVENT_ORDER_BEFORE_APP);
+        ofRemoveListener(window->events().mouseEntered,this,&ofxDatGui::mouseEntered,OF_EVENT_ORDER_BEFORE_APP);
+        ofRemoveListener(window->events().mouseExited,this,&ofxDatGui::mouseExited,OF_EVENT_ORDER_BEFORE_APP);
+    }
+    mGuisPerWindow[window].erase(std::remove(mGuisPerWindow[window].begin(), mGuisPerWindow[window].end(), this), mGuisPerWindow[window].end());
+    if(mGuisPerWindow[window].size() == 0){
+        mGuisPerWindow.erase(window);
+        mActiveGuiPerWindow.erase(window);
+    }
+    else if (mActiveGuiPerWindow[window] == this){
+        mActiveGuiPerWindow[window] = mGuisPerWindow[window].size() > 0 ? mGuisPerWindow[window][0] : nullptr;
+    }
+    window = win;
+    mGuisPerWindow[window].push_back(this);
+    if(window == nullptr){
+        ofAddListener(ofEvents().windowResized, this, &ofxDatGui::onWindowResized, OF_EVENT_ORDER_BEFORE_APP);
+        ofRegisterKeyEvents(this);
+        ofRegisterMouseEvents(this);
+    }else{
+        ofAddListener(window->events().windowResized, this, &ofxDatGui::onWindowResized, OF_EVENT_ORDER_BEFORE_APP);
+        ofAddListener(window->events().keyPressed, this, &ofxDatGui::keyPressed);
+        ofAddListener(window->events().keyReleased, this, &ofxDatGui::keyReleased);
+        
+        ofAddListener(window->events().mouseDragged,this,&ofxDatGui::mouseDragged,OF_EVENT_ORDER_BEFORE_APP);
+        ofAddListener(window->events().mouseMoved,this,&ofxDatGui::mouseMoved,OF_EVENT_ORDER_BEFORE_APP);
+        ofAddListener(window->events().mousePressed,this,&ofxDatGui::mousePressed,OF_EVENT_ORDER_BEFORE_APP);
+        ofAddListener(window->events().mouseReleased,this,&ofxDatGui::mouseReleased,OF_EVENT_ORDER_BEFORE_APP);
+        ofAddListener(window->events().mouseScrolled,this,&ofxDatGui::mouseScrolled,OF_EVENT_ORDER_BEFORE_APP);
+        ofAddListener(window->events().mouseEntered,this,&ofxDatGui::mouseEntered,OF_EVENT_ORDER_BEFORE_APP);
+        ofAddListener(window->events().mouseExited,this,&ofxDatGui::mouseExited,OF_EVENT_ORDER_BEFORE_APP);
+    }
+    setAutoDraw(true, mGuisPerWindow[window].size());
+}
+
 void ofxDatGui::toggle()
 {
     mExpanded ? collapse() : expand();
