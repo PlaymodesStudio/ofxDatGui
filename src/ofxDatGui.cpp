@@ -963,7 +963,10 @@ ofxDatGuiComponent* ofxDatGui::getComponent(ofxDatGuiType type, string label)
 void ofxDatGui::removeComponent(string key)
 {
     for (int i=0; i<items.size(); i++) {
-        if (items[i]->is(key)) items.erase(items.begin()+i);
+        if (items[i]->is(key)){
+            delete items[i];
+            items.erase(items.begin()+i);
+        }
     }
     layoutGui();
 }
@@ -971,6 +974,7 @@ void ofxDatGui::removeComponent(string key)
 
 void ofxDatGui::removeComponent(int index)
 {
+    delete items[index];
     items.erase(items.begin()+index);
     layoutGui();
 }
