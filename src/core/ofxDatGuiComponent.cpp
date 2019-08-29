@@ -287,6 +287,7 @@ void ofxDatGuiComponent::setFocused(bool focused)
 {
     if (focused){
         onFocus();
+        for(auto i:children) i->onFocus();
     }   else{
         onFocusLost();
         for(auto i:children) i->onFocusLost();
@@ -530,7 +531,10 @@ void ofxDatGuiComponent::onMouseLeave(glm::vec2 m)
 void ofxDatGuiComponent::onMousePress(glm::vec2 m)
 {
     mMouseDown = true;
-    if(!mFocused) onFocus();
+    if(!mFocused){
+        onFocus();
+        for(auto i:children) i->onFocus();
+    }
 }
 
 void ofxDatGuiComponent::onMouseRelease(glm::vec2 m)
@@ -582,11 +586,18 @@ void ofxDatGuiComponent::keyPressed(ofKeyEventArgs &e)
             onKeyPressed(e.key);
         }
     }
+    for(int i=0; i<children.size(); i++){
+        if(children[i]->getVisible())
+            children[i]->keyPressed(e);
+    }
 }
 
 void ofxDatGuiComponent::keyReleased(ofKeyEventArgs &e)
 {
-    
+    for(int i=0; i<children.size(); i++){
+        if(children[i]->getVisible())
+            children[i]->keyPressed(e);
+    }
 }
 
 void ofxDatGuiComponent::mouseMoved(ofMouseEventArgs &e)
