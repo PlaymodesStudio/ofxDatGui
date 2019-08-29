@@ -498,6 +498,7 @@ class ofxDatGuiDropdown : public ofxDatGuiGroup {
             opt->setIndex(children.size());
             opt->onButtonEvent(this, &ofxDatGuiDropdown::onOptionSelected);
             opt->onInternalEvent(this, &ofxDatGuiDropdown::dispatchInternalEvent);
+            opt->setTheme(ofxDatGuiComponent::getTheme());
             children.push_back(opt);
         }
     
@@ -506,6 +507,8 @@ class ofxDatGuiDropdown : public ofxDatGuiGroup {
             ofxDatGuiDropdownOption* opt = new ofxDatGuiDropdownOption(option);
             opt->setIndex(children.size());
             opt->onButtonEvent(this, &ofxDatGuiDropdown::onOptionSelected);
+            opt->onInternalEvent(this, &ofxDatGuiDropdown::dispatchInternalEvent);
+            opt->setTheme(ofxDatGuiComponent::getTheme());
             children.insert(children.begin() + position, opt);
         }
 
