@@ -85,6 +85,7 @@ void ofxDatGui::init()
     mWidthChanged = false;
     mThemeChanged = false;
     mAlignmentChanged = false;
+    mDrawEnabled = true;
     mAlignment = ofxDatGuiAlignment::LEFT;
     mAlpha = 1.0f;
     mWidth = ofxDatGuiComponent::getTheme()->layout.width;
@@ -365,6 +366,14 @@ void ofxDatGui::setVisible(bool visible)
 void ofxDatGui::setEnabled(bool enabled)
 {
     mEnabled = enabled;
+}
+
+void ofxDatGui::enableDraw(){
+    mDrawEnabled = true;
+}
+
+void ofxDatGui::disableDraw(){
+    mDrawEnabled = false;
 }
 
 void ofxDatGui::setAutoDraw(bool autodraw, int priority)
@@ -974,7 +983,7 @@ void ofxDatGui::removeComponent(string key)
 
 void ofxDatGui::removeComponent(int index)
 {
-    delete items[index];
+//    delete items[index];
     items.erase(items.begin()+index);
     layoutGui();
 }
@@ -1263,7 +1272,7 @@ void ofxDatGui::drawEvent(ofEventArgs &e)
 
 void ofxDatGui::draw()
 {
-    if (mVisible == false) return;
+    if (mVisible == false || mDrawEnabled == false) return;
     ofPushMatrix();
     ofMultMatrix(glm::inverse(transformMatrix));
     ofPushStyle();
@@ -1297,10 +1306,10 @@ void ofxDatGui::keyPressed(ofKeyEventArgs &e)
 
 void ofxDatGui::keyReleased(ofKeyEventArgs &e)
 {
-    for (auto &item : items){
-        if(item->getVisible())
-            item->keyReleased(e);
-    }
+//    for (auto &item : items){
+//        if(item->getVisible())
+//            item->keyReleased(e);
+//    }
 }
 
 void ofxDatGui::mouseMoved(ofMouseEventArgs &e)

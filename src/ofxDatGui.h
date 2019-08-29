@@ -57,6 +57,9 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
         void collapse();
         void clear();
     
+    void enableDraw();
+    void disableDraw();
+    
         void setWidth(int width, float labelWidth = 0.35f);
         void setVisible(bool visible);
         void setEnabled(bool enabled);
@@ -152,6 +155,7 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
         bool mWidthChanged;
         bool mThemeChanged;
         bool mAlignmentChanged;
+    bool mDrawEnabled;
         ofColor mGuiBackground;
     
         glm::vec2 mPosition;
