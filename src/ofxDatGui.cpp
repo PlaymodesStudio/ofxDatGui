@@ -117,7 +117,7 @@ void ofxDatGui::init()
         ofAddListener(window->events().mouseEntered,this,&ofxDatGui::mouseEntered,OF_EVENT_ORDER_BEFORE_APP);
         ofAddListener(window->events().mouseExited,this,&ofxDatGui::mouseExited,OF_EVENT_ORDER_BEFORE_APP);
     }
-    
+    transformMatrix = glm::mat4(1.0);
     
 }
 

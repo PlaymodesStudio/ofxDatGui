@@ -39,7 +39,7 @@ ofxDatGuiComponent::ofxDatGuiComponent(string label)
     mStyle.opacity = 255;
     this->x = 0; this->y = 0;
     isListeningEvents = false;
-    transformMatrix = glm::mat4();
+    transformMatrix = glm::mat4(1.0);
     mAnchor = ofxDatGuiAnchor::NO_ANCHOR;
     mLabel.text = label;
     mLabel.alignment = ofxDatGuiAlignment::LEFT;
